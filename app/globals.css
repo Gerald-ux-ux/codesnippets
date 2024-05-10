@@ -3,15 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Main bg gradient color */
-html,
-body {
-  height: 100vh;
-}
-body {
-  background-image: linear-gradient(to bottom right, #090a0b, #15171a, #16181a);
-  background-repeat: no-repeat;
-}
+
 
 /* Gradient border */
 .border-gradient {

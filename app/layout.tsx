@@ -21,7 +21,7 @@ export default function RootLayout({
       <body
         className={cn(
           jetBrainsMono.className,
-          "text-primary w-full pt-8 pb-8 flex flex-col "
+          "text-primary h-screen bg-no-repeat bg-gradient-to-br  from-[#090a0b] via-[#15171a] to-[#16181a]  w-full  pt-4 pb-4 flex flex-col "
         )}
       >
         {children}

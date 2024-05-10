@@ -2,7 +2,7 @@ import NavBar from "./components/nav-bar";
 
 export default function Home() {
   return (
-    <main className="mx-auto flex px-56  w-full flex-col gap-16  md:gap-24">
+    <main className="flex flex-col items-center w-full px-4 mx-auto max-w-7xl">
       <NavBar />
     </main>
   );

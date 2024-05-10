@@ -17,9 +17,9 @@ function NavBar(props: Props) {
         "relative top-0 z-20 bg-primary rounded-xl p-3  border-primary border w-full md:sticky"
       )}
     >
-      <nav className="justify-between flex w-full items-center">
+      <nav className="justify-between flex items-center">
         <Logo />
-        <ul className="md:flex hidden p-2 w-full justify-center   items-center gap-4">
+        <ul className="md:flex hidden p-2 justify-center items-center gap-4">
           {navItems.map((item) => (
             <li key={item.label}>
               <NavItems key={item.label} items={item} />
