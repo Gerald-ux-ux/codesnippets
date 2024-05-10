@@ -20,6 +20,7 @@ const config = {
         primary: "#0D0F11",
         secondary: "#060706",
         brand: "#D1311F",
+        hover: "#16181a",
       },
       borderColor: {
         primary: "#363739",
