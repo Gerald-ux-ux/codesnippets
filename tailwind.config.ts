@@ -1,20 +1,32 @@
 import type { Config } from "tailwindcss";
 
-const config: Config = {
+const config = {
+  darkMode: ["class"],
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      textColor: {
+        primary: "#F8F8F2",
+        secondary: "#6E6E70",
+        tertiary: "#BD8623",
+        brand: "#D1311F",
+      },
+      backgroundColor: {
+        primary: "#0D0F11",
+        secondary: "#060706",
+        brand: "#D1311F",
+      },
+      borderColor: {
+        primary: "#363739",
       },
     },
   },
-  plugins: [],
-};
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config;
+
 export default config;
