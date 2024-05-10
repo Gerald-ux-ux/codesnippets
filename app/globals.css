@@ -9,14 +9,7 @@ body {
   height: 100vh;
 }
 body {
-  background-image: linear-gradient(
-    to bottom right,
-    #090a0b,
-    #15171a,
-    #16181a,
-    #373c42,
-    #353a40
-  );
+  background-image: linear-gradient(to bottom right, #090a0b, #15171a, #16181a);
   background-repeat: no-repeat;
 }
 
