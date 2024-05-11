@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { navBarItems } from "../types/home";
+import { navBarItems } from "../../types/home";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Btn from "@/components/custom/btn";

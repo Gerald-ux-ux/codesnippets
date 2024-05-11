@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import Btn from "@/components/custom/btn";
 import { redirect } from "next/navigation";
 import NavItems from "./nav-items";
-import { navBarItems } from "../types/home";
+import { navBarItems } from "../../types/home";
 import Logo from "@/app/components/logo";
 import MobileMenu from "./mobile-menu";
 import MobileToggleBtn from "./mobile-toggle-btn";
