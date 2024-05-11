@@ -8,9 +8,7 @@ import NavItems from "./nav-items";
 import { navBarItems } from "../types/home";
 import Logo from "@/app/components/logo";
 import MobileMenu from "./mobile-menu";
-import { IoMdMenu } from "react-icons/io";
-import { motion } from "framer-motion";
-import { IoCloseOutline } from "react-icons/io5";
+import MobileToggleBtn from "./mobile-toggle-btn";
 
 interface Props {}
 
@@ -27,19 +25,7 @@ function NavBar(props: Props) {
       <nav className="justify-between flex md:flex-row flex-col p-0.5 items-center">
         <div className="flex md:w-auto w-full justify-between items-center">
           <Logo />
-          <motion.button
-            onClick={() => setOpen(!open)}
-            className="ml-2 md:hidden"
-            initial={false}
-            animate={{ rotate: open ? 90 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {open ? (
-              <IoCloseOutline className="h-8 w-8 text-secondary" />
-            ) : (
-              <IoMdMenu className="h-8 w-8  text-secondary" />
-            )}
-          </motion.button>
+          <MobileToggleBtn setOpen={setOpen} open={open} />
         </div>
         <ul className="md:flex hidden p-2 justify-center items-center gap-4">
           {navItems.map((item) => (
