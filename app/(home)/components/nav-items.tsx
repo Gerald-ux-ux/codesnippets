@@ -13,7 +13,7 @@ function NavItems({ items }: Props) {
     <Link
       href={items.link}
       className={cn(
-        "text-primary  hover:bg-hover hover:text-secondary p-2 rounded-md "
+        "text-base font-light  hover:bg-hover hover:text-primary text-secondary p-2 rounded-md "
       )}
     >
       {items.label}
