@@ -8,7 +8,9 @@ import NavItems from "./nav-items";
 import { navBarItems } from "../types/home";
 import Logo from "@/app/components/logo";
 import MobileMenu from "./mobile-menu";
-import { IoMdClose, IoMdMenu } from "react-icons/io";
+import { IoMdMenu } from "react-icons/io";
+import { motion } from "framer-motion";
+import { IoCloseOutline } from "react-icons/io5";
 
 interface Props {}
 
@@ -19,19 +21,25 @@ function NavBar(props: Props) {
     <header
       className={cn(
         "relative top-0 z-20  bg-primary shadow-zinc-900 shadow-xl rounded-xl p-2  border-primary border w-full md:sticky",
-        open ? "h-auto" : ""
+        open ? "h-auto" : "h-16"
       )}
     >
-      <nav className="justify-between flex md:flex-row flex-col  p-0.5  items-center">
-        <div className="flex w-full  justify-between items-center">
+      <nav className="justify-between flex md:flex-row flex-col p-0.5 items-center">
+        <div className="flex md:w-auto w-full justify-between items-center">
           <Logo />
-          <button onClick={() => setOpen(!open)} className="ml-2 md:hidden">
+          <motion.button
+            onClick={() => setOpen(!open)}
+            className="ml-2 md:hidden"
+            initial={false}
+            animate={{ rotate: open ? 90 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
             {open ? (
-              <IoMdClose className="h-8 w-8 text-secondary" />
+              <IoCloseOutline className="h-8 w-8 text-secondary" />
             ) : (
-              <IoMdMenu className="h-8 w-8 text-secondary" />
+              <IoMdMenu className="h-8 w-8  text-secondary" />
             )}
-          </button>
+          </motion.button>
         </div>
         <ul className="md:flex hidden p-2 justify-center items-center gap-4">
           {navItems.map((item) => (
@@ -40,9 +48,8 @@ function NavBar(props: Props) {
             </li>
           ))}
         </ul>
-
-        <Btn action={() => redirect("/")} name="Log in" />
-        <MobileMenu links={navItems} open={open} setOpen={setOpen} />
+        <Btn hidden action={() => redirect("/")} name="Log in" />
+        <MobileMenu links={navItems} open={open} />
       </nav>
     </header>
   );
