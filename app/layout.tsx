@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { cn } from "../lib/utils";
 
 // Global font
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
@@ -17,7 +18,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={jetBrainsMono.className}>{children}</body>
+      <body
+        className={cn(
+          jetBrainsMono.className,
+          "text-primary h-screen bg-no-repeat bg-gradient-to-br  from-[#090a0b] via-[#15171a] to-[#16181a]  w-full  pt-4 pb-4 flex flex-col "
+        )}
+      >
+        {children}
+      </body>
     </html>
   );
 }
