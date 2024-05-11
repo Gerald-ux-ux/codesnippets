@@ -3,10 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 /* Gradient border */
 .border-gradient {
   border-image: linear-gradient(140deg, #6d6d6d, #191a1c) 0.5;
-
+}
+.animate-in {
+  animation-delay: calc(var(--index) * 130ms);
 }

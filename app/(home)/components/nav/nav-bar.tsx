@@ -18,7 +18,7 @@ function NavBar(props: Props) {
   return (
     <header
       className={cn(
-        "relative top-0 z-20  bg-primary shadow-zinc-900 shadow-xl rounded-xl p-2  border-primary border w-full md:sticky",
+        "relative top-0 z-20   bg-primary shadow-zinc-900 shadow-xl rounded-xl p-2  border-primary border w-full md:sticky",
         open ? "h-auto" : "h-16"
       )}
     >
@@ -47,11 +47,11 @@ export default NavBar;
 const navItems: navBarItems[] = [
   {
     label: "App",
-    link: "/",
+    link: "/app",
   },
   {
     label: "Community",
-    link: "/",
+    link: "https://discord.gg/tqm4eKy2",
   },
   {
     label: "Github",
