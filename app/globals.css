@@ -10,3 +10,7 @@
 .animate-in {
   animation-delay: calc(var(--index) * 130ms);
 }
+
+.usp-item-hover {
+  background: linear-gradient(to bottom, #ffffff, #f2f2f2);
+}

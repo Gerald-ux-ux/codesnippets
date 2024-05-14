@@ -1,5 +1,6 @@
 import NavBar from "./components/nav/nav-bar";
 import HeroSection from "./components/ui/hero-section";
+import Usp from "./components/ui/usp";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <NavBar />
 
       <HeroSection />
+      <Usp />
     </main>
   );
 }
