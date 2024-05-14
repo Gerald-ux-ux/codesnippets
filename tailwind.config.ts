@@ -1,3 +1,4 @@
+import type { Config } from "tailwindcss";
 const svgToDataUri = require("mini-svg-data-uri");
 
 // bg-no-repeat bg-gradient-to-br  from-[#090a0b] via-[#15171a] to-[#16181a]
