@@ -3,14 +3,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Gradient border */
-.border-gradient {
-  border-image: linear-gradient(140deg, #6d6d6d, #191a1c) 0.5;
-}
-.animate-in {
-  animation-delay: calc(var(--index) * 130ms);
+
+
+/* Color for the whole app  */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 9, 10, 11;
+    --background-via-rgb: 21, 23, 26;
+    --background-end-rgb: 22, 24, 26;
+  }
 }
 
-.usp-item-hover {
-  background: linear-gradient(to bottom, #ffffff, #f2f2f2);
-}
+body {
+  color: rgb(var(--foreground-end-rgb));
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgb(var(--background-start-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  }
+
+  @layer utilities {
+    .text-balance {
+      text-wrap: balance;
+    }
+  }
+
+  /* Gradient border */
+  .border-gradient {
+    border-image: linear-gradient(140deg, #6d6d6d, #191a1c) 0.5;
+  }
+  .animate-in {
+    animation-delay: calc(var(--index) * 130ms);
+  }
+
+  .usp-item-hover {
+    background: linear-gradient(to bottom, #ffffff, #f2f2f2);
+  }
