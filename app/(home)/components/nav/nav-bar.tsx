@@ -18,7 +18,7 @@ function NavBar(props: Props) {
   return (
     <header
       className={cn(
-        "relative top-0 z-20   bg-primary  shadow-xl rounded-xl p-2  border-primary border w-full md:sticky",
+        "relative  top-4  z-50   bg-primary bg-transparent-[#0D0F11]/50 backdrop-blur-sm  shadow-xl rounded-xl p-2  border-primary border w-full md:sticky",
         open ? "h-auto" : "h-16"
       )}
     >

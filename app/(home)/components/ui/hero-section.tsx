@@ -13,7 +13,7 @@ interface Props {}
 
 function HeroSection(props: Props) {
   return (
-    <div className="flex items-center justify-center w-full rounded-2xl">
+    <div className="flex items-center mt-4 justify-center w-full rounded-2xl">
       <TextRevealCard
         className="w-full flex items-center gap-6 justify-center flex-col bg-primary "
         text="Boost your productivity"
