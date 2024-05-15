@@ -7,11 +7,12 @@ interface Props {
   action: () => void;
   hidden?: boolean;
   outline?: boolean;
+  className?: string;
 }
 
-function Btn({ name, action, hidden, outline }: Props) {
+function Btn({ name, action, hidden, outline, className }: Props) {
   return (
-    <div className="  flex justify-end">
+    <div className={cn("flex justify-end", className)}>
       <Button
         variant={outline ? "outline" : "default"}
         onClick={action}

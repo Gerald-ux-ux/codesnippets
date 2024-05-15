@@ -2,3 +2,10 @@ export interface navBarItems {
   label: string;
   link: string;
 }
+
+
+export interface uspItemsType {
+  name: string;
+  description: string;
+  icon: React.ReactNode<any>;
+}
