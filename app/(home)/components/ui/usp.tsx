@@ -38,7 +38,7 @@ function Usp(props: Props) {
       {uspItems.map((item) => (
         <div
           key={item.name}
-          className="flex flex-col cursor-default p-2 usp-item w-full   md:border-r border-t  border-gradient items-center md:gap-4 gap-6"
+          className="flex flex-col cursor-default p-2 usp-item w-full   md:border-r md:border-t-0 border-t  border-gradient items-center md:gap-4 gap-6"
         >
           <div className="flex md:text-4xl mt-4  text-sm  items-center gap-2">
             {item.icon}
@@ -46,9 +46,9 @@ function Usp(props: Props) {
           </div>
           <p className="text-secondary text-center">
             {isolateChosenWords(item.description).map((word, index) => (
-              <span key={index} className="text-brand">
+              <strong key={index} className="text-brand">
                 {word}{" "}
-              </span>
+              </strong>
             ))}
             {item.description
               .split(" ")
