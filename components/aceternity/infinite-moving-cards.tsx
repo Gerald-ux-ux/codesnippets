@@ -95,9 +95,10 @@ export const InfiniteMovingCards = ({
               <span>
                 {[
                   "JavaScript",
-                  "Typescript",
+                  "TypeScript",
                   "Rust",
                   "Go",
+                  "Python",
                   "Php",
                   "Swift",
                 ].includes(item.label) ? (
