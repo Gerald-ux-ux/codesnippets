@@ -29,6 +29,22 @@ body {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation-name: fadeIn;
+  animation-duration: 2s;
+}
+
+
+
 /* Gradient border */
 .border-gradient {
   border-image: linear-gradient(140deg, #6d6d6d, #191a1c) 0.5;

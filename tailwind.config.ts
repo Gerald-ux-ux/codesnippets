@@ -39,6 +39,9 @@ const config = {
         gradient: "linear-gradient(to bottom right, #6d6d6d, #191A1C)",
       },
       animation: {
+        in: "in .6s both",
+        "in-reverse": "in-reverse .6s both",
+
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         scroll:
@@ -57,6 +60,14 @@ const config = {
           to: {
             transform: "translate(calc(-50% - 0.5rem))",
           },
+        },
+        in: {
+          "0%": { transform: "translateY(18px)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
+        "in-reverse": {
+          "0%": { transform: "translateY(-18px)", opacity: "0" },
+          "100%": { transform: "translateY(0px)", opacity: "1" },
         },
       },
     },
