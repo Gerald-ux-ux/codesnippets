@@ -7,7 +7,7 @@ import { cn } from "../lib/utils";
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Code Snippets",
+  title: "Code Snippets - Boost your productivity",
   description: "Copy and paste your snippet of choice",
 };
 
