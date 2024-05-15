@@ -34,15 +34,15 @@ function isolateChosenWords(words: string) {
 
 function Usp(props: Props) {
   return (
-    <div className=" gap-2 flex  md:grid-cols-1  grid-cols-3">
+    <div className=" gap-2 flex flex-col md:flex-row ">
       {uspItems.map((item) => (
         <div
           key={item.name}
-          className="flex flex-col cursor-default p-2 usp-item w-full  border-r border-gradient items-center gap-4"
+          className="flex flex-col cursor-default p-2 usp-item w-full   md:border-r border-t  border-gradient items-center md:gap-4 gap-6"
         >
-          <div className="flex text-4xl  items-center gap-2">
+          <div className="flex md:text-4xl mt-4  text-sm  items-center gap-2">
             {item.icon}
-            <span className="text-primary">{item.name}</span>
+            <span className="text-primary ">{item.name}</span>
           </div>
           <p className="text-secondary text-center">
             {isolateChosenWords(item.description).map((word, index) => (
