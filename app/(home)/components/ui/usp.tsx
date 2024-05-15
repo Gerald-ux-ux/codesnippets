@@ -35,7 +35,7 @@ function Usp(props: Props) {
       {uspItems.map((item) => (
         <div
           key={item.name}
-          className="flex flex-col p-2  hover:bg-brand w-full  border-r border-primary items-center gap-4"
+          className="flex flex-col cursor-default p-2 usp-item w-full  border-r border-gradient items-center gap-4"
         >
           <div className="flex text-4xl  items-center gap-2">
             {item.icon}
