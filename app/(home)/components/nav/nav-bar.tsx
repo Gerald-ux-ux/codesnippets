@@ -24,7 +24,7 @@ function NavBar(props: Props) {
     >
       <nav className="justify-between flex md:flex-row flex-col p-0.5 items-center">
         <div className="flex md:w-auto w-full justify-between items-center">
-          <Logo />
+          <Logo platform="Code-snippets" />
           <MobileToggleBtn setOpen={setOpen} open={open} />
         </div>
         <ul className="md:flex hidden p-2 justify-center items-center gap-4">
