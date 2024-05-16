@@ -1,5 +1,6 @@
 "use client";
 
+import { bodyText } from "@/app/styles/styles";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 
@@ -92,7 +93,7 @@ export const InfiniteMovingCards = ({
                 className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
               ></div>
 
-              <span>
+              <span className={cn(bodyText, "")}>
                 {[
                   "JavaScript",
                   "TypeScript",

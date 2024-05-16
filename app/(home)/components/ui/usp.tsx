@@ -4,6 +4,9 @@ import { FaCode } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { IoShareOutline } from "react-icons/io5";
 import { CodeSquareIcon, Search02Icon, Share01Icon } from "@/lib/icons/icons";
+import { cn } from "@/lib/utils";
+import { bodyText, primaryText, secondaryText } from "@/app/styles/styles";
+import { firaMono } from "@/lib/fonts";
 
 interface Props {}
 
@@ -22,8 +25,8 @@ const uspItems: uspItemsType[] = [
       "Quickly find the code snippets you need with our advanced search functionality",
   },
   {
-    icon: <Share01Icon />,
     name: "Share",
+    icon: <Share01Icon />,
     description: "Easily share your code snippets with others and collaborate",
   },
 ];
@@ -41,11 +44,17 @@ function Usp(props: Props) {
           key={item.name}
           className="flex flex-col cursor-default p-2 usp-item w-full   md:border-r md:border-t-0 border-t  border-gradient items-center md:gap-4 gap-6"
         >
-          <div className="flex md:text-3xl mt-4  text-sm  items-center gap-2">
+          <div
+            className={cn(
+              primaryText,
+              "flex  mt-4  items-center gap-2",
+              firaMono.className
+            )}
+          >
             {item.icon}
             <span className="text-primary ">{item.name}</span>
           </div>
-          <p className="text-secondary text-center">
+          <p className={cn(bodyText, "text-secondary text-center")}>
             {isolateChosenWords(item.description).map((word, index) => (
               <strong key={index} className="text-brand">
                 {word}{" "}

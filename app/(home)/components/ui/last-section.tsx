@@ -1,4 +1,5 @@
 "use client";
+import { primaryText } from "@/app/styles/styles";
 import Btn from "@/components/custom/btn";
 import { firaMono } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
@@ -9,11 +10,11 @@ interface Props {}
 function LastSection(props: Props) {
   return (
     <div className="  w-full flex flex-col gap-8 p-4 items-center justify-center">
-      <p className="text-center md:text-4xl text-base">
+      <p className={cn(primaryText, "text-center")}>
         Add your{" "}
-        <strong className={cn(firaMono.className, "text-brand")}>
+        <span className={cn(firaMono.className, "text-brand")}>
           most used snippets.
-        </strong>{" "}
+        </span>{" "}
         <br /> Get started today.
       </p>
       <Btn action={() => {}} name="Add snippet" />
