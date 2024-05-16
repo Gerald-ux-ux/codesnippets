@@ -1,5 +1,5 @@
 import Logo from "@/app/components/logo";
-import { bodyText, primaryText, secondaryText } from "@/app/styles/styles";
+import { primaryText, secondaryText } from "@/app/styles/styles";
 import {
   Accordion,
   AccordionItem,
@@ -13,8 +13,18 @@ import React from "react";
 interface Props {}
 
 const faqs = [
-  { q: "Is it open source?", a: "No its not" },
-  { q: "Can i use it", a: "No  not" },
+  {
+    q: "Is it open source?",
+    a: "Yes it is, just make sure to read the CONTRIBUTION.MD file before starting",
+  },
+  {
+    q: "How can i be a part of this?",
+    a: "Join the discord community and get to meet your fellow developers",
+  },
+  {
+    q: "What is the tech stack used?",
+    a: "Next & Node.Js all with Typescript",
+  },
 ];
 
 function Faqs(props: Props) {
@@ -47,7 +57,7 @@ function Faqs(props: Props) {
           {faqs.map((question) => (
             <AccordionItem key={question.q} value={question.q}>
               <AccordionTrigger>{question.q}</AccordionTrigger>
-              <AccordionContent className={cn(bodyText, "")}>
+              <AccordionContent className={cn("text-sm")}>
                 {question.a}
               </AccordionContent>
             </AccordionItem>
