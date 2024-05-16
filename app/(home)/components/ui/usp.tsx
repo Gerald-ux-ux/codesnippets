@@ -3,25 +3,26 @@ import { uspItemsType } from "../../types/home";
 import { FaCode } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { IoShareOutline } from "react-icons/io5";
+import { CodeSquareIcon, Search02Icon, Share01Icon } from "@/lib/icons/icons";
 
 interface Props {}
 
 const uspItems: uspItemsType[] = [
   {
-    icon: <FaCode />,
+    icon: <CodeSquareIcon />,
     name: "Code Snippets",
     description:
       "Discover and copy code snippets across a wide range of programming languages",
   },
 
   {
-    icon: <IoMdSearch />,
+    icon: <Search02Icon />,
     name: "Powerful Search",
     description:
       "Quickly find the code snippets you need with our advanced search functionality",
   },
   {
-    icon: <IoShareOutline />,
+    icon: <Share01Icon />,
     name: "Share",
     description: "Easily share your code snippets with others and collaborate",
   },

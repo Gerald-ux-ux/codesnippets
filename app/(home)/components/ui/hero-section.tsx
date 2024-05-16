@@ -11,6 +11,7 @@ import React from "react";
 
 interface Props {}
 
+
 function HeroSection(props: Props) {
   return (
     <div className="flex items-center  justify-center w-full rounded-2xl">
