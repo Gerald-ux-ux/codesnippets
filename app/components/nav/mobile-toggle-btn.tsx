@@ -2,7 +2,6 @@ import { IoMdMenu } from "react-icons/io";
 import { motion } from "framer-motion";
 import { IoCloseOutline } from "react-icons/io5";
 
-
 interface Props {
   open: boolean;
   setOpen: (value: boolean) => void;

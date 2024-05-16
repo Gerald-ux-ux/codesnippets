@@ -1,5 +1,6 @@
 "use client";
 
+import { bodyText } from "@/app/styles/styles";
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 
@@ -10,11 +11,7 @@ export const InfiniteMovingCards = ({
   pauseOnHover = true,
   className,
 }: {
-  items: {
-    quote: string;
-    name: string;
-    title: string;
-  }[];
+  items: { label: string; value: string }[];
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
   pauseOnHover?: boolean;
@@ -87,32 +84,35 @@ export const InfiniteMovingCards = ({
       >
         {items.map((item, idx) => (
           <li
-            className="w-[350px] max-w-full relative rounded-2xl border border-b-0 flex-shrink-0 border-slate-700 px-8 py-6 md:w-[450px]"
-            style={{
-              background:
-                "linear-gradient(180deg, var(--slate-800), var(--slate-900)",
-            }}
-            key={item.name}
+            className=" max-w-full relative rounded-2xl bg-secondary border flex-shrink-0 border-gradient px-4 py-2 "
+            key={item.label}
           >
-            <blockquote>
+            <span>
               <div
                 aria-hidden="true"
                 className="user-select-none -z-1 pointer-events-none absolute -left-0.5 -top-0.5 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
               ></div>
-              <span className=" relative z-20 text-sm leading-[1.6] text-gray-100 font-normal">
-                {item.quote}
+
+              <span className={cn(bodyText, "")}>
+                {[
+                  "JavaScript",
+                  "TypeScript",
+                  "Rust",
+                  "Go",
+                  "Python",
+                  "Php",
+                  "Swift",
+                ].includes(item.label) ? (
+                  <span className=" relative z-20 animate-pulse text-sm leading-[1.6] text-tertiary font-normal">
+                    {item.label}
+                  </span>
+                ) : (
+                  <span className=" relative z-20 text-sm leading-[1.6] text-secondary font-normal">
+                    {item.label}
+                  </span>
+                )}
               </span>
-              <div className="relative z-20 mt-6 flex flex-row items-center">
-                <span className="flex flex-col gap-1">
-                  <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
-                    {item.name}
-                  </span>
-                  <span className=" text-sm leading-[1.6] text-gray-400 font-normal">
-                    {item.title}
-                  </span>
-                </span>
-              </div>
-            </blockquote>
+            </span>
           </li>
         ))}
       </ul>

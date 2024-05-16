@@ -5,10 +5,10 @@ import { cn } from "@/lib/utils";
 import Btn from "@/components/custom/btn";
 import { redirect } from "next/navigation";
 import NavItems from "./nav-items";
-import { navBarItems } from "../../types/home";
+import { navBarItems } from "../../(home)/types/home";
 import Logo from "@/app/components/logo";
-import MobileMenu from "./mobile-menu";
 import MobileToggleBtn from "./mobile-toggle-btn";
+import MobileMenu from "./mobile-menu";
 
 interface Props {}
 
@@ -18,13 +18,13 @@ function NavBar(props: Props) {
   return (
     <header
       className={cn(
-        "relative top-0 z-20   bg-primary  shadow-xl rounded-xl p-2  border-primary border w-full md:sticky",
+        "top-4  z-50 items-center flex  animate-in  bg-primary bg-transparent backdrop-blur  shadow-xl rounded-xl p-2  border-primary border w-full sticky",
         open ? "h-auto" : "h-16"
       )}
     >
-      <nav className="justify-between flex md:flex-row flex-col p-0.5 items-center">
+      <nav className="justify-between flex  md:flex-row flex-col p-0.5 w-full items-center">
         <div className="flex md:w-auto w-full justify-between items-center">
-          <Logo />
+          <Logo platform="Code-snippets" />
           <MobileToggleBtn setOpen={setOpen} open={open} />
         </div>
         <ul className="md:flex hidden p-2 justify-center items-center gap-4">
