@@ -1,5 +1,5 @@
 "use client";
-import { primaryText, secondaryText } from "@/app/styles/styles";
+import { bodyText, primaryText, secondaryText } from "@/app/styles/styles";
 import {
   TextRevealCard,
   TextRevealCardDescription,
@@ -27,8 +27,7 @@ function HeroSection(props: Props) {
           className={cn(secondaryText, "text-secondary text-center")}
         >
           Discover, share and manage code snippets across different languages
-          and frameworks. <br /> Streamline your development workflow and just
-          snippit
+          and frameworks
         </TextRevealCardDescription>
         <TextRevealCardTitle className="mt-4 ">
           <Btn action={() => {}} name="Get Started" />
