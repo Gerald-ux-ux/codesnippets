@@ -18,11 +18,11 @@ function NavBar(props: Props) {
   return (
     <header
       className={cn(
-        "relative  top-4  z-50   bg-primary bg-transparent backdrop-blur  shadow-xl rounded-xl p-2  border-primary border w-full md:sticky",
+        "top-4  z-50 items-center flex  animate-in  bg-primary bg-transparent backdrop-blur  shadow-xl rounded-xl p-2  border-primary border w-full sticky",
         open ? "h-auto" : "h-16"
       )}
     >
-      <nav className="justify-between flex md:flex-row flex-col p-0.5 items-center">
+      <nav className="justify-between flex  md:flex-row flex-col p-0.5 w-full items-center">
         <div className="flex md:w-auto w-full justify-between items-center">
           <Logo platform="Code-snippets" />
           <MobileToggleBtn setOpen={setOpen} open={open} />
@@ -42,6 +42,8 @@ function NavBar(props: Props) {
 }
 
 export default NavBar;
+
+
 
 // NavBar Items/Links
 const navItems: navBarItems[] = [

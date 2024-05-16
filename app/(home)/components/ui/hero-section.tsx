@@ -19,14 +19,14 @@ function HeroSection(props: Props) {
         text="Boost your productivity"
         revealText="With Code snippets "
       >
-        <TextRevealCardTitle className="text-primary mb-4">
-          <Btn action={() => {}} name="Get Started" />
-        </TextRevealCardTitle>
         <TextRevealCardDescription className="text-secondary text-center">
           Discover, share and manage code snippets across different languages
           and frameworks. <br /> Streamline your development workflow and just
           snippit
         </TextRevealCardDescription>
+        <TextRevealCardTitle className="mt-4 ">
+          <Btn action={() => {}} name="Get Started" />
+        </TextRevealCardTitle>
       </TextRevealCard>
     </div>
   );

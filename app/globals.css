@@ -40,6 +40,10 @@ body {
 
 .animate-in {
   animation-name: fadeIn;
+  animation-duration: 1s;
+}
+.animate-in-navbar {
+  animation-name: fadeIn;
   animation-duration: 2s;
 }
 

@@ -71,32 +71,31 @@ export const TextRevealCard = ({
         className
       )}
     >
-      {children}
 
-      <div className="h-40  relative flex items-center overflow-hidden">
+      <div className="h-40   relative flex items-center overflow-hidden">
         <motion.div
           style={{
             width: "100%",
           }}
           animate={
             isMouseOver
-              ? {
-                  opacity: widthPercentage > 0 ? 1 : 0,
-                  clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
-                }
-              : {
-                  clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
-                }
+            ? {
+              opacity: widthPercentage > 0 ? 1 : 0,
+              clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
+            }
+            : {
+              clipPath: `inset(0 ${100 - widthPercentage}% 0 0)`,
+            }
           }
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
           className="absolute bg-primary rounded-lg p-1 z-20  will-change-transform"
-        >
+          >
           <p
             style={{
               textShadow: "4px 4px 15px rgba(0,0,0,0.5)",
             }}
-            className="text-base sm:text-[3rem] py-10 font-bold text-white bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
-          >
+            className="text-base sm:text-[3rem] py-10 font-bold text-primary bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-300"
+            >
             {revealText}
           </p>
         </motion.div>
@@ -108,8 +107,7 @@ export const TextRevealCard = ({
           }}
           transition={isMouseOver ? { duration: 0 } : { duration: 0.4 }}
           className="h-40 w-[8px] bg-gradient-to-b from-transparent via-neutral-800 to-transparent absolute z-50 will-change-transform"
-        ></motion.div>
-
+          ></motion.div>
         <div className=" overflow-hidden [mask-image:linear-gradient(to_bottom,transparent,white,transparent)]">
           <p className="text-base sm:text-[3rem] py-10 font-bold bg-clip-text text-transparent bg-[#323238]">
             {text}
@@ -117,6 +115,7 @@ export const TextRevealCard = ({
           <MemoizedStars />
         </div>
       </div>
+      {children}
     </div>
   );
 };

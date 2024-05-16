@@ -34,7 +34,7 @@ function isolateChosenWords(words: string) {
 
 function Usp(props: Props) {
   return (
-    <div className=" gap-2 flex flex-col md:flex-row ">
+    <div className=" gap-2  flex flex-col md:flex-row ">
       {uspItems.map((item) => (
         <div
           key={item.name}
