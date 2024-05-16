@@ -1,4 +1,5 @@
 "use client";
+import { TracingBeam } from "@/components/aceternity/tracing-beam";
 import Btn from "@/components/custom/btn";
 import { firaMono } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
