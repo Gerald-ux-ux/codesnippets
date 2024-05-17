@@ -42,7 +42,7 @@ function NavBar({ navItems, isSnippet }: Props) {
         </div>
 
         {isSnippet ? (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-end w-full  gap-2">
             <ul className="hidden md:flex p-2 justify-center items-center gap-4">
               {navItems.map((item) => (
                 <li key={item.label}>
@@ -54,7 +54,7 @@ function NavBar({ navItems, isSnippet }: Props) {
                 </li>
               ))}
             </ul>
-            <SignUp />
+            <SignUp isOnMobile={true} />
             <MobileMenu links={navItems} open={open} />
           </div>
         ) : (
@@ -66,7 +66,7 @@ function NavBar({ navItems, isSnippet }: Props) {
                 </li>
               ))}
             </ul>
-            <SignUp />
+            <SignUp  isOnMobile={true} />
             <MobileMenu links={navItems} open={open} />
           </>
         )}
