@@ -9,6 +9,16 @@ import { navBarItems } from "../../(home)/types/home";
 import Logo from "@/app/components/logo";
 import MobileToggleBtn from "./mobile-toggle-btn";
 import MobileMenu from "./mobile-menu";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  useAuth,
+  UserButton,
+} from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import { registerUser } from "@/app/auth/actions";
+import SignUp from "@/app/auth/components/sign-up";
 
 interface Props {
   navItems: navBarItems[];
@@ -31,17 +41,20 @@ function NavBar({ navItems, isSnippet }: Props) {
           <MobileToggleBtn setOpen={setOpen} open={open} />
         </div>
 
-
         {isSnippet ? (
           <div className="flex items-center gap-2">
             <ul className="hidden md:flex p-2 justify-center items-center gap-4">
               {navItems.map((item) => (
                 <li key={item.label}>
-                  <NavItems key={item.label} isSnippet={isSnippet} items={item} />
+                  <NavItems
+                    key={item.label}
+                    isSnippet={isSnippet}
+                    items={item}
+                  />
                 </li>
               ))}
             </ul>
-            <Btn hidden action={() => redirect("/")} name="Log in" />
+            <SignUp />
             <MobileMenu links={navItems} open={open} />
           </div>
         ) : (
@@ -53,7 +66,7 @@ function NavBar({ navItems, isSnippet }: Props) {
                 </li>
               ))}
             </ul>
-            <Btn hidden action={() => redirect("/")} name="Log in" />
+            <SignUp />
             <MobileMenu links={navItems} open={open} />
           </>
         )}
@@ -63,5 +76,3 @@ function NavBar({ navItems, isSnippet }: Props) {
 }
 
 export default NavBar;
-
-

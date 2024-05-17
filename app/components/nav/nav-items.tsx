@@ -10,7 +10,6 @@ interface Props {
 }
 
 function NavItems({ items, isSnippet }: Props) {
-  console.log("items", items);
   return (
     <Link
       href={items.link}

@@ -1,7 +1,14 @@
-"use client";
 import React from "react";
 import NavBar from "../components/nav/nav-bar";
 import { snippetItems } from "../components/nav/menus";
+import { Metadata } from "next";
+
+import { useAuth } from "@clerk/nextjs";
+
+export const metadata: Metadata = {
+  title: "Code Snippets - Boost your productivity",
+  description: "Search, copy and paste snippets directly to your project",
+};
 
 export default function Snippets() {
   return (

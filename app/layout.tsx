@@ -9,6 +9,9 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
+import { registerUser } from "./auth/actions";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import { dark } from "@clerk/themes";
 
 // Global font
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
@@ -18,13 +21,24 @@ export const metadata: Metadata = {
   description: "Copy and paste your snippet of choice",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { userId } = auth();
+
+  const user = await currentUser();
+  console.log("userId", userId);
+  console.log("user", user);
+
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        variables: { colorPrimary: "white" },
+        baseTheme: dark,
+      }}
+    >
       <html
         lang="en"
         className={cn(
@@ -32,15 +46,7 @@ export default function RootLayout({
           "text-primary h-screen   w-full  pt-4 pb-4 flex flex-col "
         )}
       >
-        <body>
-          <SignedOut>
-            <SignInButton />
-          </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
-          {children}
-        </body>
+        <body>{children}</body>
       </html>
     </ClerkProvider>
   );
