@@ -2,22 +2,12 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import Btn from "@/components/custom/btn";
-import { redirect } from "next/navigation";
 import NavItems from "./nav-items";
 import { navBarItems } from "../../(home)/types/home";
 import Logo from "@/app/components/logo";
 import MobileToggleBtn from "./mobile-toggle-btn";
 import MobileMenu from "./mobile-menu";
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  useAuth,
-  UserButton,
-} from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
-import { registerUser } from "@/app/auth/actions";
+
 import SignUp from "@/app/auth/components/sign-up";
 
 interface Props {
@@ -54,7 +44,7 @@ function NavBar({ navItems, isSnippet }: Props) {
                 </li>
               ))}
             </ul>
-            <SignUp isOnMobile={true} />
+            <SignUp />
             <MobileMenu links={navItems} open={open} />
           </div>
         ) : (
@@ -66,7 +56,7 @@ function NavBar({ navItems, isSnippet }: Props) {
                 </li>
               ))}
             </ul>
-            <SignUp  isOnMobile={true} />
+            <SignUp />
             <MobileMenu links={navItems} open={open} />
           </>
         )}

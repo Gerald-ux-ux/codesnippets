@@ -9,23 +9,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
-import { capsFirstLetter, cn } from "@/lib/utils";
+import { capsFirstLetter } from "@/lib/utils";
 
-type Props = {
-  isOnMobile?: boolean;
-};
-export default function SignUp({ isOnMobile }: Props) {
+export default function SignUp() {
   const { isSignedIn, user } = useUser();
   const { signOut } = useClerk();
 
   if (isSignedIn) {
     return (
-      <div
-        className={cn(
-          isOnMobile ? "md:flex hidden" : " flex  md:hidden",
-          " items-center"
-        )}
-      >
+      <div className="md:flex hidden    items-center">
         <DropdownMenu>
           <DropdownMenuTrigger className="border-none">
             <Image
@@ -65,9 +57,7 @@ export default function SignUp({ isOnMobile }: Props) {
     );
   }
   return (
-    <div
-      className={cn(isOnMobile ? "md:flex hidden" : "flex", " items-center")}
-    >
+    <div className="">
       <SignedOut>
         <SignInButton
           fallbackRedirectUrl="/snippets"
