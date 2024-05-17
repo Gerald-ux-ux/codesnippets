@@ -10,9 +10,11 @@ import Logo from "@/app/components/logo";
 import MobileToggleBtn from "./mobile-toggle-btn";
 import MobileMenu from "./mobile-menu";
 
-interface Props {}
+interface Props {
+  navItems: navBarItems[];
+}
 
-function NavBar(props: Props) {
+function NavBar({ navItems }: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -44,17 +46,17 @@ function NavBar(props: Props) {
 export default NavBar;
 
 // NavBar Items/Links
-const navItems: navBarItems[] = [
-  {
-    label: "App",
-    link: "/app",
-  },
-  {
-    label: "Community",
-    link: "https://discord.gg/tqm4eKy2",
-  },
-  {
-    label: "Github",
-    link: "/",
-  },
-];
+// const navItems: navBarItems[] = [
+//   {
+//     label: "App",
+//     link: "/snippets",
+//   },
+//   {
+//     label: "Community",
+//     link: "https://discord.gg/tqm4eKy2",
+//   },
+//   {
+//     label: "Github",
+//     link: "/",
+//   },
+// ];
