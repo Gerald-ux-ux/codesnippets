@@ -2,12 +2,14 @@
 
 import { Webhook } from "svix";
 import { headers } from "next/headers";
-import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
+import { WebhookEvent, clerkClient } from "@clerk/nextjs/server";
+import {} from "@clerk/nextjs";
 import axios from "axios";
 import { Register } from "../constatnts/lib";
 import { NextResponse } from "next/server";
 
 export async function createUser(user: any) {
+  console.log("called");
   try {
     const res = await axios.post(Register, user);
     console.log("res", res);
