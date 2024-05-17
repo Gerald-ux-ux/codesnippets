@@ -1,5 +1,11 @@
 import React from "react";
-import { SignInButton, SignedOut, useClerk, useUser } from "@clerk/nextjs";
+import {
+  SignInButton,
+  SignOutButton,
+  SignedOut,
+  useClerk,
+  useUser,
+} from "@clerk/nextjs";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,10 +45,7 @@ export default function SignUp() {
               </span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              //   onClick={() => signOut()}
-              className="hover:bg-primary hover:border border-primary hover:text-primary  cursor-pointer text-secondary p-2 rounded-md"
-            >
+            <DropdownMenuItem className="hover:bg-primary hover:border border-primary hover:text-primary  text-secondary p-2 rounded-md">
               My snippets
             </DropdownMenuItem>
             <DropdownMenuItem
@@ -58,15 +61,9 @@ export default function SignUp() {
   }
   return (
     <div className="">
-      <SignedOut>
-        <SignInButton
-          fallbackRedirectUrl="/snippets"
-          forceRedirectUrl="/snippets"
-          mode="modal"
-        >
-          <button className="rounded-md  bg-brand p-2">Log in</button>
-        </SignInButton>
-      </SignedOut>
+      <SignInButton signUpFallbackRedirectUrl="/snippets" mode="modal">
+        <button className="rounded-md  bg-brand p-2">Log in</button>
+      </SignInButton>
     </div>
   );
 }
