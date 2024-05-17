@@ -1,4 +1,5 @@
 const color = '#F8F8F2';
+const secondaryColor = "#6E6E70";
 
 export const Share01Icon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -104,7 +105,7 @@ export const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
     viewBox="0 0 24 24"
     width={24}
     height={24}
-    color={color}
+    color={secondaryColor}
     fill={"none"}
     {...props}
   >
@@ -151,7 +152,7 @@ export const CommentAdd02Icon = (props: React.SVGProps<SVGSVGElement>) => (
     viewBox="0 0 24 24"
     width={24}
     height={24}
-    color={color}
+    color={secondaryColor}
     fill={"none"}
     {...props}
   >

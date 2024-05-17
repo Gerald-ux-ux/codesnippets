@@ -12,9 +12,10 @@ import MobileMenu from "./mobile-menu";
 
 interface Props {
   navItems: navBarItems[];
+  isSnippet?: boolean;
 }
 
-function NavBar({ navItems }: Props) {
+function NavBar({ navItems, isSnippet }: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -29,15 +30,33 @@ function NavBar({ navItems }: Props) {
           <Logo platform="Code-snippets" />
           <MobileToggleBtn setOpen={setOpen} open={open} />
         </div>
-        <ul className="md:flex hidden p-2 justify-center items-center gap-4">
-          {navItems.map((item) => (
-            <li key={item.label}>
-              <NavItems key={item.label} items={item} />
-            </li>
-          ))}
-        </ul>
-        <Btn hidden action={() => redirect("/")} name="Log in" />
-        <MobileMenu links={navItems} open={open} />
+
+
+        {isSnippet ? (
+          <div className="flex items-center gap-2">
+            <ul className="hidden md:flex p-2 justify-center items-center gap-4">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <NavItems key={item.label} isSnippet={isSnippet} items={item} />
+                </li>
+              ))}
+            </ul>
+            <Btn hidden action={() => redirect("/")} name="Log in" />
+            <MobileMenu links={navItems} open={open} />
+          </div>
+        ) : (
+          <>
+            <ul className="md:flex hidden p-2 justify-center items-center gap-4">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <NavItems key={item.label} items={item} />
+                </li>
+              ))}
+            </ul>
+            <Btn hidden action={() => redirect("/")} name="Log in" />
+            <MobileMenu links={navItems} open={open} />
+          </>
+        )}
       </nav>
     </header>
   );
@@ -45,18 +64,4 @@ function NavBar({ navItems }: Props) {
 
 export default NavBar;
 
-// NavBar Items/Links
-// const navItems: navBarItems[] = [
-//   {
-//     label: "App",
-//     link: "/snippets",
-//   },
-//   {
-//     label: "Community",
-//     link: "https://discord.gg/tqm4eKy2",
-//   },
-//   {
-//     label: "Github",
-//     link: "/",
-//   },
-// ];
+
