@@ -18,7 +18,7 @@ function NavBar(props: Props) {
   return (
     <header
       className={cn(
-        "top-4  z-50 items-center flex  animate-in  bg-primary bg-transparent backdrop-blur  shadow-xl rounded-xl p-2  border-primary border w-full sticky",
+        "top-4 relative  z-50 items-center flex  animate-in  bg-primary bg-transparent backdrop-blur  shadow-xl rounded-xl p-2  border-primary border w-full md:sticky",
         open ? "h-auto" : "h-16"
       )}
     >
