@@ -1,12 +1,12 @@
-import React from "react";
 import { uspItemsType } from "../../types/home";
+import { bodyText, primaryText, secondaryText } from "@/app/styles/styles";
+import { firaMono } from "@/lib/fonts";
+import { CodeSquareIcon, Search02Icon, Share01Icon } from "@/lib/icons/icons";
+import { cn } from "@/lib/utils";
+import React from "react";
 import { FaCode } from "react-icons/fa";
 import { IoMdSearch } from "react-icons/io";
 import { IoShareOutline } from "react-icons/io5";
-import { CodeSquareIcon, Search02Icon, Share01Icon } from "@/lib/icons/icons";
-import { cn } from "@/lib/utils";
-import { bodyText, primaryText, secondaryText } from "@/app/styles/styles";
-import { firaMono } from "@/lib/fonts";
 
 interface Props {}
 
@@ -38,7 +38,7 @@ function isolateChosenWords(words: string) {
 
 function Usp(props: Props) {
   return (
-    <div className=" gap-2  flex flex-col md:flex-row ">
+    <div className=" gap-2 flex flex-col md:flex-row ">
       {uspItems.map((item) => (
         <div
           key={item.name}
