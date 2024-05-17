@@ -2,17 +2,20 @@
 
 import React, { useState } from "react";
 import { cn } from "@/lib/utils";
-import Btn from "@/components/custom/btn";
-import { redirect } from "next/navigation";
 import NavItems from "./nav-items";
 import { navBarItems } from "../../(home)/types/home";
 import Logo from "@/app/components/logo";
 import MobileToggleBtn from "./mobile-toggle-btn";
 import MobileMenu from "./mobile-menu";
 
-interface Props {}
+import SignUp from "@/app/auth/components/sign-up";
 
-function NavBar(props: Props) {
+interface Props {
+  navItems: navBarItems[];
+  isSnippet?: boolean;
+}
+
+function NavBar({ navItems, isSnippet }: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -27,34 +30,39 @@ function NavBar(props: Props) {
           <Logo platform="Code-snippets" />
           <MobileToggleBtn setOpen={setOpen} open={open} />
         </div>
-        <ul className="md:flex hidden p-2 justify-center items-center gap-4">
-          {navItems.map((item) => (
-            <li key={item.label}>
-              <NavItems key={item.label} items={item} />
-            </li>
-          ))}
-        </ul>
-        <Btn hidden action={() => redirect("/")} name="Log in" />
-        <MobileMenu links={navItems} open={open} />
+
+        {isSnippet ? (
+          <div className="flex items-center w-full md:w-auto  gap-2">
+            <ul className="hidden md:flex p-2 justify-center items-center gap-4">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <NavItems
+                    key={item.label}
+                    isSnippet={isSnippet}
+                    items={item}
+                  />
+                </li>
+              ))}
+            </ul>
+            <SignUp />
+            <MobileMenu links={navItems} open={open} />
+          </div>
+        ) : (
+          <>
+            <ul className="md:flex hidden p-2 justify-center items-center gap-4">
+              {navItems.map((item) => (
+                <li key={item.label}>
+                  <NavItems key={item.label} items={item} />
+                </li>
+              ))}
+            </ul>
+            <SignUp />
+            <MobileMenu links={navItems} open={open} />
+          </>
+        )}
       </nav>
     </header>
   );
 }
 
 export default NavBar;
-
-// NavBar Items/Links
-const navItems: navBarItems[] = [
-  {
-    label: "App",
-    link: "/app",
-  },
-  {
-    label: "Community",
-    link: "https://discord.gg/tqm4eKy2",
-  },
-  {
-    label: "Github",
-    link: "/",
-  },
-];

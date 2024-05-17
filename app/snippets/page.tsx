@@ -1,0 +1,17 @@
+import React from "react";
+import NavBar from "../components/nav/nav-bar";
+import { snippetItems } from "../components/nav/menus";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Code Snippets - Boost your productivity",
+  description: "Search, copy and paste snippets directly to your project",
+};
+
+export default function Snippets() {
+  return (
+    <div className="flex flex-col gap-14 w-full animate-in  items-center  px-4 mx-auto max-w-7xl">
+      <NavBar navItems={snippetItems} isSnippet={true} />
+    </div>
+  );
+}

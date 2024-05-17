@@ -5,6 +5,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Btn from "@/components/custom/btn";
 import { redirect } from "next/navigation";
+import SignUp from "@/app/auth/components/sign-up";
 
 interface Props {
   open: boolean;
@@ -15,7 +16,7 @@ function MobileMenu({ open, links }: Props) {
   return (
     <nav
       className={cn(
-        "md:hidden relative flex-col flex  w-full px-2",
+        "md:hidden relative flex-col flex   w-full px-2",
         open ? " mt-16" : ""
       )}
     >
@@ -29,7 +30,7 @@ function MobileMenu({ open, links }: Props) {
             ))}
           </ul>
 
-          <Btn outline action={() => redirect("/")} name="Log in" />
+          {/* <SignUp  /> */}
         </div>
       )}
     </nav>
