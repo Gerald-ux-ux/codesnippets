@@ -29,8 +29,8 @@ export default function SignUp() {
             />
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent className="bg-secondary border mt-4 border-primary ">
-            <DropdownMenuLabel>
+          <DropdownMenuContent className="bg-secondary border mt-4 mr-24 border-primary ">
+            <DropdownMenuLabel className="">
               <span className="text-base flex flex-col gap-2">
                 {capsFirstLetter(`${user?.firstName} ${user?.lastName}`)}
                 <span className="text-xs text-secondary">
@@ -38,7 +38,7 @@ export default function SignUp() {
                 </span>
               </span>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
+            <DropdownMenuSeparator className="border-b border-gradient" />
             <DropdownMenuItem className="hover:bg-primary hover:border border-primary hover:text-primary  text-secondary p-2 rounded-md">
               My snippets
             </DropdownMenuItem>
@@ -55,7 +55,7 @@ export default function SignUp() {
   }
   return (
     <div className="">
-      <SignInButton signUpFallbackRedirectUrl="/snippets" mode="modal">
+      <SignInButton mode="modal">
         <button className="rounded-md  bg-brand p-2">Log in</button>
       </SignInButton>
     </div>
