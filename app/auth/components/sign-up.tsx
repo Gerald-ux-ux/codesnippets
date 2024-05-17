@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  SignInButton,
-  SignOutButton,
-  SignedOut,
-  useClerk,
-  useUser,
-} from "@clerk/nextjs";
+import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
 import {
   DropdownMenu,
   DropdownMenuContent,

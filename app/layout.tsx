@@ -2,14 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "../lib/utils";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
-import { registerUser } from "./auth/actions";
+import { ClerkProvider } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { dark } from "@clerk/themes";
 
@@ -29,8 +22,8 @@ export default async function RootLayout({
   const { userId } = auth();
 
   const user = await currentUser();
-  console.log("userId", userId);
-  console.log("user", user);
+  // console.log("userId", userId);
+  // console.log("user", user);
 
   return (
     <ClerkProvider
