@@ -40,6 +40,12 @@ export default function SignUp() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem
+            //   onClick={() => signOut()}
+              className="hover:bg-primary hover:border border-primary hover:text-primary  cursor-pointer text-secondary p-2 rounded-md"
+            >
+              My snippets
+            </DropdownMenuItem>
+            <DropdownMenuItem
               onClick={() => signOut()}
               className="hover:bg-error  cursor-pointer text-error p-2 rounded-md"
             >
@@ -53,7 +59,11 @@ export default function SignUp() {
   return (
     <div className="">
       <SignedOut>
-        <SignInButton forceRedirectUrl="/snippets" mode="modal">
+        <SignInButton
+          fallbackRedirectUrl="/snippets"
+          forceRedirectUrl="/snippets"
+          mode="modal"
+        >
           <button className="rounded-md  bg-brand p-2">Log in</button>
         </SignInButton>
       </SignedOut>
