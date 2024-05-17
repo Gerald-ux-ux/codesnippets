@@ -42,7 +42,7 @@ function NavBar({ navItems, isSnippet }: Props) {
         </div>
 
         {isSnippet ? (
-          <div className="flex items-center justify-end w-full  gap-2">
+          <div className="flex items-center w-full md:w-auto  gap-2">
             <ul className="hidden md:flex p-2 justify-center items-center gap-4">
               {navItems.map((item) => (
                 <li key={item.label}>
