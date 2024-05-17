@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "../lib/utils";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 // Global font
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
@@ -17,15 +24,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
+    <ClerkProvider>
+      <html
+        lang="en"
         className={cn(
           jetBrainsMono.className,
           "text-primary h-screen   w-full  pt-4 pb-4 flex flex-col "
         )}
       >
-        {children}
-      </body>
-    </html>
+        <body>
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
