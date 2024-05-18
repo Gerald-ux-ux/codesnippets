@@ -1,10 +1,15 @@
+import { databaseConnection } from "@/lib/backend/db/cs";
 import { createCodeSnippet } from "@/lib/backend/models/snippets/services/lib";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
-    const { title, description, code }: any = req.body;
+    await databaseConnection();
+
+    const body = await req.json();
+
+    const { title, description, code }: any = body;
 
     if (!title || !description || !code) {
       return new NextResponse(

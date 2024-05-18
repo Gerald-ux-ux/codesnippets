@@ -24,7 +24,7 @@ export default async function RootLayout({
 
   console.log('yse', userId)
   const session = await getUserSession();
-  console.log("session is", session);
+  // console.log("session is", session);
   // const user = await currentUser();
   // console.log("userId", userId);
   // console.log("user", user);

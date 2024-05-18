@@ -7,7 +7,7 @@ export const getCodeSnippetById = (id: string) => CodeSnippetModel.findById(id);
 
 // CREATE
 export const createCodeSnippet = (values: Record<string, any>): Promise<any> =>
-  new CodeSnippetModel(values).save().then((snippet) => snippet.toObject());
+  new CodeSnippetModel(values).save().then((snippet: any) => snippet.toObject());
 
 // UPDATE
 export const updateCodeSnippetById = (

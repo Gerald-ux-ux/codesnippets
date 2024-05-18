@@ -23,6 +23,7 @@ const codeSnippetsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const CodeSnippetModel = mongoose.model("Snippets", codeSnippetsSchema);
+const CodeSnippetModel =
+  mongoose.models.Snippets || mongoose.model("Snippets", codeSnippetsSchema);
 
 export default CodeSnippetModel;
