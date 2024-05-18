@@ -7,6 +7,7 @@ const codeSnippetsSchema = new mongoose.Schema(
       last_name: { type: "string" },
       email: { type: "string", required: false },
       id: { type: "string" },
+      photo: { type: "string", required: false },
     },
     title: { type: "string", required: true },
     description: { type: "string", required: true },
