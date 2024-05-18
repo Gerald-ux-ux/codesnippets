@@ -5,7 +5,7 @@ import { cn } from "../lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { dark } from "@clerk/themes";
-import { getUserSession } from "@/lib/db/actions/user.actions";
+import { getUserSession } from "@/lib/backend/actions/user-actions";
 
 // Global font
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
@@ -23,7 +23,7 @@ export default async function RootLayout({
   const { userId } = auth();
 
   console.log('yse', userId)
-  const session = await getUserSession(userId!);
+  const session = await getUserSession();
   console.log("session is", session);
   // const user = await currentUser();
   // console.log("userId", userId);

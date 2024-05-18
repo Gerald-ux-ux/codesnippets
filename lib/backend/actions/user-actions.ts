@@ -4,6 +4,8 @@ import { cookies } from "next/headers";
 import { databaseConnection } from "../db/cs";
 import { ClerkUserModel } from "../models/user-model";
 import { ClerkUser } from "../types/backend";
+import { NextRequest } from "next/server";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export async function createUser(user: ClerkUser) {
   try {
@@ -24,4 +26,5 @@ export async function getUserSession() {
     console.log("error occured getting session", error);
   }
 }
+
 
