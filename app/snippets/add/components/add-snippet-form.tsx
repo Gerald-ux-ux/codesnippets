@@ -17,7 +17,12 @@ function Button() {
   const { pending } = useFormStatus();
 
   return (
-    <button disabled={pending} className={cn("mt-4")}>
+    <button
+      disabled={pending}
+      className={cn(
+        "mt-4 bg-secondary border border-primary   p-2 rounded-md cursor-pointer hover:bg-hover"
+      )}
+    >
       {pending ? <BtnLoader /> : "Post snippet "}
     </button>
   );
@@ -35,7 +40,7 @@ export default function Form() {
     message,
   } = useUploadSnippet();
   return (
-    <form action={handleSubmit} className="flex w-full flex-col gap-2 py-4">
+    <form action={handleSubmit} className="flex w-full   flex-col gap-2 py-4">
       <input
         name="title"
         type="text"
@@ -51,7 +56,7 @@ export default function Form() {
         placeholder="Description"
         className={inputClass}
       />
-      <span className="border border-primary" />
+      {/* <span className="border border-primary" /> */}
       <CodeEditor
         editor={editor}
         handleLanguageSelect={handleLanguageSelect}

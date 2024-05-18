@@ -1,5 +1,4 @@
-import mongoose, { Schema } from "mongoose";
-import { Document } from "mongoose";
+import mongoose from "mongoose";
 
 const codeSnippetsSchema = new mongoose.Schema(
   {
@@ -23,6 +22,7 @@ const codeSnippetsSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Check if the model already exists before creating a new instance
 const CodeSnippetModel =
   mongoose.models.Snippets || mongoose.model("Snippets", codeSnippetsSchema);
 

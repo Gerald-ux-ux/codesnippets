@@ -1,21 +1,41 @@
 import Link from "next/link";
 import React from "react";
-import { IoMdClose } from "react-icons/io";
+import { IoIosArrowRoundBack, IoMdClose } from "react-icons/io";
 import Form from "./components/add-snippet-form";
+import { snippetItems } from "@/app/components/nav/menus";
+import NavBar from "@/app/components/nav/nav-bar";
+import { cn } from "@/lib/utils";
+import { page } from "@/app/styles/styles";
+import { Metadata } from "next";
+import { clerkClient } from "@clerk/nextjs/server";
+import { useUser } from "@clerk/nextjs";
 
 interface Props {}
 
+export const metadata: Metadata = {
+  title: "Add a snippet - Make it available for the whole community",
+  description: "Add your snippet of choice.",
+};
+
 function Add(props: Props) {
   return (
-    <main className="mx-auto flex w-full max-w-[700px] animate-in flex-col gap-8 px-6">
-      <div className="flex  w-full items-center justify-between">
-        Add a code Snippet
-        <Link href="/code-snippets">
-          <IoMdClose />
+    <div className={cn(page)}>
+      <NavBar navItems={snippetItems} isSnippet={true} />
+
+      <div className="flex w-full  items-center justify-between">
+        Add a snippet of your choice
+        <Link
+          className={cn(
+            "bg-secondary border border-primary  p-2 flex gap-2 items-center rounded-md  hover:bg-hover"
+          )}
+          href="/snippets"
+        >
+          <IoIosArrowRoundBack className="text-2xl" />
+          Go back
         </Link>
       </div>
       <Form />
-    </main>
+    </div>
   );
 }
 
