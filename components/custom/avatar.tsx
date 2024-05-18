@@ -21,13 +21,13 @@ export default function Avatar({
     <div
       className={cn(
         "relative inline-flex select-none items-center justify-center overflow-hidden rounded-full align-middle font-medium uppercase text-primary",
-        size === "sm" && "h-10 w-10 bg-tertiary text-sm",
-        size === "md" && "h-14 w-14 bg-tertiary text-base",
-        size === "lg" && "h-24 w-24 bg-secondary text-2xl"
+        size === "sm" && "h-10 w-10  bg-secondary border border-primary text-sm",
+        size === "md" && "h-14 w-14 text-base",
+        size === "lg" && "h-24 w-24 text-2xl"
       )}
     >
       {!src || src === "" ? (
-        <div className="">{initials || ""}</div>
+        <div className="">{initials|| ""}</div>
       ) : (
         <Image
           src={src}

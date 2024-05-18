@@ -5,6 +5,10 @@ import { useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
+import SnippetCodeList from "./SnippetCodeList";
+import SnippetTags from "./snippet-tags";
+import { useState } from "react";
+import { firaMono } from "@/lib/fonts";
 
 interface Props {
   data: any;
@@ -16,6 +20,7 @@ function SnippetList({ data }: Props) {
   const pathname = usePathname();
   const router = useRouter();
   const { user } = useUser();
+  const [expanded, setExpanded] = useState<boolean[]>([]);
 
   function handleClicked(snippet: any) {
     return router.push(`${pathname}/${snippet._id}`);
@@ -32,29 +37,35 @@ function SnippetList({ data }: Props) {
           (a: any, b: any) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         )
-        .map((snippet: any) => (
+        .map((snippet: any, i: number) => (
           <div onClick={() => handleClicked(snippet)} key={snippet._id}>
             <li
               className={cn(
-                "flex cursor-pointer hover:bg-hover flex-col gap-3 rounded-md border border-primary p-2"
+                "flex cursor-pointer  hover:bg-hover h-[210px] flex-col gap-3 rounded-xl border border-primary  p-3"
               )}
             >
               <span className="flex w-full items-center justify-between gap-2 ">
-                <p className=" truncate  text-sm  font-medium tracking-tight md:w-9/12 md:text-xl md:font-semibold">
+                <p
+                  className={cn(
+                    firaMono.className,
+                    " truncate  text-sm  font-medium tracking-tight md:w-9/12 md:text-xl md:font-semibold"
+                  )}
+                >
                   {snippet?.title} ({snippet.code.length})
                 </p>
 
-                <span className="hidden items-center gap-2  text-xs md:flex md:text-base">
-                  <p className="w-full">
+                <span className="items-center gap-2  text-xs flex md:text-base">
+                  <p className={cn(firaMono.className, "w-full")}>
                     {snippet.author.first_name} {snippet.author.last_name[0]}
                   </p>
 
-                  <span className=" hidden rounded-full bg-secondaryA p-2  md:block">
+                  <span className="block">
                     <Avatar
-                      alt={user?.username!}
+                      alt={snippet?.author.first_name}
                       width={40}
+                      initials={`${snippet.author.first_name[0]}${snippet.author.last_name[0]}`}
                       height={40}
-                      src={user?.imageUrl!}
+                      src={snippet?.author?.photo}
                       size="sm"
                     />
                   </span>
@@ -66,6 +77,16 @@ function SnippetList({ data }: Props) {
                 </p>
                 <p>{formatDate(snippet.createdAt)}</p>
               </span>
+
+              {expanded[i] && (
+                <span>
+                  {snippet.code.map((code: any) => (
+                    <SnippetCodeList code={code} key={code._id} />
+                  ))}
+                </span>
+              )}
+
+              <SnippetTags snippet={snippet} />
             </li>
           </div>
         ))}

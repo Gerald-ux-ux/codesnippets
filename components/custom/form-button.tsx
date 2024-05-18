@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
-import { useFormStatus } from "react-dom";
 import BtnLoader from "./btn-loader";
+import { useFormStatus } from "react-dom";
 
 interface Props {
   name: string;

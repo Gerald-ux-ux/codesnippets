@@ -40,6 +40,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       first_name: user.firstName,
       last_name: user.lastName,
       email: user.primaryEmailAddress?.emailAddress,
+      photo: user.imageUrl,
     };
 
     const data = {
