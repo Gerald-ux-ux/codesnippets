@@ -1,16 +1,8 @@
 import mongoose from "mongoose";
-
-interface ClerkUserModel {
-  clerkId: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  photo: string;
-  username: string;
-}
+import { ClerkUser } from "../types/backend";
 
 // creating the clerk user
-const clerkUserSchema = new mongoose.Schema<ClerkUserModel>({
+const clerkUserSchema = new mongoose.Schema<ClerkUser>({
   clerkId: { type: String, required: true, unique: true },
   username: { type: String, required: false },
   first_name: { type: String, required: true },
@@ -19,4 +11,6 @@ const clerkUserSchema = new mongoose.Schema<ClerkUserModel>({
   photo: { type: String, required: true },
 });
 
-export const ClerkUserModel = mongoose.model("ClerkUser", clerkUserSchema);
+const ClerkUserModel =
+  mongoose.models.ClerkUser || mongoose.model("ClerkUser", clerkUserSchema);
+export { ClerkUserModel };

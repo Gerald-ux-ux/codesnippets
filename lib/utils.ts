@@ -7,3 +7,10 @@ export function cn(...inputs: ClassValue[]) {
 export function capsFirstLetter(x: any) {
   return x?.charAt(0)?.toUpperCase() + x?.slice(1);
 }
+export const formatDate = (date: any) => {
+  return new Date(date).toLocaleString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
+};
