@@ -22,15 +22,15 @@ function Add(props: Props) {
     <div className={cn(page)}>
       <NavBar navItems={snippetItems} isSnippet={true} />
 
-      <div className="flex w-full  items-center justify-between">
+      <div className="flex w-full md:text-base text-sm  items-center justify-between">
         Add a snippet of your choice
         <Link
           className={cn(
-            "bg-secondary border border-primary  p-2 flex gap-2 items-center rounded-md  hover:bg-hover"
+            "bg-secondary border md:text-base border-primary  p-2 flex gap-2 items-center rounded-md  hover:bg-hover"
           )}
           href="/snippets"
         >
-          <IoIosArrowRoundBack className="text-2xl" />
+          <IoIosArrowRoundBack className="  md:text-2xl" />
           Go back
         </Link>
       </div>

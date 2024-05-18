@@ -53,7 +53,7 @@ export default function useUploadSnippet() {
     console.log("res", res);
 
     if (res.success) {
-      // router.push("/code-snippets");
+      router.push("/snippets");
     } else
       setMessage(res.message || "Error creating code snippet, try again later");
     return res;

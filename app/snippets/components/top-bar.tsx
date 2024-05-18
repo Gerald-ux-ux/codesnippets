@@ -1,15 +1,13 @@
-"use client";
-
+import { page } from "@/app/styles/styles";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 import React from "react";
+import Link from "next/link";
 
 interface Props {}
 
-function AddSnippet(props: Props) {
+function TopBar(props: Props) {
   return (
-    <div>
+    <div className={cn(page, "")}>
       <Link
         href="/snippets/add"
         className={cn("rounded-md bg-brand p-2 hover:bg-brand/50")}
@@ -20,4 +18,4 @@ function AddSnippet(props: Props) {
   );
 }
 
-export default AddSnippet;
+export default TopBar;
