@@ -1,39 +1,20 @@
 "use client";
-
-import { useFormStatus } from "react-dom";
-import clsx from "clsx";
-
 import CodeEditor from "./code-editor";
 import AddEditorBtn from "./add-editor";
-import { cn } from "@/lib/utils";
 import ErrorMessage from "@/components/custom/error-message";
 import useUploadSnippet from "../hooks/useUploadSnippet";
-import BtnLoader from "@/components/custom/btn-loader";
+import { FormButton } from "@/components/custom/form-button";
+import { formBtn } from "@/app/styles/styles";
 
 const inputClass =
   "w-full rounded-md border border-primary bg-secondary p-2 focus:border-none";
 
-function Button() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      disabled={pending}
-      className={cn(
-        "mt-4 bg-secondary border border-primary   p-2 rounded-md cursor-pointer hover:bg-hover"
-      )}
-    >
-      {pending ? <BtnLoader /> : "Post snippet "}
-    </button>
-  );
-}
 export default function Form() {
   const {
     editor,
     handleLanguageSelect,
     handleHeadingChange,
     handleCodeChange,
-    // theme,
     handleDelete,
     handleSubmit,
     handleAdd,
@@ -56,20 +37,17 @@ export default function Form() {
         placeholder="Description"
         className={inputClass}
       />
-      {/* <span className="border border-primary" /> */}
       <CodeEditor
         editor={editor}
         handleLanguageSelect={handleLanguageSelect}
         handleHeadingChange={handleHeadingChange}
         handleCodeChange={handleCodeChange}
-        // theme={theme}
         handleDelete={handleDelete}
       />
       <AddEditorBtn handleAdd={handleAdd} />
 
       {message ? <ErrorMessage message={message} /> : null}
-
-      <Button />
+      <FormButton name="Post snippets" className={formBtn} />
     </form>
   );
 }
