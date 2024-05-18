@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { redirect, useRouter } from "next/navigation";
 import { values } from "../components/languages";
-import { postCodeSnippet } from "../actions/actions";
+import { postCodeSnippet } from "../../actions/actions";
 
 export default function useUploadSnippet() {
   const router = useRouter();
