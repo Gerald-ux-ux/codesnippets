@@ -1,13 +1,5 @@
 import React from "react";
 import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import Image from "next/image";
 import { capsFirstLetter } from "@/lib/utils";
 import CustomDropDown from "@/components/custom/custom-drop-down";

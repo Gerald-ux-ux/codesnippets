@@ -7,7 +7,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import clsx from "clsx";
-import { GoArrowDownLeft } from "react-icons/go";
 
 type Props = {
   triggerButton: string;
@@ -43,11 +42,7 @@ export default function Modal({
         </button>
       </DialogTrigger>
       <DialogContent
-        className={clsx(
-          "bg-primary border-none",
-          maxHeight,
-          maxWidth
-        )}
+        className={clsx("bg-primary border-none", maxHeight, maxWidth)}
       >
         <DialogTitle className="mb-2 mt-3">{dialogTitle}</DialogTitle>
 

@@ -17,7 +17,7 @@ import { IoMdCheckmark } from "react-icons/io";
 // import { UserInfo } from "@/app/types/typings";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { copySnippet } from "../actions/actions";
-import DeleteSnippet from "./delete-snippet";
+import DeleteSnippet from "./actions";
 
 type SnippetCodeListProps = {
   code: any;

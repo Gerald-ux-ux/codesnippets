@@ -8,6 +8,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+
+interface ItemProps {
+  label: string;
+  onClick: (snippet?: any, setOpen?: any) => void;
+  isImportant?: boolean;
+  icon?: React.ReactNode;
+  snippet?: any;
+  setOpen?: any;
+}
 interface Props {
   trigger: any;
   label: any;
@@ -30,7 +39,7 @@ function CustomDropDown({ trigger, label, items }: Props) {
             onClick={item.onClick}
             className={cn(
               item.isImportant
-                ? "hover:bg-error  cursor-pointer text-error p-2 rounded-md"
+                ? "hover:bg-error  gap-2  cursor-pointer text-error p-2 rounded-md"
                 : "flex w-full gap-2 rounded-md p-2 hover:bg-hover"
             )}
           >

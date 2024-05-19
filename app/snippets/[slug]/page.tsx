@@ -7,7 +7,9 @@ import BackBtn from "@/components/custom/back-btn";
 import { cn } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
-import DeleteSnippet from "../components/delete-snippet";
+import DeleteSnippet from "../components/actions";
+import DeleteAction from "@/components/custom/delete-action";
+import Actions from "../components/actions";
 
 type Props = {
   params: {
@@ -53,13 +55,13 @@ export default async function Code({ params }: { params: any }) {
             src={code?.author?.photo}
             size="sm"
           />
-          {/* {userId === code.author.id && (
-            <DeleteSnippet
-              text="Delete the whole snippet"
-              code_id={code._id}
+          {userId === code.author.id && (
+            <Actions
+              modalActionTitle="Delete the whole snippet"
+              code={code}
               snippet="Object"
             />
-          )} */}
+          )}
         </div>
       </div>
 
