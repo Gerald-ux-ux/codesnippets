@@ -9,6 +9,7 @@ import SnippetTags from "@/app/snippets/components/snippet-tags";
 import SnippetCodeList from "@/app/snippets/components/SnippetCodeList";
 import { page } from "@/app/styles/styles";
 import Avatar from "@/components/custom/avatar";
+import BackBtn from "@/components/custom/back-btn";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import { notFound } from "next/navigation";
@@ -53,11 +54,12 @@ export default async function Code({ params }: { params: any }) {
   return (
     <div className={cn(page, "  ")}>
       <NavBar navItems={snippetItems} isSnippet={true} />
-      {/* <BackBtn /> */}
       <div className="my-4 flex  w-full  items-center gap-4 ">
         <h1 className="w-full text-xl  font-bold leading-tight tracking-tight text-primary md:text-3xl">
           {code.title}
         </h1>
+
+        <BackBtn />
 
         {/* {user?._id === code.author.id && (
           <DeleteSnippet
@@ -68,7 +70,7 @@ export default async function Code({ params }: { params: any }) {
         )} */}
       </div>
 
-      <span className="flex w-full items-center justify-between text-lg leading-tight text-secondary md:text-xl">
+      <span className="flex w-full items-center justify-between text-lg leading-tight text-primary md:text-xl">
         {code.description}
       </span>
       <span className="flex w-full items-center justify-between gap-2 text-secondary">
