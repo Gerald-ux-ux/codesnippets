@@ -23,7 +23,7 @@ const faqs = [
   },
   {
     q: "What is the tech stack used?",
-    a: "Next & Node.Js all with Typescript",
+    a: "Next.Js",
   },
 ];
 
