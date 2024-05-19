@@ -54,13 +54,20 @@ export default async function Code({ params }: { params: any }) {
   return (
     <div className={cn(page, "  ")}>
       <NavBar navItems={snippetItems} isSnippet={true} />
-      <div className="my-4 flex  w-full  items-center gap-4 ">
-        <h1 className="w-full text-xl  font-bold leading-tight tracking-tight text-primary md:text-3xl">
+      <div className="my-4 flex   w-full justify-between  items-center gap-4 ">
+        <BackBtn />
+        <h1 className=" text-xl  font-bold leading-tight tracking-tight text-primary md:text-3xl">
           {code.title}
         </h1>
 
-        <BackBtn />
-
+        <Avatar
+          alt={code?.author.first_name}
+          width={40}
+          initials={`${code.author.first_name[0]}${code.author.last_name[0]}`}
+          height={40}
+          src={code?.author?.photo}
+          size="sm"
+        />
         {/* {user?._id === code.author.id && (
           <DeleteSnippet
             text="Delete the whole snippet"
