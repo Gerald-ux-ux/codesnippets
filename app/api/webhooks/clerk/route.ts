@@ -56,6 +56,8 @@ export async function POST(req: Request, res: Response) {
   //   Create user in my db
 
   if (eventType === "user.created") {
+
+    console.log('evt.data', evt.data)
     const { first_name, last_name, email_addresses, username, id, image_url } =
       evt.data;
 
@@ -68,7 +70,6 @@ export async function POST(req: Request, res: Response) {
       photo: image_url!,
     };
 
-    console.log("new user", user);
     const newUser = await createUser(user);
 
     if (newUser) {
@@ -77,6 +78,8 @@ export async function POST(req: Request, res: Response) {
           userId: newUser._id,
         },
       });
+    } else {
+      throw new Error("User not created");
     }
 
     return NextResponse.json({

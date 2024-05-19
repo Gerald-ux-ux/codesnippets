@@ -52,7 +52,7 @@ export default async function Code({ params }: { params: any }) {
 
   if (!code) return notFound();
   return (
-    <div className={cn(page, " w-full ")}>
+    <div className={cn(page, "  ")}>
       <NavBar navItems={snippetItems} isSnippet={true} />
       {/* <BackBtn /> */}
       <div className="my-4 flex  w-full  items-center gap-4 ">
