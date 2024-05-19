@@ -19,7 +19,7 @@ export default function Form() {
     handleSubmit,
     handleAdd,
     message,
-  } = useUploadSnippet();
+  } = useUploadSnippet({});
   return (
     <form action={handleSubmit} className="flex w-full   flex-col gap-2 py-4">
       <input

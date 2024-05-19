@@ -1,6 +1,5 @@
 "use client";
 import { IoClipboardOutline } from "react-icons/io5";
-import { BsThreeDots } from "react-icons/bs";
 import {
   Accordion,
   AccordionContent,
@@ -9,15 +8,11 @@ import {
 } from "@/components/ui/accordion";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { capsFirstLetter } from "@/lib/utils";
-// import { copySnippet } from "../actions/action";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
-// import DeleteSnippet from "./actions/delete-snippet";
-// import { UserInfo } from "@/app/types/typings";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { copySnippet } from "../actions/actions";
-import DeleteSnippet from "./actions";
 
 type SnippetCodeListProps = {
   code: any;
@@ -75,13 +70,13 @@ export default function SnippetCodeList({
                   )}
                 </button>
 
-                {user === author && (
+                {/* {user === author && (
                   <DeleteSnippet
                     text="Delete this specific code"
                     code_id={code}
                     snippet="Code"
                   />
-                )}
+                )} */}
               </span>
             </div>
             <SyntaxHighlighter

@@ -4,7 +4,6 @@ import React from "react";
 import CodeEditor from "../add/components/code-editor";
 import useUploadSnippet from "../add/hooks/useUploadSnippet";
 import ErrorMessage from "@/components/custom/error-message";
-import AddEditorBtn from "../add/components/add-editor";
 import { FormButton } from "@/components/custom/form-button";
 import { formBtn } from "@/app/styles/styles";
 
@@ -53,7 +52,6 @@ function EditSnippetForm({ selectedSnippet }: Props) {
         handleCodeChange={handleCodeChange}
         handleDelete={handleDelete}
       />
-      {/* <AddEditorBtn handleAdd={handleAdd} /> */}
 
       {message ? <ErrorMessage message={message} /> : null}
       <FormButton name="Post snippets" className={formBtn} />
