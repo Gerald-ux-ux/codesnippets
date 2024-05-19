@@ -6,17 +6,31 @@ import { redirect, useRouter } from "next/navigation";
 import { values } from "../components/languages";
 import { postCodeSnippet } from "../../actions/actions";
 
-export default function useUploadSnippet() {
+export default function useUploadSnippet({
+  selectedSnippet,
+}: {
+  selectedSnippet?: any;
+}) {
   const router = useRouter();
   const [message, setMessage] = useState<string>("");
   // Code editor state
-  const [editor, setEditor] = useState([
-    {
-      heading: "",
-      lang: values[0],
-      code: "",
-    },
-  ]);
+
+  const initialEditorState = selectedSnippet?.code?.map((snippet: any) => ({
+    heading: snippet.heading,
+    lang: snippet.language,
+    code: snippet.content,
+  }));
+  const [editor, setEditor] = useState(
+    selectedSnippet
+      ? initialEditorState
+      : [
+          {
+            heading: "",
+            lang: values[0],
+            code: "",
+          },
+        ]
+  );
 
   const handleLanguageSelect = (
     index: number,
@@ -45,7 +59,7 @@ export default function useUploadSnippet() {
 
   const handleDelete = (id: number, e: any) => {
     e.preventDefault();
-    setEditor(editor.filter((_, i) => i !== id));
+    setEditor(editor.filter((_: any, i: any) => i !== id));
   };
 
   const handleSubmit = async (formData: FormData) => {

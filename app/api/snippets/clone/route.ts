@@ -1,11 +1,12 @@
 import { databaseConnection } from "@/lib/backend/db/cs";
-import { deleteCodeSnippetById } from "@/lib/backend/models/snippets/services/lib";
+import { updateSnippetCount } from "@/lib/backend/models/snippets/services/lib";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     await databaseConnection();
-    const { id }: any = req.nextUrl.pathname;
+    const body = await req.json();
+    const { id }: any = body;
 
     if (!id) {
       return new NextResponse(
@@ -17,12 +18,22 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    await deleteCodeSnippetById(id);
+    const updatedSnippet = await updateSnippetCount(id);
+
+    if (!updatedSnippet) {
+      return new NextResponse(
+        JSON.stringify({
+          success: false,
+          message: "The snippet does not exist",
+        }),
+        { status: 500 }
+      );
+    }
 
     return new NextResponse(
       JSON.stringify({
         success: true,
-        message: "Snippet deleted successfully",
+        data: updatedSnippet,
       }),
       { status: 200 }
     );
@@ -34,6 +45,5 @@ export async function DELETE(req: NextRequest) {
         data: error,
       })
     );
-  } finally {
   }
 }

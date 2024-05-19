@@ -1,14 +1,10 @@
 import Link from "next/link";
 import React from "react";
-import { IoIosArrowRoundBack, IoMdClose } from "react-icons/io";
+import { IoIosArrowRoundBack } from "react-icons/io";
 import Form from "./components/add-snippet-form";
-import { snippetItems } from "@/app/components/nav/menus";
-import NavBar from "@/app/components/nav/nav-bar";
 import { cn } from "@/lib/utils";
 import { page } from "@/app/styles/styles";
 import { Metadata } from "next";
-import { clerkClient } from "@clerk/nextjs/server";
-import { useUser } from "@clerk/nextjs";
 
 interface Props {}
 
@@ -20,8 +16,6 @@ export const metadata: Metadata = {
 function Add(props: Props) {
   return (
     <div className={cn(page)}>
-      <NavBar navItems={snippetItems} isSnippet={true} />
-
       <div className="flex w-full md:text-base text-sm  items-center justify-between">
         Add a snippet of your choice
         <Link

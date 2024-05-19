@@ -10,15 +10,16 @@ import {
 import { values } from "./languages";
 
 type Props = {
-  language: { label: string; value: string };
+  language: any
   onSelect: (language: { label: string; value: string }) => void;
 };
 export default function LanguageSelector({ language, onSelect }: Props) {
+  console.log("lang", language);
   return (
     <div className="hover:text-secondary cursor-pointer">
       <Select onValueChange={(value) => onSelect({ label: value, value })}>
         <SelectTrigger className="w-[180px] border-none">
-          <SelectValue placeholder={language.label} />
+          <SelectValue placeholder={language} />
         </SelectTrigger>
         <SelectContent className="border-none  bg-hover">
           <SelectGroup>
