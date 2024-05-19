@@ -7,12 +7,12 @@ import { revalidateTag } from "next/cache";
 const API_URL = "http://localhost:3000/api/snippets/create";
 const GET_SNIPPETS = "http://localhost:3000/api/snippets/fetch";
 const Give_Feedback = "http://localhost:3000/api/feedback";
-
+const Copy_Snippet = "http://localhost:3000/api/snippets/clone";
 export async function getCodeSnippets(): Promise<any[]> {
   try {
     const res = await fetch(GET_SNIPPETS, { next: { tags: ["code"] } });
 
-    console.log("res", res);
+    // console.log("res", res);
     const data = await res.json();
     return data?.data;
   } catch (error: any) {
@@ -58,6 +58,19 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
     return res?.data;
   } catch (error: any) {
     console.log("error", error.response.data);
+    return error?.response?.data || errorMessage;
+  }
+}
+
+export async function copySnippet(id: string) {
+  try {
+    const data = {
+      id: id,
+    };
+    const res = await axios.post(Copy_Snippet, data);
+    revalidateTag("code");
+    return res?.data;
+  } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
 }

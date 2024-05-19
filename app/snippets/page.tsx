@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default async function Snippets() {
   const snippets = await getCodeSnippets();
 
-  console.log('snippets', snippets)
+  // console.log('snippets', snippets)
   return (
     <div className="flex flex-col gap-6 w-full animate-in  items-center  px-4 mx-auto max-w-7xl">
       <NavBar navItems={snippetItems} isSnippet={true} />

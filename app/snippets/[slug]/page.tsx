@@ -40,7 +40,6 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function Code({ params }: { params: any }) {
-  console.log("paras", params);
   const specificSnippet = await getCodeSnippets();
 
   const code = specificSnippet?.find((snippet) => snippet?._id === params.slug);
