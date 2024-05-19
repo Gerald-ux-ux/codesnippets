@@ -1,24 +1,30 @@
 import { databaseConnection } from "@/lib/backend/db/cs";
-import { deleteCodeSnippetById } from "@/lib/backend/models/snippets/services/lib";
+import {
+  deleteCodeObjectById,
+  deleteCodeSnippetById,
+} from "@/lib/backend/models/snippets/services/lib";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(req: NextRequest, res: NextResponse) {
   try {
     await databaseConnection();
     const body = await req.json();
-    const { id } = body;
+    const { code_id, object_id } = body;
 
-    if (!id) {
+    if (!code_id || !object_id) {
       return new NextResponse(
         JSON.stringify({
           success: false,
-          message: "Provide a snippet ID",
+          message: "Provide a code & object ID",
         }),
-        { status: 500 }
+        { status: 404 }
       );
     }
 
-    await deleteCodeSnippetById(id);
+    const res = await deleteCodeObjectById(code_id, object_id);
+    if (res.code.length === 0 || res.code.length < 0) {
+      await deleteCodeSnippetById(code_id);
+    }
 
     return new NextResponse(
       JSON.stringify({
@@ -35,6 +41,5 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
         data: error,
       })
     );
-  } finally {
   }
 }
