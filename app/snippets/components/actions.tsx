@@ -1,14 +1,10 @@
 "use client";
-
-import useActions from "../hooks/useActions";
-import DropDownMenuComponent from "./drop-down";
 import { CiEdit, CiTrash } from "react-icons/ci";
-import Modal from "./modal";
-import DeleteDialog from "@/components/custom/delete-dialogue";
 import CustomDropDown from "@/components/custom/custom-drop-down";
 import { BsThreeDots } from "react-icons/bs";
 import { useState } from "react";
 import DeleteAction from "@/components/custom/delete-action";
+import EditAction from "@/components/custom/edit-action";
 
 type Props = {
   code?: any;
@@ -57,10 +53,15 @@ export default function Actions({ code, snippet, modalActionTitle }: Props) {
         />
       )}
 
-      {editIsOpen && <div className="">
-
-
-        </div>}
+      {editIsOpen && (
+        <div className="">
+          <EditAction
+            open={editIsOpen}
+            setOpen={setEditIsOpen}
+            snippet={code}
+          />
+        </div>
+      )}
     </div>
   );
 }

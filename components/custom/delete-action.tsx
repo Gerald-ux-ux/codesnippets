@@ -2,8 +2,6 @@ import Modal from "@/app/snippets/components/modal";
 import React from "react";
 import { CiTrash } from "react-icons/ci";
 import DeleteDialog from "./delete-dialogue";
-import CustomDropDown from "./custom-drop-down";
-import { BsThreeDots } from "react-icons/bs";
 
 interface Props {
   text: string;
@@ -14,6 +12,7 @@ interface Props {
 }
 
 function DeleteAction({ open, setOpen, text, snippet, code }: Props) {
+  console.log("code to be deleted", code);
   return (
     <div>
       <Modal

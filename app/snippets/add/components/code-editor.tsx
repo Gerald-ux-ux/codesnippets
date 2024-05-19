@@ -9,7 +9,6 @@ type Props = {
   handleLanguageSelect: any;
   handleHeadingChange: any;
   handleCodeChange: any;
-  // theme: any;
   handleDelete: any;
 };
 export default function CodeEditor({
@@ -17,9 +16,9 @@ export default function CodeEditor({
   handleLanguageSelect,
   handleHeadingChange,
   handleCodeChange,
-  // theme,
   handleDelete,
 }: Props) {
+  console.log("editor: ", editor);
   return (
     <div className="flex  flex-col gap-6 overflow-x-auto  rounded-md ">
       {editor.map((value: any, i: number) => (
@@ -41,9 +40,9 @@ export default function CodeEditor({
             value={value.code}
             className="bg-secondary p-2"
             height="25vh"
-            key={value.lang.value}
+            key={value.lang}
             theme={"vs-dark"}
-            defaultLanguage={value.lang.value}
+            defaultLanguage={value.lang.toLowerCase()}
             options={{
               minimap: {
                 enabled: false,
@@ -57,7 +56,10 @@ export default function CodeEditor({
               language={value.lang}
             />
             {i === 0 ? null : (
-              <button onClick={(e) => handleDelete(i, e)} className="flex hover:text-secondary  ">
+              <button
+                onClick={(e) => handleDelete(i, e)}
+                className="flex hover:text-secondary  "
+              >
                 <TrashIcon width={20} height={20} />
               </button>
             )}
