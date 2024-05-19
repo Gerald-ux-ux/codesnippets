@@ -1,5 +1,3 @@
-import { snippetItems } from "@/app/components/nav/menus";
-import NavBar from "@/app/components/nav/nav-bar";
 import { getCodeSnippets } from "@/app/snippets/actions/actions";
 import SnippetTags from "@/app/snippets/components/snippet-tags";
 import SnippetCodeList from "@/app/snippets/components/SnippetCodeList";
@@ -40,7 +38,6 @@ export default async function Code({ params }: { params: any }) {
   if (!code) return notFound();
   return (
     <div className={cn(page, "")}>
-      <NavBar navItems={snippetItems} isSnippet={true} />
       <div className="my-4 flex   w-full justify-between  items-center gap-4 ">
         <BackBtn />
         <h1 className=" text-xl  font-bold leading-tight tracking-tight text-primary md:text-3xl">

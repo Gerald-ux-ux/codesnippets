@@ -1,7 +1,4 @@
 import React from "react";
-import NavBar from "../components/nav/nav-bar";
-import { snippetItems } from "../components/nav/menus";
-import { Metadata } from "next";
 import { cn } from "@/lib/utils";
 import TopBar from "./components/top-bar";
 import { getCodeSnippets } from "./actions/actions";
