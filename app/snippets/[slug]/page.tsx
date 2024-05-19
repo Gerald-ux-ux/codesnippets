@@ -53,13 +53,13 @@ export default async function Code({ params }: { params: any }) {
             src={code?.author?.photo}
             size="sm"
           />
-          {userId === code.author.id && (
+          {/* {userId === code.author.id && (
             <DeleteSnippet
               text="Delete the whole snippet"
               code_id={code._id}
               snippet="Object"
             />
-          )}
+          )} */}
         </div>
       </div>
 
