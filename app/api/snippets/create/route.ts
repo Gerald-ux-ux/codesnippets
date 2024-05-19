@@ -6,9 +6,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     await databaseConnection();
-
     const body = await req.json();
-
     const { title, description, code }: any = body;
 
     if (!title || !description || !code) {
