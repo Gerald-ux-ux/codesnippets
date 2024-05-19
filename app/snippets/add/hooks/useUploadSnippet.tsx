@@ -59,7 +59,7 @@ export default function useUploadSnippet({
 
   const handleDelete = (id: number, e: any) => {
     e.preventDefault();
-    setEditor(editor.filter((_, i) => i !== id));
+    setEditor(editor.filter((_: any, i: any) => i !== id));
   };
 
   const handleSubmit = async (formData: FormData) => {
