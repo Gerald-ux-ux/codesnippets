@@ -2,11 +2,10 @@ import { databaseConnection } from "@/lib/backend/db/cs";
 import { deleteCodeSnippetById } from "@/lib/backend/models/snippets/services/lib";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(req: NextRequest, res: NextResponse) {
+export async function DELETE(req: NextRequest) {
   try {
     await databaseConnection();
-    const body = await req.json();
-    const { id } = body;
+    const { id }: any = req.nextUrl.pathname;
 
     if (!id) {
       return new NextResponse(

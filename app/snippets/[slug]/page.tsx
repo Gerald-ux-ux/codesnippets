@@ -12,8 +12,10 @@ import Avatar from "@/components/custom/avatar";
 import BackBtn from "@/components/custom/back-btn";
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
+import DeleteSnippet from "../components/delete-snippet";
 
 // import { getCodeSnippets } from "../actions/action";
 // import DeleteSnippet from "../components/actions/delete-snippet";
@@ -48,7 +50,11 @@ export default async function Code({ params }: { params: any }) {
   //   console.log('code', code);
   //   const user = await getUserInfo();
   const author = code?.author.id;
-  const user = undefined;
+  // const user = undefined;
+
+  const { userId } = auth();
+
+  console.log('code', code)
 
   if (!code) return notFound();
   return (
@@ -60,21 +66,23 @@ export default async function Code({ params }: { params: any }) {
           {code.title}
         </h1>
 
-        <Avatar
-          alt={code?.author.first_name}
-          width={40}
-          initials={`${code.author.first_name[0]}${code.author.last_name[0]}`}
-          height={40}
-          src={code?.author?.photo}
-          size="sm"
-        />
-        {/* {user?._id === code.author.id && (
-          <DeleteSnippet
-            text="Delete the whole snippet"
-            code_id={code._id}
-            snippet="Object"
+        <div className="flex items-center gap-4">
+          <Avatar
+            alt={code?.author.first_name}
+            width={40}
+            initials={`${code.author.first_name[0]}${code.author.last_name[0]}`}
+            height={40}
+            src={code?.author?.photo}
+            size="sm"
           />
-        )} */}
+          {userId === code.author.id && (
+            <DeleteSnippet
+              text="Delete the whole snippet"
+              code_id={code._id}
+              snippet="Object"
+            />
+          )}
+        </div>
       </div>
 
       <span className="flex w-full items-center justify-between text-lg leading-tight text-primary md:text-xl">
@@ -101,7 +109,7 @@ export default async function Code({ params }: { params: any }) {
           <SnippetCodeList
             code={tag}
             key={tag._id}
-            user={user}
+            user={userId}
             author={author!}
           />
         ))}
