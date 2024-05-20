@@ -9,7 +9,7 @@ import {
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { capsFirstLetter } from "@/lib/utils";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { copySnippet } from "../actions/actions";
@@ -19,14 +19,17 @@ type SnippetCodeListProps = {
   code: any;
   user?: any;
   author?: string;
+  codeLength: number;
 };
 
 export default function SnippetCodeList({
   code,
   user,
   author,
+  codeLength,
 }: SnippetCodeListProps) {
   const [success, setSuccess] = useState(false);
+
   const copyCode = async (snippetCode: string, snippetId: string) => {
     const res = await copySnippet(snippetId);
 

@@ -17,7 +17,8 @@ export default function DeleteDialog({ setOpen, code, actionLabel }: Props) {
     actionLabel,
   });
 
-  const codeLen = code.code.length;
+  const codeLen = code?.code?.length;
+  const buttonLabel = codeLen === undefined ? "Delete Snippet" : "Delete All";
 
   return (
     <form action={handleDelete} className="flex  h-full  flex-col gap-2">
@@ -53,7 +54,7 @@ export default function DeleteDialog({ setOpen, code, actionLabel }: Props) {
           isFormButton={true}
           className={cn(primaryButton, "hover:text-error rounded-md")}
           button={{
-            label: "Delete All",
+            label: buttonLabel,
           }}
         />
       </div>

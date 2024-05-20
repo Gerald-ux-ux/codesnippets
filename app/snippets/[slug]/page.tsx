@@ -9,8 +9,6 @@ import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 
 import Actions from "../components/actions-component";
-import Button from "@/components/custom/button";
-import { IoMdArrowRoundBack } from "react-icons/io";
 
 type Props = {
   params: {
@@ -80,6 +78,7 @@ export default async function Code({ params }: { params: any }) {
         {code.code.map((tag: any) => (
           <SnippetCodeList
             code={tag}
+            codeLength={code.code.length}
             key={tag._id}
             user={userId}
             author={author!}
