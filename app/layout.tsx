@@ -6,6 +6,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { dark } from "@clerk/themes";
 import { getUserSession } from "@/lib/backend/actions/user-actions";
+import { Toaster } from "react-hot-toast";
 
 // Global font
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
@@ -43,7 +44,16 @@ export default async function RootLayout({
           "text-primary h-screen   w-full  pt-4 pb-4 flex flex-col "
         )}
       >
-        <body>{children}</body>
+        <body>
+          {children}
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            toastOptions={{
+              duration: 3500,
+            }}
+          />
+        </body>
       </html>
     </ClerkProvider>
   );

@@ -9,9 +9,9 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
   try {
     await databaseConnection();
     const body = await req.json();
-    const { code_id, object_id } = body;
+    const { snippetId, codeId } = body;
 
-    if (!code_id || !object_id) {
+    if (!snippetId || !codeId) {
       return new NextResponse(
         JSON.stringify({
           success: false,
@@ -21,15 +21,16 @@ export async function DELETE(req: NextRequest, res: NextResponse) {
       );
     }
 
-    const res = await deleteCodeObjectById(code_id, object_id);
+    const res = await deleteCodeObjectById(snippetId, codeId);
     if (res.code.length === 0 || res.code.length < 0) {
-      await deleteCodeSnippetById(code_id);
+      await deleteCodeSnippetById(codeId);
     }
 
     return new NextResponse(
       JSON.stringify({
         success: true,
         message: "Snippet deleted successfully",
+        data: res,
       }),
       { status: 200 }
     );

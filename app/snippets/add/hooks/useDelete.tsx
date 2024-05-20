@@ -1,40 +1,37 @@
 "use client";
 
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { deleteCode, deleteSnippet } from "../../actions/actions";
 
 type Props = {
   setOpen: (value: boolean) => void;
-  id: string;
-  snippet: string;
+  code: any;
+  actionLabel: string;
 };
-export default function useDelete({ setOpen, id, snippet }: Props) {
+export default function useDelete({ setOpen, code, actionLabel }: Props) {
   const router = useRouter();
-  const objId = useParams();
+  const codeId = useParams();
+  const snippetId = code._id;
+
   async function handleDelete(formData: FormData) {
-    formData.append("id", String(id));
+    if (actionLabel === "code") {
+      // 'code' means the description, title and all the snippets inside
+      const res = await deleteCode(codeId.slug);
 
-    if (snippet === "Object") {
-      console.log("id", id);
-      console.log("objId", objId.slug);
-      const res = await deleteCode(id, objId.slug);
-
-      console.log("res", res);
       if (res.success) {
         router.push("/snippets");
         setOpen(false);
       } else {
-        console.log('res', res.message)
         setOpen(true);
         toast.error(res?.message);
       }
-    } else if (snippet === "Code") {
-      console.log('running code')
-      const res = await deleteSnippet(id);
-console.log('res', res)
-      if (res?.success) {
-        if (res.data.length === 0) {
+    } else if (actionLabel === "snippet") {
+      // 'snippet' means the specific code snippet
+      const res = await deleteSnippet(codeId.slug, snippetId);
+
+      if (res.success) {
+        if (res.data.code.length === 0) {
           router.push("/snippets");
         }
         setOpen(false);

@@ -8,14 +8,12 @@ const API_URL = "http://localhost:3000/api/snippets/create";
 const GET_SNIPPETS = "http://localhost:3000/api/snippets/fetch";
 const Give_Feedback = "http://localhost:3000/api/feedback";
 const Copy_Snippet = "http://localhost:3000/api/snippets/clone";
-const Delete_Snippet = (id: string) =>
-  `http://localhost:3000/api/snippets/delete/${id}`;
+const Delete_Snippet = `http://localhost:3000/api/snippets/delete/`;
 const Delete_Code = "http://localhost:3000/api/snippets/code";
 export async function getCodeSnippets(): Promise<any[]> {
   try {
     const res = await fetch(GET_SNIPPETS, { next: { tags: ["code"] } });
 
-    // console.log("res", res);
     const data = await res.json();
     return data?.data;
   } catch (error: any) {
@@ -78,19 +76,15 @@ export async function copySnippet(id: string) {
   }
 }
 
-export async function deleteCode(id: any, objId: any) {
+export async function deleteSnippet(codeId: any, snippetId: any) {
   try {
     const headers = await getUserSession();
     const headerValue = headers?.value;
 
-    console.log('d', id)
-
     const data = {
-      code_id: id._id,
-      object_id: objId,
+      snippetId,
+      codeId,
     };
-
-    console.log("data", data);
 
     const res = await axios.delete(Delete_Code, {
       data: data,
@@ -99,8 +93,6 @@ export async function deleteCode(id: any, objId: any) {
       },
     });
 
-    console.log("data", data);
-
     revalidateTag("code");
     return res?.data;
   } catch (error: any) {
@@ -108,22 +100,24 @@ export async function deleteCode(id: any, objId: any) {
   }
 }
 
-export async function deleteSnippet(id: string) {
+export async function deleteCode(id: any) {
   try {
     const headers = await getUserSession();
     const headerValue = headers?.value;
 
-    const res = await axios.delete(Delete_Snippet(id), {
+    const data = {
+      id,
+    };
+    const res = await axios.delete(Delete_Snippet, {
+      data: data,
       headers: {
         Authorization: `Bearer ${headerValue}`,
       },
     });
 
-    console.log("res", res);
     revalidateTag("code");
     return res?.data;
   } catch (error: any) {
-    console.log("errr", error);
     return error?.response?.data || errorMessage;
   }
 }

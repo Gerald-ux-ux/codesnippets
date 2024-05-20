@@ -40,9 +40,9 @@ export default function CodeEditor({
             value={value.code}
             className="bg-secondary p-2"
             height="25vh"
-            key={value.lang}
+            key={value.lang.value}
             theme={"vs-dark"}
-            defaultLanguage={value.lang.toLowerCase()}
+            defaultLanguage={value.lang.value}
             options={{
               minimap: {
                 enabled: false,

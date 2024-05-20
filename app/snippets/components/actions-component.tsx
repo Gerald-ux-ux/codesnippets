@@ -8,11 +8,15 @@ import EditAction from "@/components/custom/edit-action";
 
 type Props = {
   code?: any;
-  snippet: string;
+  actionLabel: string;
   modalActionTitle: string;
 };
 
-export default function Actions({ code, snippet, modalActionTitle }: Props) {
+export default function Actions({
+  code,
+  modalActionTitle,
+  actionLabel,
+}: Props) {
   const [deleteIsOpen, setDeleteIsOpen] = useState<boolean>(false);
   const [editIsOpen, setEditIsOpen] = useState<boolean>(false);
 
@@ -41,11 +45,11 @@ export default function Actions({ code, snippet, modalActionTitle }: Props) {
       <CustomDropDown
         trigger={<BsThreeDots />}
         label="Actions"
-        items={allActions}
+        items={actionLabel === "snippet" ? [allActions[1]] : allActions}
       />
       {deleteIsOpen && (
         <DeleteAction
-          snippet={snippet}
+          actionLabel={actionLabel}
           code={code}
           open={deleteIsOpen}
           setOpen={setDeleteIsOpen}

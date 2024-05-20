@@ -13,6 +13,7 @@ import { useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { copySnippet } from "../actions/actions";
+import Actions from "./actions-component";
 
 type SnippetCodeListProps = {
   code: any;
@@ -25,12 +26,8 @@ export default function SnippetCodeList({
   user,
   author,
 }: SnippetCodeListProps) {
-  // const theme = useTheme();
-
   const [success, setSuccess] = useState(false);
   const copyCode = async (snippetCode: string, snippetId: string) => {
-    console.log("snippetId", snippetId);
-    console.log("snippetCode", snippetCode);
     const res = await copySnippet(snippetId);
 
     if (res.success) {
@@ -69,14 +66,13 @@ export default function SnippetCodeList({
                     </>
                   )}
                 </button>
-
-                {/* {user === author && (
-                  <DeleteSnippet
-                    text="Delete this specific code"
-                    code_id={code}
-                    snippet="Code"
+                {user === author && (
+                  <Actions
+                    actionLabel="snippet"
+                    modalActionTitle="Delete this snippet"
+                    code={code}
                   />
-                )} */}
+                )}
               </span>
             </div>
             <SyntaxHighlighter

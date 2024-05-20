@@ -19,7 +19,7 @@ export default function LanguageSelector({ language, onSelect }: Props) {
     <div className="hover:text-secondary cursor-pointer">
       <Select onValueChange={(value) => onSelect({ label: value, value })}>
         <SelectTrigger className="w-[180px] border-none">
-          <SelectValue placeholder={language} />
+          <SelectValue placeholder={language.label} />
         </SelectTrigger>
         <SelectContent className="border-none  bg-hover">
           <SelectGroup>

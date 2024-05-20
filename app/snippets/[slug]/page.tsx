@@ -7,9 +7,8 @@ import BackBtn from "@/components/custom/back-btn";
 import { cn } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
-import DeleteSnippet from "../components/actions";
-import DeleteAction from "@/components/custom/delete-action";
-import Actions from "../components/actions";
+
+import Actions from "../components/actions-component";
 
 type Props = {
   params: {
@@ -35,7 +34,6 @@ export default async function Code({ params }: { params: any }) {
   const code = specificSnippet?.find((snippet) => snippet?._id === params.slug);
   const author = code?.author.id;
   const { userId } = auth();
-  console.log("code", code);
 
   if (!code) return notFound();
   return (
@@ -57,9 +55,9 @@ export default async function Code({ params }: { params: any }) {
           />
           {userId === code.author.id && (
             <Actions
-              modalActionTitle="Delete the whole snippet"
+              actionLabel="code"
+              modalActionTitle="Delete everything"
               code={code}
-              snippet="Object"
             />
           )}
         </div>
