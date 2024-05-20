@@ -1,8 +1,14 @@
 "use client";
 import { FormButton } from "./form-button";
-import { formBtn } from "@/app/styles/styles";
+import {
+  formBtn,
+  primaryButton,
+  secondaryButton,
+  tertiaryButton,
+} from "@/app/styles/styles";
 import useDelete from "@/app/snippets/add/hooks/useDelete";
 import { cn } from "@/lib/utils";
+import Button from "./button";
 
 type Props = {
   setOpen: (value: boolean) => void;
@@ -27,24 +33,28 @@ export default function DeleteDialog({ setOpen, code, actionLabel }: Props) {
           </p>
         ) : (
           <p>
-            Are you sure you want to delete these 3 snippets?
-            This action cannot be undone.
+            Are you sure you want to delete these 3 snippets? This action cannot
+            be undone.
           </p>
         )}
       </span>
       <span className="flex-grow " />
-      <span className="mb-2 flex  w-full bg-red-300 flex-col items-center justify-end gap-4">
-        <span className="flex w-full items-center justify-end  gap-2">
-          <button onClick={() => setOpen(false)} className={formBtn}>
-           No, Close
-          </button>
-
-          <FormButton
-            name="Delete All"
-            className={cn(formBtn, "hover:bg-error  border-none  text-error")}
-          />
-        </span>
-      </span>
+      <div className="flex w-full items-center justify-end  gap-4">
+        <Button
+          className={tertiaryButton}
+          button={{
+            label: "No close",
+            action: () => setOpen(false),
+          }}
+        />
+        <Button
+          isFormButton={true}
+          className={cn(primaryButton, "hover:text-error rounded-md")}
+          button={{
+            label: "Delete All",
+          }}
+        />
+      </div>
     </form>
   );
 }

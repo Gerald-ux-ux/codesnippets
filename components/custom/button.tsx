@@ -13,13 +13,14 @@ interface Props {
     action?: (...args: any[]) => void;
   };
   children?: React.ReactElement;
+  isFormButton?: boolean;
 }
 
-function Button({ className, button, children }: Props) {
+function Button({ className, button, children, isFormButton }: Props) {
   const { pending } = useFormStatus();
   return (
     <button
-      disabled={pending}
+      disabled={pending && isFormButton}
       onClick={(e) => {
         button?.action ? button?.action(e) : null;
       }}
@@ -27,7 +28,7 @@ function Button({ className, button, children }: Props) {
     >
       <span className={button?.iconClass}>{button?.icon}</span>
       <span className={button?.labelClass}>
-        {pending ? <BtnLoader /> : button?.label}
+        {pending && isFormButton ? <BtnLoader /> : button?.label}
       </span>
       {children}
     </button>

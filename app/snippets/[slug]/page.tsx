@@ -41,7 +41,7 @@ export default async function Code({ params }: { params: any }) {
   return (
     <div className={cn(page, "")}>
       <div className="flex items-center  w-full justify-between">
-        <BackBtn  />
+        <BackBtn />
 
         {userId === code.author.id && (
           <Actions
@@ -55,17 +55,6 @@ export default async function Code({ params }: { params: any }) {
         <h1 className=" text-xl  font-bold leading-tight tracking-tight text-primary md:text-3xl">
           {code.title}
         </h1>
-
-        <div className="flex items-center gap-4">
-          {/* <Avatar
-            alt={code?.author.first_name}
-            width={40}
-            initials={`${code.author.first_name[0]}${code.author.last_name[0]}`}
-            height={40}
-            src={code?.author?.photo}
-            size="sm"
-          /> */}
-        </div>
       </div>
 
       <span className="flex w-full items-center justify-between text-lg leading-tight text-primary md:text-xl">
