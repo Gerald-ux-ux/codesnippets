@@ -37,7 +37,7 @@ export default async function Code({ params }: { params: any }) {
 
   if (!code) return notFound();
   return (
-    <div className={cn(page, "")}>
+    <div className={cn(page, "mt-12")}>
       <div className="flex items-center  w-full justify-between">
         <BackBtn />
 

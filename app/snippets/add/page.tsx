@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 function Add(props: Props) {
   return (
-    <div className={cn(page)}>
+    <div className={cn(page, 'mt-12')}>
       <div
         className={cn("flex w-full md:text-base text-sm  items-center gap-4")}
       >

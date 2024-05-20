@@ -7,23 +7,33 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { values } from "./languages";
+import { cn } from "@/lib/utils";
 
 type Props = {
-  language: any
+  language?: any;
   onSelect: (language: { label: string; value: string }) => void;
+  className?: string;
+  trigger?: string;
+  values?: any;
 };
-export default function LanguageSelector({ language, onSelect }: Props) {
-  console.log("lang", language);
+
+export default function LanguageSelector({
+  language,
+  onSelect,
+  className,
+  trigger,
+  values,
+}: Props) {
+  // console.log("lang", language);
   return (
-    <div className="hover:text-secondary cursor-pointer">
+    <div className={cn(className, "hover:text-secondary cursor-pointer")}>
       <Select onValueChange={(value) => onSelect({ label: value, value })}>
-        <SelectTrigger className="w-[180px] border-none">
-          <SelectValue placeholder={language.label} />
+        <SelectTrigger className="gap-1 border-none">
+          <SelectValue placeholder={trigger} />
         </SelectTrigger>
-        <SelectContent className="border-none  bg-hover">
+        <SelectContent className="border-none    bg-hover">
           <SelectGroup>
-            {values.map((value) => (
+            {values?.map((value: any) => (
               <SelectItem
                 key={value.value}
                 className="w-full rounded-md p-2 hover:bg-primary hover:text-secondary"
