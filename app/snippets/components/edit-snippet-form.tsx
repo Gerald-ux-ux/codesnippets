@@ -4,7 +4,7 @@ import React from "react";
 import CodeEditor from "../add/components/code-editor";
 import useUploadSnippet from "../add/hooks/useUploadSnippet";
 import ErrorMessage from "@/components/custom/error-message";
-import { FormButton } from "@/components/custom/form-button";
+
 import { formBtn, primaryButton, tertiaryButton } from "@/app/styles/styles";
 import Button from "@/components/custom/button";
 import { cn } from "@/lib/utils";
@@ -60,7 +60,6 @@ function EditSnippetForm({ selectedSnippet }: Props) {
           className={tertiaryButton}
           button={{
             label: "No close",
-            // action: () => setOpen(false),
           }}
         />
         <Button

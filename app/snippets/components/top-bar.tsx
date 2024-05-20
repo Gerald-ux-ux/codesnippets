@@ -35,7 +35,7 @@ function TopBar({ snippets }: Props) {
     <div
       className={cn(
         page,
-        "flex px-0 w-full   mt-4 md:mt-0 justify-between  md:flex-row items-center gap-2"
+        "flex px-0 w-full   mt-4 mb-12  md:mt-0 justify-between  md:flex-row items-center gap-2"
       )}
     >
       <div className="flex md:w-10/12 w-full md:flex-row flex-col  gap-2 ">

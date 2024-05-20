@@ -34,7 +34,7 @@ function SnippetList({ data }: Props) {
 
   const filteredData = data
     .filter((snippet: any) =>
-      filter.selectedLanguage
+      filter.selectedLanguage && filter.selectedLanguage !== "all"
         ? snippet.code.some(
             (code: any) =>
               code.language.toLowerCase() ===
@@ -42,6 +42,7 @@ function SnippetList({ data }: Props) {
           )
         : true
     )
+
     .filter((snippet: any) =>
       searchItem
         ? snippet.title.toLowerCase().includes(searchItem.toLowerCase())

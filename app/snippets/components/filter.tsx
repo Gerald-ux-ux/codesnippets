@@ -22,8 +22,8 @@ function Filter({ sortOptions }: Props) {
       <LanguageSelector
         className="bg-secondary border border-primary rounded-md py-1"
         onSelect={handleLanguageSelect}
-        values={languages}
-        trigger={languages[0].label}
+        values={[{ label: "All", value: "all" }, ...languages]}
+        trigger="All"
       />
 
       <LanguageSelector

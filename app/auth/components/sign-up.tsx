@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
 import Image from "next/image";
@@ -34,8 +34,12 @@ export default function SignUp() {
           }
           items={[
             {
+              label: "All snippets",
+              onClick: () => router.push("/snippets"),
+            },
+            {
               label: "My snippets",
-              onClick: () => router.push('/snippets/profile'),
+              onClick: () => router.push("/snippets/profile"),
             },
             {
               label: "Sign Out",

@@ -16,6 +16,7 @@ export default function SnippetRootLayout({
   return (
     <div className={cn("flex flex-col ", page)}>
       <NavBar navItems={snippetItems} isSnippet={true} />
+      
       {children}
     </div>
   );

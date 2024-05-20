@@ -59,6 +59,7 @@ export default function Form() {
         />
         {/* Make the label dynamic */}
         <Button
+          isFormButton={true}
           className={primaryButton}
           button={{
             label: "Post snippet",
