@@ -3,6 +3,7 @@ import { Editor } from "@monaco-editor/react";
 import clsx from "clsx";
 import LanguageSelector from "./language-selector";
 import { TrashIcon } from "lucide-react";
+import Button from "@/components/custom/button";
 
 type Props = {
   editor: any;
@@ -56,12 +57,13 @@ export default function CodeEditor({
               language={value.lang}
             />
             {i === 0 ? null : (
-              <button
-                onClick={(e) => handleDelete(i, e)}
-                className="flex hover:text-secondary  "
-              >
-                <TrashIcon width={20} height={20} />
-              </button>
+              <Button
+                className="flex cursor-pointer"
+                button={{
+                  icon: <TrashIcon width={20} height={20} />,
+                  action: (e) => handleDelete(i, e),
+                }}
+              />
             )}
           </div>
         </div>

@@ -10,7 +10,7 @@ interface Props {
     label?: string;
     iconClass?: string;
     labelClass?: string;
-    action?: (e: any) => void;
+    action?: (...args: any[]) => void;
   };
   children?: React.ReactElement;
 }

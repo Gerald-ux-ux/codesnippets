@@ -3,6 +3,7 @@ import React from "react";
 
 import { cn } from "@/lib/utils";
 import { navBarItems } from "../../(home)/types/home";
+import { secondaryButton, tertiaryButton } from "@/app/styles/styles";
 
 interface Props {
   items: navBarItems;
@@ -15,7 +16,7 @@ function NavItems({ items, isSnippet }: Props) {
       href={items.link}
       className={cn(
         isSnippet ? "bg-secondary border border-primary" : "",
-        "text-base font-light flex items-center gap-2  hover:bg-hover hover:text-primary text-secondary p-2 rounded-md "
+        secondaryButton, 'text-secondary px-4 py-2'
       )}
     >
       {items.label} {items.icon}
