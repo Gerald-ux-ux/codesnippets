@@ -1,13 +1,9 @@
 "use client";
 import Avatar from "@/components/custom/avatar";
 import { cn, formatDate } from "@/lib/utils";
-import { useUser } from "@clerk/nextjs";
-import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
-import SnippetCodeList from "./SnippetCodeList";
 import SnippetTags from "./snippet-tags";
-import { useState } from "react";
 import { firaMono } from "@/lib/fonts";
 
 interface Props {
@@ -19,8 +15,6 @@ function SnippetList({ data }: Props) {
   const searchItem = searchQuery.get("query");
   const pathname = usePathname();
   const router = useRouter();
-  const { user } = useUser();
-  const [expanded, setExpanded] = useState<boolean[]>([]);
 
   function handleClicked(snippet: any) {
     return router.push(`${pathname}/${snippet._id}`);
@@ -77,14 +71,6 @@ function SnippetList({ data }: Props) {
                 </p>
                 <p>{formatDate(snippet.createdAt)}</p>
               </span>
-
-              {expanded[i] && (
-                <span>
-                  {snippet.code.map((code: any) => (
-                    <SnippetCodeList code={code} key={code._id} />
-                  ))}
-                </span>
-              )}
 
               <SnippetTags snippet={snippet} />
             </li>

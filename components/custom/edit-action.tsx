@@ -10,14 +10,13 @@ interface Props {
 }
 
 function EditAction({ open, setOpen, snippet }: Props) {
-  console.log("editable snippet", snippet);
   return (
     <div className="">
       <Modal
         triggerButton="Edit"
         dialogTitle="Edit Snippet"
         open={open}
-        maxHeight="max-h-[820px]"
+        maxHeight="max-h-[850px]"
         maxWidth="max-w-[600px]"
         setOpen={setOpen}
         icon={<CiEdit />}

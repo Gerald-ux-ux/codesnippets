@@ -1,11 +1,10 @@
 "use client";
-import { page } from "@/app/styles/styles";
+import { page, primaryButton } from "@/app/styles/styles";
 import { cn } from "@/lib/utils";
 import React from "react";
-import Link from "next/link";
-import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Hand } from "lucide-react";
+import Button from "@/components/custom/button";
 
 interface Props {}
 
@@ -26,12 +25,13 @@ function TopBar(props: Props) {
   }
   return (
     <div className={cn(page, "")}>
-      <button
-        onClick={handleClick}
-        className={cn("rounded-md bg-brand p-2 hover:bg-brand/50")}
-      >
-        Post a snippet
-      </button>
+      <Button
+        className={primaryButton}
+        button={{
+          label: "Post a snippet",
+          action: handleClick,
+        }}
+      />
     </div>
   );
 }
