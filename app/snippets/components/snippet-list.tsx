@@ -5,14 +5,15 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import SnippetTags from "./snippet-tags";
 import { firaMono } from "@/lib/fonts";
+import { useFiltersStore } from "@/lib/store";
 
 interface Props {
   data: any;
-  selectedLanguage: string;
-  selectedSort: string;
 }
 
-function SnippetList({ data, selectedLanguage, selectedSort }: Props) {
+function SnippetList({ data }: Props) {
+  const { filter }: any = useFiltersStore();
+
   const searchQuery = useSearchParams();
   const searchItem = searchQuery.get("query");
   const pathname = usePathname();
@@ -33,19 +34,24 @@ function SnippetList({ data, selectedLanguage, selectedSort }: Props) {
 
   const filteredData = data
     .filter((snippet: any) =>
-      selectedLanguage ? snippet.language === selectedLanguage : true
+      filter.selectedLanguage
+        ? snippet.code.some(
+            (code: any) =>
+              code.language.toLowerCase() ===
+              filter.selectedLanguage.toLowerCase()
+          )
+        : true
     )
     .filter((snippet: any) =>
       searchItem
         ? snippet.title.toLowerCase().includes(searchItem.toLowerCase())
-        : true
+        : snippet
     )
     .sort((a: any, b: any) =>
-      selectedSort === "most recent"
+      filter.selectedSort === "most recent"
         ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         : 0
     );
-
   return (
     <ul className="w-full mt-4 flex flex-col gap-4">
       {filteredData.map((snippet: any, i: number) => (

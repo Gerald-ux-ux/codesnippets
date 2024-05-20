@@ -9,14 +9,7 @@ interface Props {
 }
 
 function Search({ data }: Props) {
-  const {
-    handleResultsClick,
-    searchQuery,
-    setSearchResults,
-    resultClicked,
-    searchResults,
-    handleSearch,
-  } = useSearch();
+  const { searchQuery, setSearchResults, handleSearch } = useSearch();
   useEffect(() => {
     if (data && searchQuery) {
       const filteredResults = Array.isArray(data)
@@ -44,7 +37,7 @@ function Search({ data }: Props) {
           handleSearch(e.target.value);
         }}
         value={searchQuery}
-        className="w-full bg-inherit "
+        className="w-full bg-inherit focus:outline-none "
         placeholder="Search for a snippet..."
       />
     </form>

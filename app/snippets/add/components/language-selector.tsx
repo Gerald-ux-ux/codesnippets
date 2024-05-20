@@ -10,7 +10,6 @@ import {
 import { cn } from "@/lib/utils";
 
 type Props = {
-  language?: any;
   onSelect: (language: { label: string; value: string }) => void;
   className?: string;
   trigger?: string;
@@ -18,13 +17,11 @@ type Props = {
 };
 
 export default function LanguageSelector({
-  language,
   onSelect,
   className,
   trigger,
   values,
 }: Props) {
-  // console.log("lang", language);
   return (
     <div className={cn(className, "hover:text-secondary cursor-pointer")}>
       <Select onValueChange={(value) => onSelect({ label: value, value })}>

@@ -30,10 +30,10 @@ body {
 }
 
 /* Remove focus on text area and input fields */
-textarea:focus,
+/* textarea:focus,
 input:focus {
   outline: #6d6d6d;
-}
+} */
 
 @keyframes fadeIn {
   from {

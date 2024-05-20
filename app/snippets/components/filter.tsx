@@ -1,39 +1,34 @@
 "use client";
 import { languages } from "@/app/components/languages";
-import { secondaryButton } from "@/app/styles/styles";
-import Button from "@/components/custom/button";
-import CustomDropDown from "@/components/custom/custom-drop-down";
-import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import React from "react";
 import LanguageSelector from "../add/components/language-selector";
+import { useFiltersStore } from "@/lib/store";
 
 interface Props {
-  handleLanguageSelect: any;
-  selectedLanguage: string;
-  handleSortSelect: any;
   sortOptions: any;
 }
 
-function Filter({
-  handleLanguageSelect,
-  selectedLanguage,
-  handleSortSelect,
-  sortOptions,
-}: Props) {
+function Filter({ sortOptions }: Props) {
+  const { setFilter }: any = useFiltersStore();
+  const handleLanguageSelect = (language: { label: string; value: string }) => {
+    setFilter({ selectedLanguage: language.value });
+  };
+
+  const handleSortSelect = (sortOption: { label: string; value: string }) => {
+    setFilter({ selectedSort: sortOption.value });
+  };
   return (
     <div className="flex   md:justify-end items-center gap-1 ">
       <LanguageSelector
         className="bg-secondary border border-primary rounded-md py-1"
-        onSelect={(language) => handleLanguageSelect(language)}
-        // language={languages[0]}
+        onSelect={handleLanguageSelect}
         values={languages}
         trigger={languages[0].label}
       />
 
       <LanguageSelector
         className="bg-secondary border border-primary rounded-md py-1"
-        onSelect={(sortOption) => handleSortSelect(sortOption)}
-        // language={thisName}
+        onSelect={handleSortSelect}
         values={sortOptions}
         trigger="Sort"
       />

@@ -4,6 +4,7 @@ import clsx from "clsx";
 import LanguageSelector from "./language-selector";
 import { TrashIcon } from "lucide-react";
 import Button from "@/components/custom/button";
+import { languages } from "@/app/components/languages";
 
 type Props = {
   editor: any;
@@ -54,7 +55,8 @@ export default function CodeEditor({
           <div className="flex w-full items-center justify-between rounded-md rounded-t-none border-t border-gradient bg-secondary px-2 py-1 focus:border-none">
             <LanguageSelector
               onSelect={(language) => handleLanguageSelect(i, language)}
-              language={value.lang}
+              values={languages}
+              trigger={languages[0].label}
             />
             {i === 0 ? null : (
               <Button
