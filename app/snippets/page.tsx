@@ -4,6 +4,12 @@ import TopBar from "./components/top-bar";
 import { getCodeSnippets } from "./actions/actions";
 import SnippetList from "./components/snippet-list";
 import { page } from "../styles/styles";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Search for a snippet - Boost your productivity",
+  description: "Search, Copy and paste your snippet of choice",
+};
 
 export default async function Snippets() {
   const snippets = await getCodeSnippets();
