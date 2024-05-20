@@ -62,7 +62,8 @@ export async function PUT(req: NextRequest, res: NextResponse) {
     return new NextResponse(
       JSON.stringify({
         success: false,
-        message: error,
+        message: `DBerror: ${error.message}`,
+        data: error,
       }),
       { status: 500 }
     );

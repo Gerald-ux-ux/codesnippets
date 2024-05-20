@@ -6,7 +6,7 @@ import axios from "axios";
 import { revalidateTag } from "next/cache";
 const API_URL = "http://localhost:3000/api/snippets/create";
 const GET_SNIPPETS = "http://localhost:3000/api/snippets/fetch";
-const Give_Feedback = "http://localhost:3000/api/feedback";
+const Give_Feedback = "http://localhost:3000/api/mail";
 const Copy_Snippet = "http://localhost:3000/api/snippets/clone";
 const Delete_Snippet = `http://localhost:3000/api/snippets/delete/`;
 const Delete_Code = "http://localhost:3000/api/snippets/code";
@@ -164,3 +164,5 @@ export async function deleteCode(id: any) {
     return error?.response?.data || errorMessage;
   }
 }
+
+
