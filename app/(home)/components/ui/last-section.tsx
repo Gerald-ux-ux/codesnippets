@@ -17,7 +17,7 @@ function LastSection(props: Props) {
         </span>{" "}
         <br /> Get started today.
       </p>
-      <Btn action={() => {}} name="Add snippet" />
+      <Btn action={() => {}} name="Post a snippet" />
     </div>
   );
 }

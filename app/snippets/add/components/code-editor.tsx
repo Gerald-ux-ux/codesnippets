@@ -26,12 +26,12 @@ export default function CodeEditor({
           <input
             type="text"
             className={clsx(
-              "w-full rounded-md rounded-b-none border-b border-gradient bg-secondary p-2 focus:border-none"
+              "w-full rounded-md rounded-b-none border-b border-primary bg-secondary px-5 py-3 focus:border-none"
             )}
             value={value.heading}
             required
             onChange={(e) => handleHeadingChange(i, e.target.value)}
-            placeholder="Code heading"
+            placeholder="Type a code heading"
           />
           <Editor
             onChange={(newValue) =>

@@ -27,20 +27,20 @@ export default function DeleteDialog({ setOpen, code, actionLabel }: Props) {
           </p>
         ) : (
           <p>
-            Are you sure you want to everything? <br />
+            Are you sure you want to delete these 3 snippets?
             This action cannot be undone.
           </p>
         )}
       </span>
       <span className="flex-grow " />
-      <span className="mb-2 flex  flex-col justify-end gap-4">
-        <span className="flex w-full items-center  gap-2">
+      <span className="mb-2 flex  w-full bg-red-300 flex-col items-center justify-end gap-4">
+        <span className="flex w-full items-center justify-end  gap-2">
           <button onClick={() => setOpen(false)} className={formBtn}>
-            Close
+           No, Close
           </button>
 
           <FormButton
-            name="Delete"
+            name="Delete All"
             className={cn(formBtn, "hover:bg-error  border-none  text-error")}
           />
         </span>

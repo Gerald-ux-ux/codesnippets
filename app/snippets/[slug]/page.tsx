@@ -9,6 +9,8 @@ import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 
 import Actions from "../components/actions-component";
+import Button from "@/components/custom/button";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 type Props = {
   params: {
@@ -38,28 +40,31 @@ export default async function Code({ params }: { params: any }) {
   if (!code) return notFound();
   return (
     <div className={cn(page, "")}>
+      <div className="flex items-center  w-full justify-between">
+        <BackBtn  />
+
+        {userId === code.author.id && (
+          <Actions
+            actionLabel="code"
+            modalActionTitle="Delete everything"
+            code={code}
+          />
+        )}
+      </div>
       <div className="my-4 flex   w-full justify-between  items-center gap-4 ">
-        <BackBtn />
         <h1 className=" text-xl  font-bold leading-tight tracking-tight text-primary md:text-3xl">
           {code.title}
         </h1>
 
         <div className="flex items-center gap-4">
-          <Avatar
+          {/* <Avatar
             alt={code?.author.first_name}
             width={40}
             initials={`${code.author.first_name[0]}${code.author.last_name[0]}`}
             height={40}
             src={code?.author?.photo}
             size="sm"
-          />
-          {userId === code.author.id && (
-            <Actions
-              actionLabel="code"
-              modalActionTitle="Delete everything"
-              code={code}
-            />
-          )}
+          /> */}
         </div>
       </div>
 

@@ -41,9 +41,9 @@ export default function Actions({
   ];
 
   return (
-    <div className="">
+    <div className="flex items-center">
       <CustomDropDown
-        trigger={<BsThreeDots />}
+        trigger={<BsThreeDots className="text-2xl" />}
         label="Actions"
         items={actionLabel === "snippet" ? [allActions[1]] : allActions}
       />

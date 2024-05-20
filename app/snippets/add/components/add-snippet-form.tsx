@@ -1,13 +1,14 @@
 "use client";
 import CodeEditor from "./code-editor";
-import AddEditorBtn from "./add-editor";
 import ErrorMessage from "@/components/custom/error-message";
 import useUploadSnippet from "../hooks/useUploadSnippet";
-import { FormButton } from "@/components/custom/form-button";
-import { formBtn } from "@/app/styles/styles";
+import { primaryButton, secondaryButton } from "@/app/styles/styles";
+import { cn } from "@/lib/utils";
+import Button from "@/components/custom/button";
+import { PlusIcon } from "lucide-react";
 
 const inputClass =
-  "w-full rounded-md border border-primary bg-secondary p-2 focus:border-none";
+  "w-full rounded-md  border border-primary bg-secondary py-3 px-5 focus:border-none";
 
 export default function Form() {
   const {
@@ -27,7 +28,7 @@ export default function Form() {
         type="text"
         placeholder="Title"
         required
-        className={inputClass}
+        className={cn(inputClass)}
       />
       <textarea
         rows={3}
@@ -44,10 +45,27 @@ export default function Form() {
         handleCodeChange={handleCodeChange}
         handleDelete={handleDelete}
       />
-      <AddEditorBtn handleAdd={handleAdd} />
 
+      <div className="flex items-center justify-between w-full">
+        <Button
+          className={secondaryButton}
+          button={{
+            icon: <PlusIcon width={20} height={20} />,
+            label: "Add another snippet",
+            iconClass: "text-primary",
+            labelClass: "text-primary",
+            action: handleAdd,
+          }}
+        />
+        {/* Make the label dynamic */}
+        <Button
+          className={primaryButton}
+          button={{
+            label: "Post snippet",
+          }}
+        />
+      </div>
       {message ? <ErrorMessage message={message} /> : null}
-      <FormButton name="Post snippets" className={formBtn} />
     </form>
   );
 }

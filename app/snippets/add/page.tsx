@@ -3,8 +3,9 @@ import React from "react";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Form from "./components/add-snippet-form";
 import { cn } from "@/lib/utils";
-import { page } from "@/app/styles/styles";
+import { page, primaryText, secondaryText } from "@/app/styles/styles";
 import { Metadata } from "next";
+import BackBtn from "@/components/custom/back-btn";
 
 interface Props {}
 
@@ -16,17 +17,11 @@ export const metadata: Metadata = {
 function Add(props: Props) {
   return (
     <div className={cn(page)}>
-      <div className="flex w-full md:text-base text-sm  items-center justify-between">
-        Add a snippet of your choice
-        <Link
-          className={cn(
-            "bg-secondary border md:text-base border-primary  p-2 flex gap-2 items-center rounded-md  hover:bg-hover"
-          )}
-          href="/snippets"
-        >
-          <IoIosArrowRoundBack className="  md:text-2xl" />
-          Go back
-        </Link>
+      <div
+        className={cn("flex w-full md:text-base text-sm  items-center gap-4")}
+      >
+        <BackBtn />
+        <p className={cn(secondaryText)}>Add a snippet of your choice</p>
       </div>
       <Form />
     </div>

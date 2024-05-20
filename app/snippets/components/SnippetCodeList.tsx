@@ -49,20 +49,20 @@ export default function SnippetCodeList({
           <div className="rounded-lg  p-2">
             <div className="mr-4 flex w-full  cursor-pointer  items-center justify-between   rounded-lg p-2 text-secondary ">
               {capsFirstLetter(code.language)}
-              <span className="flex items-center gap-4">
+              <span className="flex items-center  gap-4">
                 <button
                   onClick={() => copyCode(code.content, code._id)}
-                  className="flex  items-center gap-2"
+                  className="flex items-center gap-2"
                 >
                   {success ? (
                     <>
                       <IoMdCheckmark />
-                      <small>Copied</small>
+                      <span>Copied</span>
                     </>
                   ) : (
                     <>
                       <IoClipboardOutline />
-                      <small>Copy code</small>
+                      <span>Copy code</span>
                     </>
                   )}
                 </button>

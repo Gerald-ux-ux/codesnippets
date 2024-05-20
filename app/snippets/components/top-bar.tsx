@@ -20,7 +20,7 @@ function TopBar(props: Props) {
   if (!isSignedIn) {
     return (
       <SignInButton mode="modal">
-        <button className="rounded-md  bg-brand p-2">Add snippets</button>
+        <button className="rounded-md  bg-brand p-2">Post a snippet</button>
       </SignInButton>
     );
   }
@@ -30,7 +30,7 @@ function TopBar(props: Props) {
         onClick={handleClick}
         className={cn("rounded-md bg-brand p-2 hover:bg-brand/50")}
       >
-        Add snippets
+        Post a snippet
       </button>
     </div>
   );
