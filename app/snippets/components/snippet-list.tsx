@@ -17,16 +17,16 @@ function SnippetList({ data }: Props) {
   const router = useRouter();
 
   function handleClicked(snippet?: any, source?: string) {
-    console.log("source", snippet);
-    if (source === "profile") {
-      console.log("source detected", source);
+    // console.log("source", snippet);
+    // if (source === "profile") {
+    //   console.log("source detected", source);
 
-      return router.push(
-        `/snippets/profile?profile=${snippet.author.id}`
-      );
-    } else {
-      return router.push(`${pathname}/${snippet._id}`);
-    }
+    //   return router.push(
+    //     `/snippets/profile?profile=${snippet.author.id}`
+    //   );
+    // }
+
+    return router.push(`${pathname}/${snippet._id}`);
   }
   return (
     <ul className="w-full flex flex-col gap-4">
@@ -63,12 +63,12 @@ function SnippetList({ data }: Props) {
                   </p>
 
                   <span className="block">
-                    <button
+                    {/* <button
                       onClick={(e) => {
                         e.stopPropagation();
                         handleClicked(snippet, "profile");
                       }}
-                    >
+                    > */}
                       <Avatar
                         alt={snippet?.author.first_name}
                         width={40}
@@ -77,7 +77,7 @@ function SnippetList({ data }: Props) {
                         src={snippet?.author?.photo}
                         size="sm"
                       />
-                    </button>
+                    {/* </button> */}
                   </span>
                 </span>
               </span>

@@ -10,26 +10,14 @@ export const metadata: Metadata = {
   title: "Profile - Code Snippets",
   description: "Quick view of your snippets",
 };
-export default async function ProfilePage({
-  searchParams,
-}: {
-  searchParams: { profile: string };
-}) {
-  let userId: string | undefined = "";
-
-  if (searchParams) {
-    userId = searchParams.profile;
-  } else {
-    const authResult = auth();
-    userId = authResult.userId!;
-  }
-  const userSnippets = await getSnippetByUserId(userId!);
+export default async function ProfilePage() {
+  const { userId } = auth();
   const user = await clerkClient.users.getUser(userId!);
+  const userSnippets = await getSnippetByUserId(userId!);
   return (
     <div className={cn(page, "items-start")}>
       <p className={cn(secondaryText)}>
-        Snippets posted by{" "}
-        {capsFirstLetter(`${user?.firstName} ${user?.lastName}`)}
+        Welcome back {capsFirstLetter(`${user?.firstName} ${user?.lastName}`)}
       </p>
       <SnippetList data={userSnippets} />
     </div>
