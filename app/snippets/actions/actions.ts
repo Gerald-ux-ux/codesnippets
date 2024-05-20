@@ -11,6 +11,7 @@ const Copy_Snippet = "http://localhost:3000/api/snippets/clone";
 const Delete_Snippet = `http://localhost:3000/api/snippets/delete/`;
 const Delete_Code = "http://localhost:3000/api/snippets/code";
 const Get_Snippets_ById = `http://localhost:3000/api/snippets/user/`;
+const Edit_Snippet = "http://localhost:3000/api/snippets/edit";
 export async function getCodeSnippets(): Promise<any[]> {
   try {
     const res = await fetch(GET_SNIPPETS, { next: { tags: ["code"] } });
@@ -68,6 +69,39 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
     return res?.data;
   } catch (error: any) {
     console.log("error", error.response.data);
+    return error?.response?.data || errorMessage;
+  }
+}
+
+export async function editCodeSnippet(
+  formData: FormData,
+  editor: any,
+  id: string
+) {
+  try {
+    const headers = await getUserSession();
+    const headerValue = headers?.value;
+    const sanitizedSnippet = editor.map((code: any) => ({
+      heading: code.heading,
+      language: code.lang.label,
+      content: code.code,
+    }));
+    const data = {
+      title: formData.get("title"),
+      description: formData.get("description"),
+      code: sanitizedSnippet,
+      id: id,
+    };
+
+    const res = await axios.put(Edit_Snippet, data, {
+      headers: {
+        Authorization: `Bearer ${headerValue}`,
+      },
+    });
+    revalidateTag("code");
+    return res?.data;
+  } catch (error: any) {
+    console.log("error", error);
     return error?.response?.data || errorMessage;
   }
 }

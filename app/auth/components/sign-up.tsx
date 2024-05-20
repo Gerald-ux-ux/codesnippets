@@ -13,7 +13,7 @@ export default function SignUp() {
 
   if (isSignedIn) {
     return (
-      <div className="md:flex hidden    items-center">
+      <div className="md:flex hidden items-center">
         <CustomDropDown
           trigger={
             <Image

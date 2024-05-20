@@ -16,7 +16,7 @@ interface Props {
 }
 const inputClass =
   "w-full rounded-md border border-primary bg-secondary p-2 focus:border-none";
-function EditSnippetForm({ selectedSnippet }: Props) {
+function EditSnippetForm({ selectedSnippet, setOpen }: Props) {
   const { description, title } = selectedSnippet;
   const {
     editor,
@@ -25,11 +25,11 @@ function EditSnippetForm({ selectedSnippet }: Props) {
     handleCodeChange,
     handleDelete,
     handleSubmit,
-    handleAdd,
     message,
-  } = useUploadSnippet({ selectedSnippet });
+  } = useUploadSnippet({ selectedSnippet, action: "edit", setOpen });
+  console.log("selectedSnippet", selectedSnippet);
   return (
-    <form action="" className="flex w-full   flex-col gap-2 py-4">
+    <form action={handleSubmit} className="flex w-full   flex-col gap-2 py-4">
       <input
         name="title"
         type="text"
@@ -60,13 +60,14 @@ function EditSnippetForm({ selectedSnippet }: Props) {
           className={tertiaryButton}
           button={{
             label: "No close",
+            action: () => setOpen(false),
           }}
         />
         <Button
           isFormButton={true}
           className={cn(primaryButton, "hover:text-error rounded-md")}
           button={{
-            label: "Post snippet",
+            label: "Edit snippet",
           }}
         />
       </div>
