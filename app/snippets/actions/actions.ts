@@ -10,6 +10,7 @@ const Give_Feedback = "http://localhost:3000/api/feedback";
 const Copy_Snippet = "http://localhost:3000/api/snippets/clone";
 const Delete_Snippet = `http://localhost:3000/api/snippets/delete/`;
 const Delete_Code = "http://localhost:3000/api/snippets/code";
+const Get_Snippets_ById = `http://localhost:3000/api/snippets/user/`;
 export async function getCodeSnippets(): Promise<any[]> {
   try {
     const res = await fetch(GET_SNIPPETS, { next: { tags: ["code"] } });
@@ -21,6 +22,14 @@ export async function getCodeSnippets(): Promise<any[]> {
   }
 }
 
+export async function getSnippetByUserId(userId: string) {
+  try {
+    const res = await axios.post(Get_Snippets_ById, { userId });
+    return res.data?.data;
+  } catch (error: any) {
+    return error?.response?.data || errorMessage;
+  }
+}
 export async function submitFeedBack(formData: FormData) {
   try {
     const data = {

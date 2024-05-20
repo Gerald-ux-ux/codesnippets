@@ -1,30 +1,32 @@
 import { databaseConnection } from "@/lib/backend/db/cs";
-import { getCodeSnippets } from "@/lib/backend/models/snippets/services/lib";
-import { errorMessage } from "@/lib/secrete";
+import { getCodeSnippetByUserId } from "@/lib/backend/models/snippets/services/lib";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     await databaseConnection();
 
-    const snippets = await getCodeSnippets();
+    const body = await req.json();
+    const { userId }: any = body;
+    console.log("user", userId);
 
-    if (!snippets) {
+    if (!userId) {
       return new NextResponse(
         JSON.stringify({
           success: false,
-          message: "No snippets available, be the first one to add.",
+          message: "You must be logged in",
         }),
-        { status: 200 }
+        { status: 400 }
       );
     }
+
+    const res = await getCodeSnippetByUserId(userId);
 
     return new NextResponse(
       JSON.stringify({
         success: true,
-        data: snippets,
-      }),
-      { status: 200 }
+        data: res,
+      })
     );
   } catch (error: any) {
     return new NextResponse(

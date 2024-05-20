@@ -16,8 +16,17 @@ function SnippetList({ data }: Props) {
   const pathname = usePathname();
   const router = useRouter();
 
-  function handleClicked(snippet: any) {
-    return router.push(`${pathname}/${snippet._id}`);
+  function handleClicked(snippet?: any, source?: string) {
+    console.log("source", snippet);
+    if (source === "profile") {
+      console.log("source detected", source);
+
+      return router.push(
+        `/snippets/profile?profile=${snippet.author.id}`
+      );
+    } else {
+      return router.push(`${pathname}/${snippet._id}`);
+    }
   }
   return (
     <ul className="w-full flex flex-col gap-4">
@@ -54,14 +63,21 @@ function SnippetList({ data }: Props) {
                   </p>
 
                   <span className="block">
-                    <Avatar
-                      alt={snippet?.author.first_name}
-                      width={40}
-                      initials={`${snippet.author.first_name[0]}${snippet.author.last_name[0]}`}
-                      height={40}
-                      src={snippet?.author?.photo}
-                      size="sm"
-                    />
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleClicked(snippet, "profile");
+                      }}
+                    >
+                      <Avatar
+                        alt={snippet?.author.first_name}
+                        width={40}
+                        initials={`${snippet.author.first_name[0]}${snippet.author.last_name[0]}`}
+                        height={40}
+                        src={snippet?.author?.photo}
+                        size="sm"
+                      />
+                    </button>
                   </span>
                 </span>
               </span>
