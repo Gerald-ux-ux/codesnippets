@@ -1,11 +1,5 @@
 "use client";
-import { FormButton } from "./form-button";
-import {
-  formBtn,
-  primaryButton,
-  secondaryButton,
-  tertiaryButton,
-} from "@/app/styles/styles";
+import { primaryButton, tertiaryButton } from "@/app/styles/styles";
 import useDelete from "@/app/snippets/add/hooks/useDelete";
 import { cn } from "@/lib/utils";
 import Button from "./button";
@@ -23,6 +17,8 @@ export default function DeleteDialog({ setOpen, code, actionLabel }: Props) {
     actionLabel,
   });
 
+  const codeLen = code.code.length;
+
   return (
     <form action={handleDelete} className="flex  h-full  flex-col gap-2">
       <span>
@@ -32,10 +28,16 @@ export default function DeleteDialog({ setOpen, code, actionLabel }: Props) {
             This action cannot be undone.
           </p>
         ) : (
-          <p>
-            Are you sure you want to delete these 3 snippets? This action cannot
-            be undone.
-          </p>
+          <>
+            {codeLen === 1 ? (
+              <p>Are you sure you want to delete this snippet?</p>
+            ) : (
+              <p>
+                Are you sure you want to delete these <strong>{codeLen}</strong>{" "}
+                snippets? This action cannot be undone.
+              </p>
+            )}
+          </>
         )}
       </span>
       <span className="flex-grow " />
