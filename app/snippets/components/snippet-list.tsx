@@ -59,7 +59,7 @@ function SnippetList({ data }: Props) {
         <div onClick={() => handleClicked(snippet)} key={snippet._id}>
           <li
             className={cn(
-              "flex cursor-pointer  hover:bg-hover h-[210px] flex-col gap-3 rounded-xl border border-primary  p-3"
+              "flex cursor-pointer b  hover:bg-hover h-[210px] flex-col gap-3 rounded-xl border border-primary  p-3"
             )}
           >
             <span className="flex w-full items-center justify-between gap-2 ">

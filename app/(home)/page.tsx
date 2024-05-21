@@ -8,10 +8,12 @@ import LastSection from "./components/ui/last-section";
 import ProductDemo from "./components/ui/product-demo";
 import Usp from "./components/ui/usp";
 import { navItems } from "../components/nav/menus";
+import { cn } from "@/lib/utils";
+import { page } from "../styles/styles";
 
 export default function Home() {
   return (
-    <TracingBeam className="flex  flex-col animate-in  items-center gap-14 w-full px-4 mx-auto max-w-7xl">
+    <TracingBeam className={cn(page, 'px-0')}>
       <NavBar navItems={navItems} />
       <HeroSection />
       <Usp />
