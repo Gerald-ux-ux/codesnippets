@@ -29,7 +29,6 @@ export default function SnippetRootLayout({
   ];
   const { setOpen, open } = useSubmitFeedback();
 
-  console.log("opened", open);
   return (
     <div className={cn("flex flex-col ", page)}>
       <NavBar navItems={snippetItems} isSnippet={true} />
