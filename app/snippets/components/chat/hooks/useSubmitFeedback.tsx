@@ -10,15 +10,12 @@ export default function useSubmitFeedback() {
   const { user: userIs } = useUser();
 
   const userEmail = userIs?.primaryEmailAddress?.emailAddress;
-  console.log("user email", userEmail);
+
   const [user] = useState<any>(userEmail ? userEmail : "username@gmail.com");
 
   const handleSubmit = async (formData: FormData) => {
     formData.set("from", user);
-
     const res = await submitFeedBack(formData);
-
-    console.log("res", res.success);
     if (res.success) {
       setOpen(false);
     } else {

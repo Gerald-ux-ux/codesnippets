@@ -35,6 +35,7 @@ export default function SnippetRootLayout({
       <NavBar navItems={snippetItems} isSnippet={true} />
       {children}
 
+
       <Feedback open={open} setOpen={setOpen} />
     </div>
   );
