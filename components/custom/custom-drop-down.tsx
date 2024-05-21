@@ -21,17 +21,23 @@ interface Props {
   trigger: any;
   label: any;
   items: any;
+  className?: string;
 }
 
-function CustomDropDown({ trigger, label, items }: Props) {
+function CustomDropDown({ trigger, label, items, className }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="border-none">
         {trigger}
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent className="bg-secondary border mt-4 mr-24 border-primary ">
-        <DropdownMenuLabel>{label}</DropdownMenuLabel>
+      <DropdownMenuContent
+        className={cn(
+          className,
+          "bg-secondary border mt-4 mr-24 border-primary "
+        )}
+      >
+        <DropdownMenuLabel className="" >{label}</DropdownMenuLabel>
         <DropdownMenuSeparator className="border-b border-gradient" />
         {items.map((item: any) => (
           <DropdownMenuItem

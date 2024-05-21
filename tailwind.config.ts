@@ -27,7 +27,7 @@ const config = {
         secondary: "#6E6E70",
         tertiary: "#BD8623",
         brand: "#D1311F",
-        error: "#FF0000",
+        error: "#FF6D6D",
         success: "#27AE60",
         warning: "#C0C436",
         info: "#29B6F6",

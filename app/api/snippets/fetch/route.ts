@@ -30,7 +30,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
     return new NextResponse(
       JSON.stringify({
         success: false,
-        message: error?.response?.data || errorMessage,
+        message: `DBerror: ${error.message}`,
       }),
       { status: 400 }
     );

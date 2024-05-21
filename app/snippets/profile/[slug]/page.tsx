@@ -7,8 +7,8 @@ import BackBtn from "@/components/custom/back-btn";
 import { cn } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
+import Actions from "../../components/actions-component";
 
-import Actions from "../components/actions-component";
 
 type Props = {
   params: {

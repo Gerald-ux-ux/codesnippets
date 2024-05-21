@@ -4,8 +4,10 @@ import React from "react";
 import CodeEditor from "../add/components/code-editor";
 import useUploadSnippet from "../add/hooks/useUploadSnippet";
 import ErrorMessage from "@/components/custom/error-message";
-import { FormButton } from "@/components/custom/form-button";
-import { formBtn } from "@/app/styles/styles";
+
+import { formBtn, primaryButton, tertiaryButton } from "@/app/styles/styles";
+import Button from "@/components/custom/button";
+import { cn } from "@/lib/utils";
 
 interface Props {
   setOpen: (values: boolean) => void;
@@ -14,7 +16,7 @@ interface Props {
 }
 const inputClass =
   "w-full rounded-md border border-primary bg-secondary p-2 focus:border-none";
-function EditSnippetForm({ selectedSnippet }: Props) {
+function EditSnippetForm({ selectedSnippet, setOpen }: Props) {
   const { description, title } = selectedSnippet;
   const {
     editor,
@@ -23,11 +25,11 @@ function EditSnippetForm({ selectedSnippet }: Props) {
     handleCodeChange,
     handleDelete,
     handleSubmit,
-    handleAdd,
     message,
-  } = useUploadSnippet({ selectedSnippet });
+  } = useUploadSnippet({ selectedSnippet, action: "edit", setOpen });
+  console.log("selectedSnippet", selectedSnippet);
   return (
-    <form action="" className="flex w-full     flex-col gap-2 py-4">
+    <form action={handleSubmit} className="flex w-full   flex-col gap-2 py-4">
       <input
         name="title"
         type="text"
@@ -52,9 +54,23 @@ function EditSnippetForm({ selectedSnippet }: Props) {
         handleCodeChange={handleCodeChange}
         handleDelete={handleDelete}
       />
-
       {message ? <ErrorMessage message={message} /> : null}
-      <FormButton name="Post snippets" className={formBtn} />
+      <div className="flex w-full items-center justify-end  gap-4">
+        <Button
+          className={tertiaryButton}
+          button={{
+            label: "No close",
+            action: () => setOpen(false),
+          }}
+        />
+        <Button
+          isFormButton={true}
+          className={cn(primaryButton, "hover:text-error rounded-md")}
+          button={{
+            label: "Edit snippet",
+          }}
+        />
+      </div>
     </form>
   );
 }

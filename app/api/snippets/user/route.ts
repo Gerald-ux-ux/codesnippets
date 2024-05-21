@@ -1,40 +1,40 @@
 import { databaseConnection } from "@/lib/backend/db/cs";
-import { deleteCodeSnippetById } from "@/lib/backend/models/snippets/services/lib";
+import { getCodeSnippetByUserId } from "@/lib/backend/models/snippets/services/lib";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     await databaseConnection();
-    const body = await req.json();
-    const { id }: any = body;
 
-    if (!id) {
+    const body = await req.json();
+    const { userId }: any = body;
+    console.log("user", userId);
+
+    if (!userId) {
       return new NextResponse(
         JSON.stringify({
           success: false,
-          message: "Provide a snippet ID",
+          message: "You must be logged in",
         }),
-        { status: 500 }
+        { status: 400 }
       );
     }
 
-    await deleteCodeSnippetById(id);
+    const res = await getCodeSnippetByUserId(userId);
 
     return new NextResponse(
       JSON.stringify({
         success: true,
-        message: "Snippet deleted successfully",
-      }),
-      { status: 200 }
+        data: res,
+      })
     );
   } catch (error: any) {
     return new NextResponse(
       JSON.stringify({
         success: false,
         message: `DBerror: ${error.message}`,
-        data: error,
-      })
+      }),
+      { status: 400 }
     );
-  } finally {
   }
 }

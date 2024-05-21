@@ -6,16 +6,16 @@ import axios from "axios";
 import { revalidateTag } from "next/cache";
 const API_URL = "http://localhost:3000/api/snippets/create";
 const GET_SNIPPETS = "http://localhost:3000/api/snippets/fetch";
-const Give_Feedback = "http://localhost:3000/api/feedback";
+const Give_Feedback = "http://localhost:3000/api/mail";
 const Copy_Snippet = "http://localhost:3000/api/snippets/clone";
-const Delete_Snippet = (id: string) =>
-  `http://localhost:3000/api/snippets/delete/${id}`;
+const Delete_Snippet = `http://localhost:3000/api/snippets/delete/`;
 const Delete_Code = "http://localhost:3000/api/snippets/code";
+const Get_Snippets_ById = `http://localhost:3000/api/snippets/user/`;
+const Edit_Snippet = "http://localhost:3000/api/snippets/edit";
 export async function getCodeSnippets(): Promise<any[]> {
   try {
     const res = await fetch(GET_SNIPPETS, { next: { tags: ["code"] } });
 
-    // console.log("res", res);
     const data = await res.json();
     return data?.data;
   } catch (error: any) {
@@ -23,6 +23,14 @@ export async function getCodeSnippets(): Promise<any[]> {
   }
 }
 
+export async function getSnippetByUserId(userId: string) {
+  try {
+    const res = await axios.post(Get_Snippets_ById, { userId });
+    return res.data?.data;
+  } catch (error: any) {
+    return error?.response?.data || errorMessage;
+  }
+}
 export async function submitFeedBack(formData: FormData) {
   try {
     const data = {
@@ -65,6 +73,39 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
   }
 }
 
+export async function editCodeSnippet(
+  formData: FormData,
+  editor: any,
+  id: string
+) {
+  try {
+    const headers = await getUserSession();
+    const headerValue = headers?.value;
+    const sanitizedSnippet = editor.map((code: any) => ({
+      heading: code.heading,
+      language: code.lang.label,
+      content: code.code,
+    }));
+    const data = {
+      title: formData.get("title"),
+      description: formData.get("description"),
+      code: sanitizedSnippet,
+      id: id,
+    };
+
+    const res = await axios.put(Edit_Snippet, data, {
+      headers: {
+        Authorization: `Bearer ${headerValue}`,
+      },
+    });
+    revalidateTag("code");
+    return res?.data;
+  } catch (error: any) {
+    console.log("error", error);
+    return error?.response?.data || errorMessage;
+  }
+}
+
 export async function copySnippet(id: string) {
   try {
     const data = {
@@ -78,19 +119,15 @@ export async function copySnippet(id: string) {
   }
 }
 
-export async function deleteCode(id: any, objId: any) {
+export async function deleteSnippet(codeId: any, snippetId: any) {
   try {
     const headers = await getUserSession();
     const headerValue = headers?.value;
 
-    console.log('d', id)
-
     const data = {
-      code_id: id._id,
-      object_id: objId,
+      snippetId,
+      codeId,
     };
-
-    console.log("data", data);
 
     const res = await axios.delete(Delete_Code, {
       data: data,
@@ -99,8 +136,6 @@ export async function deleteCode(id: any, objId: any) {
       },
     });
 
-    console.log("data", data);
-
     revalidateTag("code");
     return res?.data;
   } catch (error: any) {
@@ -108,22 +143,26 @@ export async function deleteCode(id: any, objId: any) {
   }
 }
 
-export async function deleteSnippet(id: string) {
+export async function deleteCode(id: any) {
   try {
     const headers = await getUserSession();
     const headerValue = headers?.value;
 
-    const res = await axios.delete(Delete_Snippet(id), {
+    const data = {
+      id,
+    };
+    const res = await axios.delete(Delete_Snippet, {
+      data: data,
       headers: {
         Authorization: `Bearer ${headerValue}`,
       },
     });
 
-    console.log("res", res);
     revalidateTag("code");
     return res?.data;
   } catch (error: any) {
-    console.log("errr", error);
     return error?.response?.data || errorMessage;
   }
 }
+
+

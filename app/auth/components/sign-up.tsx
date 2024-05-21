@@ -1,16 +1,19 @@
+"use client";
 import React from "react";
 import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import { capsFirstLetter } from "@/lib/utils";
 import CustomDropDown from "@/components/custom/custom-drop-down";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const { isSignedIn, user } = useUser();
   const { signOut } = useClerk();
+  const router = useRouter();
 
   if (isSignedIn) {
     return (
-      <div className="md:flex hidden    items-center">
+      <div className="md:flex hidden items-center">
         <CustomDropDown
           trigger={
             <Image
@@ -31,8 +34,12 @@ export default function SignUp() {
           }
           items={[
             {
+              label: "All snippets",
+              onClick: () => router.push("/snippets"),
+            },
+            {
               label: "My snippets",
-              onClick: () => {},
+              onClick: () => router.push("/snippets/profile"),
             },
             {
               label: "Sign Out",

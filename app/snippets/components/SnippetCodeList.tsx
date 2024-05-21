@@ -9,28 +9,28 @@ import {
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { capsFirstLetter } from "@/lib/utils";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoMdCheckmark } from "react-icons/io";
 import { a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { copySnippet } from "../actions/actions";
+import Actions from "./actions-component";
 
 type SnippetCodeListProps = {
   code: any;
   user?: any;
   author?: string;
+  codeLength: number;
 };
 
 export default function SnippetCodeList({
   code,
   user,
   author,
+  codeLength,
 }: SnippetCodeListProps) {
-  // const theme = useTheme();
-
   const [success, setSuccess] = useState(false);
+
   const copyCode = async (snippetCode: string, snippetId: string) => {
-    console.log("snippetId", snippetId);
-    console.log("snippetCode", snippetCode);
     const res = await copySnippet(snippetId);
 
     if (res.success) {
@@ -52,31 +52,30 @@ export default function SnippetCodeList({
           <div className="rounded-lg  p-2">
             <div className="mr-4 flex w-full  cursor-pointer  items-center justify-between   rounded-lg p-2 text-secondary ">
               {capsFirstLetter(code.language)}
-              <span className="flex items-center gap-4">
+              <span className="flex items-center  gap-4">
                 <button
                   onClick={() => copyCode(code.content, code._id)}
-                  className="flex  items-center gap-2"
+                  className="flex items-center gap-2"
                 >
                   {success ? (
                     <>
                       <IoMdCheckmark />
-                      <small>Copied</small>
+                      <span>Copied</span>
                     </>
                   ) : (
                     <>
                       <IoClipboardOutline />
-                      <small>Copy code</small>
+                      <span>Copy code</span>
                     </>
                   )}
                 </button>
-
-                {/* {user === author && (
-                  <DeleteSnippet
-                    text="Delete this specific code"
-                    code_id={code}
-                    snippet="Code"
+                {user === author && (
+                  <Actions
+                    actionLabel="snippet"
+                    modalActionTitle="Delete this snippet"
+                    code={code}
                   />
-                )} */}
+                )}
               </span>
             </div>
             <SyntaxHighlighter

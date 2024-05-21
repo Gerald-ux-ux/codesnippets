@@ -14,3 +14,10 @@ export const formatDate = (date: any) => {
     year: "numeric",
   });
 };
+
+
+export function handleFilter (option : any, data: any) {
+
+
+  
+}

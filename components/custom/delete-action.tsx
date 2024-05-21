@@ -7,12 +7,11 @@ interface Props {
   text: string;
   open: boolean;
   setOpen: (value: boolean) => void;
-  snippet: any;
   code: any;
+  actionLabel: string;
 }
 
-function DeleteAction({ open, setOpen, text, snippet, code }: Props) {
-  console.log("code to be deleted", code);
+function DeleteAction({ open, setOpen, text, code, actionLabel }: Props) {
   return (
     <div>
       <Modal
@@ -24,10 +23,9 @@ function DeleteAction({ open, setOpen, text, snippet, code }: Props) {
         icon={<CiTrash />}
         formComponent={
           <DeleteDialog
-            snippet={snippet}
-            id={code}
+            actionLabel={actionLabel}
+            code={code}
             setOpen={setOpen}
-            actionItem="Snippet"
           />
         }
       />

@@ -3,6 +3,9 @@ import { Editor } from "@monaco-editor/react";
 import clsx from "clsx";
 import LanguageSelector from "./language-selector";
 import { TrashIcon } from "lucide-react";
+import Button from "@/components/custom/button";
+import { languages } from "@/app/components/languages";
+import { useParams } from "next/navigation";
 
 type Props = {
   editor: any;
@@ -19,6 +22,8 @@ export default function CodeEditor({
   handleDelete,
 }: Props) {
   console.log("editor: ", editor);
+  const params = useParams();
+
   return (
     <div className="flex  flex-col gap-6 overflow-x-auto  rounded-md ">
       {editor.map((value: any, i: number) => (
@@ -26,12 +31,12 @@ export default function CodeEditor({
           <input
             type="text"
             className={clsx(
-              "w-full rounded-md rounded-b-none border-b border-gradient bg-secondary p-2 focus:border-none"
+              "w-full rounded-md rounded-b-none border-b border-primary bg-secondary px-5 py-3 focus:border-none"
             )}
             value={value.heading}
             required
             onChange={(e) => handleHeadingChange(i, e.target.value)}
-            placeholder="Code heading"
+            placeholder="Type a code heading"
           />
           <Editor
             onChange={(newValue) =>
@@ -40,9 +45,9 @@ export default function CodeEditor({
             value={value.code}
             className="bg-secondary p-2"
             height="25vh"
-            key={value.lang}
+            key={value.lang.value}
             theme={"vs-dark"}
-            defaultLanguage={value.lang.toLowerCase()}
+            defaultLanguage={value.lang.value}
             options={{
               minimap: {
                 enabled: false,
@@ -53,15 +58,17 @@ export default function CodeEditor({
           <div className="flex w-full items-center justify-between rounded-md rounded-t-none border-t border-gradient bg-secondary px-2 py-1 focus:border-none">
             <LanguageSelector
               onSelect={(language) => handleLanguageSelect(i, language)}
-              language={value.lang}
+              values={languages}
+              trigger={languages[0].label}
             />
             {i === 0 ? null : (
-              <button
-                onClick={(e) => handleDelete(i, e)}
-                className="flex hover:text-secondary  "
-              >
-                <TrashIcon width={20} height={20} />
-              </button>
+              <Button
+                className="flex cursor-pointer"
+                button={{
+                  icon: <TrashIcon width={20} height={20} />,
+                  action: (e) => handleDelete(i, e),
+                }}
+              />
             )}
           </div>
         </div>

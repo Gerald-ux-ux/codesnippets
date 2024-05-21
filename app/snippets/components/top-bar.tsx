@@ -1,15 +1,18 @@
 "use client";
-import { page } from "@/app/styles/styles";
+import { page, primaryButton } from "@/app/styles/styles";
 import { cn } from "@/lib/utils";
 import React from "react";
-import Link from "next/link";
-import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Hand } from "lucide-react";
+import Button from "@/components/custom/button";
+import Search from "./search";
+import Filter from "./filter";
 
-interface Props {}
+interface Props {
+  snippets: any;
+}
 
-function TopBar(props: Props) {
+function TopBar({ snippets }: Props) {
   const { isSignedIn } = useUser();
   const router = useRouter();
 
@@ -17,21 +20,38 @@ function TopBar(props: Props) {
     router.push("/snippets/add");
   }
 
+  const sortOptions = [{ label: "Most recent", value: "most recent" }];
+
+  console.log("snippets", snippets);
+
   if (!isSignedIn) {
     return (
       <SignInButton mode="modal">
-        <button className="rounded-md  bg-brand p-2">Add snippets</button>
+        <button className="rounded-md  bg-brand p-2">Post a snippet</button>
       </SignInButton>
     );
   }
   return (
-    <div className={cn(page, "")}>
-      <button
-        onClick={handleClick}
-        className={cn("rounded-md bg-brand p-2 hover:bg-brand/50")}
-      >
-        Add snippets
-      </button>
+    <div
+      className={cn(
+        page,
+        "flex px-0 w-full   mt-4 mb-12  md:mt-0 justify-between  md:flex-row items-center gap-2"
+      )}
+    >
+      <div className="flex md:w-10/12 w-full md:flex-row flex-col  gap-2 ">
+        <Search />
+        <Filter sortOptions={sortOptions} />
+      </div>
+
+      <div className="md:flex hidden">
+        <Button
+          className={cn("md:flex hidden", primaryButton)}
+          button={{
+            label: "Post a snippet",
+            action: handleClick,
+          }}
+        />
+      </div>
     </div>
   );
 }

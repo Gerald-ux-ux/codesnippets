@@ -13,9 +13,10 @@ function NavItems({ items, isSnippet }: Props) {
   return (
     <Link
       href={items.link}
+      target="blank"
       className={cn(
         isSnippet ? "bg-secondary border border-primary" : "",
-        "text-base font-light flex items-center gap-2  hover:bg-hover hover:text-primary text-secondary p-2 rounded-md "
+        "text-base font-light flex items-center gap-2  hover:bg-hover hover:text-primary text-secondary px-4 py-2 rounded-md "
       )}
     >
       {items.label} {items.icon}

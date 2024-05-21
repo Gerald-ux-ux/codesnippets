@@ -16,10 +16,10 @@ export const navItems: navBarItems[] = [
   },
 ];
 
-export const snippetItems: navBarItems[] = [
+export const snippetItems = [
   {
     label: "Join the community",
-    link: "/",
+    link: "https://discord.gg/tqm4eKy2",
     icon: <DiscordIcon />,
   },
   {

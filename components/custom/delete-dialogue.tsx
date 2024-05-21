@@ -1,46 +1,63 @@
 "use client";
-
-import clsx from "clsx";
-
-import { FormButton } from "./form-button";
-import { formBtn } from "@/app/styles/styles";
+import { primaryButton, tertiaryButton } from "@/app/styles/styles";
 import useDelete from "@/app/snippets/add/hooks/useDelete";
 import { cn } from "@/lib/utils";
+import Button from "./button";
 
 type Props = {
   setOpen: (value: boolean) => void;
-  actionItem: string;
-  id: any;
-  snippet: string;
+  code: any;
+  actionLabel: string;
 };
 
-export default function DeleteDialog({
-  setOpen,
-  actionItem,
-  id,
-  snippet,
-}: Props) {
+export default function DeleteDialog({ setOpen, code, actionLabel }: Props) {
   const { handleDelete } = useDelete({
     setOpen,
-    id,
-    snippet,
+    code,
+    actionLabel,
   });
+
+  const codeLen = code?.code?.length;
+  const buttonLabel = codeLen === undefined ? "Delete Snippet" : "Delete All";
 
   return (
     <form action={handleDelete} className="flex  h-full  flex-col gap-2">
       <span>
-        This will delete the current <strong>{actionItem}</strong>{" "}
+        {actionLabel === "snippet" ? (
+          <p>
+            Are you sure you want to delete this <strong>{actionLabel}</strong>?
+            This action cannot be undone.
+          </p>
+        ) : (
+          <>
+            {codeLen === 1 ? (
+              <p>Are you sure you want to delete this snippet?</p>
+            ) : (
+              <p>
+                Are you sure you want to delete these <strong>{codeLen}</strong>{" "}
+                snippets? This action cannot be undone.
+              </p>
+            )}
+          </>
+        )}
       </span>
       <span className="flex-grow " />
-      <span className="mb-2 flex  flex-col justify-end gap-4">
-        <span className="flex w-full items-center  gap-2">
-          <button onClick={() => setOpen(false)} className={formBtn}>
-            Close
-          </button>
-
-          <FormButton name="Delete" className={cn(formBtn, 'hover:bg-error  border-none  text-error')} />
-        </span>
-      </span>
+      <div className="flex w-full items-center justify-end  gap-4">
+        <Button
+          className={tertiaryButton}
+          button={{
+            label: "No close",
+            action: () => setOpen(false),
+          }}
+        />
+        <Button
+          isFormButton={true}
+          className={cn(primaryButton, "hover:text-error rounded-md")}
+          button={{
+            label: buttonLabel,
+          }}
+        />
+      </div>
     </form>
   );
 }
