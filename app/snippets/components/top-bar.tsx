@@ -22,15 +22,6 @@ function TopBar({ snippets }: Props) {
 
   const sortOptions = [{ label: "Most recent", value: "most recent" }];
 
-  console.log("snippets", snippets);
-
-  if (!isSignedIn) {
-    return (
-      <SignInButton mode="modal">
-        <button className="rounded-md  bg-brand p-2">Post a snippet</button>
-      </SignInButton>
-    );
-  }
   return (
     <div
       className={cn(
@@ -44,13 +35,21 @@ function TopBar({ snippets }: Props) {
       </div>
 
       <div className="md:flex hidden">
-        <Button
-          className={cn("md:flex hidden", primaryButton)}
-          button={{
-            label: "Post a snippet",
-            action: handleClick,
-          }}
-        />
+        {isSignedIn ? (
+          <Button
+            className={cn("md:flex hidden", primaryButton)}
+            button={{
+              label: "Post a snippet",
+              action: handleClick,
+            }}
+          />
+        ) : (
+          <SignInButton mode="modal">
+            <button className={cn("md:flex hidden", primaryButton)}>
+              Post a snippet
+            </button>
+          </SignInButton>
+        )}
       </div>
     </div>
   );

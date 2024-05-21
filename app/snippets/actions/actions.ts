@@ -6,7 +6,7 @@ import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
 
-const url = "https://codesnippets-six.vercel.app/";
+const url = "https://codesnippets-six.vercel.app";
 const API_URL = `${url}/api/snippets/create`;
 const GET_SNIPPETS = `${url}/api/snippets/fetch`;
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
@@ -41,12 +41,9 @@ export async function submitFeedBack(formData: FormData) {
       text: formData.get("text"),
     };
 
-    console.log("data", data);
-
     const res = await axios.post(Give_Feedback, data);
     return res?.data;
   } catch (error: any) {
-    console.log("error", error);
     return error?.response?.data || errorMessage;
   }
 }
@@ -99,6 +96,7 @@ export async function editCodeSnippet(
       id: id,
     };
 
+
     const res = await axios.put(Edit_Snippet, data, {
       headers: {
         Authorization: `Bearer ${headerValue}`,
@@ -107,7 +105,6 @@ export async function editCodeSnippet(
     revalidateTag("code");
     return res?.data;
   } catch (error: any) {
-    console.log("error", error);
     return error?.response?.data || errorMessage;
   }
 }
@@ -134,6 +131,8 @@ export async function deleteSnippet(codeId: any, snippetId: any) {
       snippetId,
       codeId,
     };
+
+    console.log("data", data);
 
     const res = await axios.delete(Delete_Code, {
       data: data,

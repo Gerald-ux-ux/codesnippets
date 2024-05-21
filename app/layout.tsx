@@ -33,7 +33,7 @@ export default async function RootLayout({
           "text-primary h-screen   w-full  pt-4 pb-4 flex flex-col "
         )}
       >
-        <body>
+        <body >
           {children}
           <Toaster
             position="top-center"

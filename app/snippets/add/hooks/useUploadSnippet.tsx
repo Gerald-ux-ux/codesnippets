@@ -70,7 +70,7 @@ export default function useUploadSnippet({
     if (action === "edit") {
       const id = selectedSnippet._id;
       const res = await editCodeSnippet(formData, editor, id);
-
+      console.log("res", res);
       if (res.success) {
         setOpen!(false);
       } else

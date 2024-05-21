@@ -1,7 +1,7 @@
 export const primaryText: string = `md:text-3xl text-xl font-bold`;
 export const secondaryText: string = `md:text-xl text-base  font-normal`;
 export const bodyText: string = `md:text-base text-sm  font-normal`;
-export const page = `flex flex-col gap-4 w-full animate-in bg-secondary  items-center mb-6  px-4 mx-auto  max-w-7xl`;
+export const page = `flex flex-col gap-4 w-full animate-in   items-center mb-6  px-4 mx-auto  max-w-7xl`;
 export const tertiaryButton =
   "flex items-center md:text-base text-sm gap-2 rounded-md px-4 py-3 hover:bg-primary bg-hover border border-primary";
 export const secondaryButton =

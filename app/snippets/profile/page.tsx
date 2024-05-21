@@ -16,13 +16,20 @@ export default async function ProfilePage() {
   const user = await clerkClient.users.getUser(userId!);
   const userSnippets = await getSnippetByUserId(userId!);
   const snippets = getCodeSnippets();
+
   return (
     <div className={cn(page, "items-start md:px-0")}>
       <TopBar snippets={snippets} />
-      <p className={cn(primaryText, 'text-secondary')}>
+      <p className={cn(primaryText, "text-secondary")}>
         Welcome back {capsFirstLetter(`${user?.firstName} ${user?.lastName}`)}
       </p>
       <SnippetList data={userSnippets} />
+
+      {userSnippets.length <= 0 && (
+        <p className={cn(secondaryText, "text-secondary")}>
+          You &apos; have any snippets yet
+        </p>
+      )}
     </div>
   );
 }
