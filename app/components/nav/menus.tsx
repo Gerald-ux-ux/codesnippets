@@ -16,7 +16,8 @@ export const navItems: navBarItems[] = [
   },
 ];
 
-export const snippetItems = [
+
+export const snippetItems: navBarItems[] = [
   {
     label: "Join the community",
     link: "https://discord.gg/tqm4eKy2",
@@ -24,7 +25,7 @@ export const snippetItems = [
   },
   {
     label: "Feedback",
-    link: "/",
     icon: <CommentAdd02Icon />,
+    // action: handleOpenFeedbackModal,
   },
 ];

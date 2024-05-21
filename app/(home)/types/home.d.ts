@@ -1,7 +1,8 @@
 export interface navBarItems {
   label: string;
-  link: string;
+  link?: string;
   icon?: React.ReactNode<any>;
+  action?: () => void;
 }
 
 

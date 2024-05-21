@@ -17,7 +17,7 @@ export default async function ProfilePage() {
   const userSnippets = await getSnippetByUserId(userId!);
   const snippets = getCodeSnippets();
   return (
-    <div className={cn(page, "items-start px-0")}>
+    <div className={cn(page, "items-start md:px-0")}>
       <TopBar snippets={snippets} />
       <p className={cn(primaryText, 'text-secondary')}>
         Welcome back {capsFirstLetter(`${user?.firstName} ${user?.lastName}`)}

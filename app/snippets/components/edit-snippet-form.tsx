@@ -5,7 +5,7 @@ import CodeEditor from "../add/components/code-editor";
 import useUploadSnippet from "../add/hooks/useUploadSnippet";
 import ErrorMessage from "@/components/custom/error-message";
 
-import { formBtn, primaryButton, tertiaryButton } from "@/app/styles/styles";
+import { primaryButton, tertiaryButton } from "@/app/styles/styles";
 import Button from "@/components/custom/button";
 import { cn } from "@/lib/utils";
 

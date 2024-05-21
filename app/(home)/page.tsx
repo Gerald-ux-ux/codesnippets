@@ -13,7 +13,7 @@ import { page } from "../styles/styles";
 
 export default function Home() {
   return (
-    <TracingBeam className={cn(page, 'px-0')}>
+    <TracingBeam className={cn(page, 'md:px-0')}>
       <NavBar navItems={navItems} />
       <HeroSection />
       <Usp />
