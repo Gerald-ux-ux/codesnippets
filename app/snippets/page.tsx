@@ -7,7 +7,7 @@ import { page } from "../styles/styles";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Search for a snippet - Boost your productivity",
+  title: "Explore - Code Snippets",
   description: "Search, Copy and paste your snippet of choice",
 };
 

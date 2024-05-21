@@ -58,7 +58,7 @@ export default async function Code({ params }: { params: any }) {
       <span className="flex w-full items-center justify-between text-lg leading-tight text-primary md:text-xl">
         {code.description}
       </span>
-      <span className="flex w-full items-center justify-between gap-2 text-secondary">
+      <span className="flex w-full items-center my-6 justify-between gap-2 text-secondary">
         <span className="flex items-center gap-2">
           <Avatar
             alt={code?.author.first_name}

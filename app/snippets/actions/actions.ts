@@ -4,9 +4,11 @@ import { getUserSession } from "@/lib/backend/actions/user-actions";
 import { errorMessage } from "@/lib/secrete";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
+import { baseUrl } from "../../api/baseUrl";
+
 const API_URL = "http://localhost:3000/api/snippets/create";
 const GET_SNIPPETS = "http://localhost:3000/api/snippets/fetch";
-const Give_Feedback = "http://localhost:3000/api/mail";
+const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 const Copy_Snippet = "http://localhost:3000/api/snippets/clone";
 const Delete_Snippet = `http://localhost:3000/api/snippets/delete/`;
 const Delete_Code = "http://localhost:3000/api/snippets/code";
@@ -38,9 +40,12 @@ export async function submitFeedBack(formData: FormData) {
       text: formData.get("text"),
     };
 
+    console.log("data", data);
+
     const res = await axios.post(Give_Feedback, data);
     return res?.data;
   } catch (error: any) {
+    console.log("error", error);
     return error?.response?.data || errorMessage;
   }
 }
@@ -164,5 +169,3 @@ export async function deleteCode(id: any) {
     return error?.response?.data || errorMessage;
   }
 }
-
-

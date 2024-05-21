@@ -2,6 +2,7 @@
 import React from "react";
 import BtnLoader from "./btn-loader";
 import { useFormStatus } from "react-dom";
+import { useRouter } from "next/navigation";
 
 interface Props {
   className?: string;
@@ -9,6 +10,7 @@ interface Props {
     icon?: React.ReactElement;
     label?: string;
     iconClass?: string;
+    link?: string;
     labelClass?: string;
     action?: (...args: any[]) => void;
   };
@@ -17,12 +19,17 @@ interface Props {
 }
 
 function Button({ className, button, children, isFormButton }: Props) {
+  const router = useRouter();
   const { pending } = useFormStatus();
   return (
     <button
       disabled={pending && isFormButton}
       onClick={(e) => {
-        button?.action ? button?.action(e) : null;
+        button?.action
+          ? button?.action(e)
+          : button?.link 
+          ? router.push(button.link)
+          : null;
       }}
       className={className}
     >
