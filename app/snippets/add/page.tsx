@@ -10,7 +10,7 @@ import BackBtn from "@/components/custom/back-btn";
 interface Props {}
 
 export const metadata: Metadata = {
-  title: "Add a snippet - Make it available for the whole community",
+  title: "Add - Code Snippets",
   description: "Add your snippet of choice.",
 };
 
