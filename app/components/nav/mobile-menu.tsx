@@ -1,11 +1,8 @@
 "use client";
 import React from "react";
 import { navBarItems } from "../../(home)/types/home";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
-import Btn from "@/components/custom/btn";
-import { redirect } from "next/navigation";
-import SignUp from "@/app/auth/components/sign-up";
+import Button from "@/components/custom/button";
 
 interface Props {
   open: boolean;
@@ -24,13 +21,18 @@ function MobileMenu({ open, links }: Props) {
         <div className=" flex  flex-col gap-8">
           <ul className="flex gap-8  text-secondary flex-col">
             {links.map((link) => (
-              <Link key={link.label} href={link.link}>
-                {link.label}
-              </Link>
+              <Button
+                className="text-base font-light flex items-center gap-2  bg-secondary border border-primary hover:bg-hover hover:text-primary text-secondary px-4 py-2 rounded-md "
+                key={link.label}
+                button={{
+                  icon: link.icon,
+                  label: link.label,
+                  action: link.action,
+                  link: link.link,
+                }}
+              />
             ))}
           </ul>
-
-          {/* <SignUp  /> */}
         </div>
       )}
     </nav>
