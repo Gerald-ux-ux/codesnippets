@@ -22,7 +22,7 @@ interface Props {
 }
 export default function Feedback({ open, setOpen }: Props) {
   const { handleSubmit } = useSubmitFeedback();
-  console.log("open", open);
+
   return (
     <Dialog open={open} onOpenChange={() => setOpen(!open)}>
       <DialogContent className="flex w-full  bg-primary border-none rounded-lg flex-col gap-2 py-4">

@@ -105,7 +105,6 @@ export async function editCodeSnippet(
     revalidateTag("code");
     return res?.data;
   } catch (error: any) {
-    console.log("error", error.response);
     return error?.response?.data || errorMessage;
   }
 }
