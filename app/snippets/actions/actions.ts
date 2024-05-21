@@ -41,12 +41,12 @@ export async function submitFeedBack(formData: FormData) {
       text: formData.get("text"),
     };
 
-    console.log("data", data);
+
 
     const res = await axios.post(Give_Feedback, data);
     return res?.data;
   } catch (error: any) {
-    console.log("error", error);
+
     return error?.response?.data || errorMessage;
   }
 }
