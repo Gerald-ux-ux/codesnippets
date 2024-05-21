@@ -12,7 +12,7 @@ export const navItems: navBarItems[] = [
   },
   {
     label: "Github",
-    link: "/",
+    link: "https://github.com/Gerald-ux-ux/codesnippets",
   },
 ];
 
