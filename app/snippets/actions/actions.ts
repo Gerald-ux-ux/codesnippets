@@ -71,7 +71,6 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
     revalidateTag("code");
     return res?.data;
   } catch (error: any) {
-    console.log("error", error.response.data);
     return error?.response?.data || errorMessage;
   }
 }
@@ -132,7 +131,6 @@ export async function deleteSnippet(codeId: any, snippetId: any) {
       codeId,
     };
 
-    console.log("data", data);
 
     const res = await axios.delete(Delete_Code, {
       data: data,
@@ -162,6 +160,7 @@ export async function deleteCode(id: any) {
         Authorization: `Bearer ${headerValue}`,
       },
     });
+
 
     revalidateTag("code");
     return res?.data;

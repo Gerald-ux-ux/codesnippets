@@ -25,7 +25,6 @@ export default function Actions({
       label: "Edit",
       icon: <CiEdit />,
       onClick: () => {
-        console.log("Edit is clicked");
         setEditIsOpen(true);
       },
     },
@@ -34,7 +33,6 @@ export default function Actions({
       icon: <CiTrash />,
       isImportant: true,
       onClick: () => {
-        console.log("Delete is clicked");
         setDeleteIsOpen(true);
       },
     },
