@@ -1,5 +1,8 @@
 import { databaseConnection } from "@/lib/backend/db/cs";
-import { deleteCodeSnippetById } from "@/lib/backend/models/snippets/services/lib";
+import {
+  deleteCodeSnippetById,
+  getCodeSnippetById,
+} from "@/lib/backend/models/snippets/services/lib";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(req: NextRequest) {
@@ -15,6 +18,18 @@ export async function DELETE(req: NextRequest) {
           message: "Provide a snippet ID",
         }),
         { status: 500 }
+      );
+    }
+
+    const snippetExists = await getCodeSnippetById(id);
+
+    if (!snippetExists) {
+      return new NextResponse(
+        JSON.stringify({
+          success: false,
+          message: "The snippet you are trying to delete does not exist",
+        }),
+        { status: 404 }
       );
     }
 

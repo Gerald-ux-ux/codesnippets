@@ -27,7 +27,6 @@ function EditSnippetForm({ selectedSnippet, setOpen }: Props) {
     handleSubmit,
     message,
   } = useUploadSnippet({ selectedSnippet, action: "edit", setOpen });
-  console.log("selectedSnippet", selectedSnippet);
   return (
     <form action={handleSubmit} className="flex w-full   flex-col gap-2 py-4">
       <input

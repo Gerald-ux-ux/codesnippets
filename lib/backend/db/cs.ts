@@ -17,29 +17,19 @@ if (!cached) {
 }
 
 export async function databaseConnection() {
-  console.log("Connecting to the database...");
-  if (cached.conn) {
-    console.log("Using cached database connection");
-    return cached.conn;
+  if (cached.conn) return cached.conn;
+
+  if (!MONGODB_URL) {
+    throw new Error("MONGODB_URL is not defined");
   }
 
-  if (!cached.promise) {
-    cached.promise = mongoose
-      .connect(MONGODB_URL, {
-        dbName: "clerk-next-14-db",
-        bufferCommands: false,
-        connectTimeoutMS: 30000,
-      })
-      .then((mongooseInstance) => {
-        console.log("Database connection established");
-        return mongooseInstance;
-      })
-      .catch((error) => {
-        console.error("Database connection error:", error);
-        throw error;
-      });
-  }
-
+  cached.promise =
+    cached.promise ||
+    mongoose.connect(MONGODB_URL, {
+      dbName: "clerk-next-14-db",
+      bufferCommands: false,
+      connectTimeoutMS: 30000,
+    });
   cached.conn = await cached.promise;
   return cached.conn;
 }

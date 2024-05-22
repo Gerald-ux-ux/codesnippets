@@ -5,7 +5,6 @@ import LanguageSelector from "./language-selector";
 import { TrashIcon } from "lucide-react";
 import Button from "@/components/custom/button";
 import { languages } from "@/app/components/languages";
-import { useParams } from "next/navigation";
 
 type Props = {
   editor: any;
@@ -21,8 +20,6 @@ export default function CodeEditor({
   handleCodeChange,
   handleDelete,
 }: Props) {
-  console.log("editor: ", editor);
-  const params = useParams();
 
   return (
     <div className="flex  flex-col gap-6 overflow-x-auto  rounded-md ">

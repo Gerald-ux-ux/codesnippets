@@ -29,7 +29,6 @@ export default function useDelete({ setOpen, code, actionLabel }: Props) {
     } else if (actionLabel === "snippet") {
       // 'snippet' means the specific code snippet
       const res = await deleteSnippet(codeId.slug, snippetId);
-
       if (res.success) {
         if (res.data.code.length === 0) {
           router.push("/snippets");
