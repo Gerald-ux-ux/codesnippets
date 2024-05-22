@@ -6,7 +6,7 @@ import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
 
-const url = "https://codesnippets-six.vercel.app";
+const url = "http://localhost:3000";
 const API_URL = `${url}/api/snippets/create`;
 const GET_SNIPPETS = `${url}/api/snippets/fetch`;
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
@@ -17,7 +17,10 @@ const Get_Snippets_ById = `${url}/api/snippets/user/`;
 const Edit_Snippet = `${url}/api/snippets/edit`;
 export async function getCodeSnippets(): Promise<any[]> {
   try {
-    const res = await fetch(GET_SNIPPETS, { next: { tags: ["code"] } });
+    const res = await fetch(GET_SNIPPETS, {
+      next: { tags: ["code"] },
+      cache: "no-store",
+    });
 
     const data = await res.json();
     return data?.data;
@@ -95,7 +98,6 @@ export async function editCodeSnippet(
       id: id,
     };
 
-
     const res = await axios.put(Edit_Snippet, data, {
       headers: {
         Authorization: `Bearer ${headerValue}`,
@@ -131,7 +133,6 @@ export async function deleteSnippet(codeId: any, snippetId: any) {
       codeId,
     };
 
-
     const res = await axios.delete(Delete_Code, {
       data: data,
       headers: {
@@ -160,7 +161,6 @@ export async function deleteCode(id: any) {
         Authorization: `Bearer ${headerValue}`,
       },
     });
-
 
     revalidateTag("code");
     return res?.data;
