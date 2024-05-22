@@ -5,7 +5,7 @@ import { cn } from "../lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
 import { dark } from "@clerk/themes";
 import { Toaster } from "react-hot-toast";
-
+import { Analytics } from "@vercel/analytics/react";
 // Global font
 const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
 
@@ -33,8 +33,9 @@ export default async function RootLayout({
           "text-primary h-screen   w-full  pt-4 pb-4 flex flex-col "
         )}
       >
-        <body >
+        <body>
           {children}
+          <Analytics />
           <Toaster
             position="top-center"
             reverseOrder={false}
