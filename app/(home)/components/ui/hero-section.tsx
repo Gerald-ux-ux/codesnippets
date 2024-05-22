@@ -8,7 +8,6 @@ import {
 import Button from "@/components/custom/button";
 
 import { cn } from "@/lib/utils";
-import { SignInButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import React from "react";
 
