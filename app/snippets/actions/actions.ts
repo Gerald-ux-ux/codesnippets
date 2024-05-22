@@ -6,7 +6,7 @@ import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
 
-const url = "https://codesnippets-six.vercel.app";
+const url = "http://localhost:3000/";
 const API_URL = `${url}/api/snippets/create`;
 const GET_SNIPPETS = `${url}/api/snippets/fetch`;
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
