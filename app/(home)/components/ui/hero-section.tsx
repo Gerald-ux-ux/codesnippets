@@ -1,18 +1,25 @@
 "use client";
-import { bodyText, primaryText, secondaryText } from "@/app/styles/styles";
+import { primaryButton, primaryText, secondaryText } from "@/app/styles/styles";
 import {
   TextRevealCard,
   TextRevealCardDescription,
   TextRevealCardTitle,
 } from "@/components/aceternity/text-reveal-card";
-import Btn from "@/components/custom/btn";
-import { firaMono } from "@/lib/fonts";
+import Button from "@/components/custom/button";
+
 import { cn } from "@/lib/utils";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface Props {}
 
 function HeroSection(props: Props) {
+  const router = useRouter();
+
+  function handleClick() {
+    router.push("/snippets");
+  }
   return (
     <div className="flex items-center  justify-center w-full rounded-2xl">
       <TextRevealCard
@@ -30,7 +37,13 @@ function HeroSection(props: Props) {
           and frameworks
         </TextRevealCardDescription>
         <TextRevealCardTitle className="mt-4 ">
-          <Btn action={() => {}} name="Get Started" />
+          <Button
+            className={cn("md:flex hidden", primaryButton)}
+            button={{
+              label: "View snippets",
+              action: handleClick,
+            }}
+          />
         </TextRevealCardTitle>
       </TextRevealCard>
     </div>
