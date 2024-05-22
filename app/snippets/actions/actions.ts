@@ -7,12 +7,19 @@ import { revalidateTag } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
 
 const url = "https://codesnippets-six.vercel.app";
+const API_URL = `${url}/api/snippets/create`;
 const GET_SNIPPETS = `${url}/api/snippets/fetch`;
+const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
+const Copy_Snippet = `${url}/api/snippets/clone`;
+const Delete_Snippet = `${url}/api/snippets/delete/`;
+const Delete_Code = `${url}/api/snippets/code`;
+const Get_Snippets_ById = `${url}/api/snippets/user/`;
+const Edit_Snippet = `${url}/api/snippets/edit`;
 export async function getCodeSnippets(): Promise<any[]> {
   try {
     const res = await fetch(GET_SNIPPETS, {
-      cache: "no-store",
       next: { tags: ["code"] },
+      cache: "no-store",
     });
 
     const data = await res.json();
@@ -21,13 +28,6 @@ export async function getCodeSnippets(): Promise<any[]> {
     return error?.response?.data || errorMessage;
   }
 }
-const API_URL = `${url}/api/snippets/create`;
-const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
-const Copy_Snippet = `${url}/api/snippets/clone`;
-const Delete_Snippet = `${url}/api/snippets/delete/`;
-const Delete_Code = `${url}/api/snippets/code`;
-const Get_Snippets_ById = `${url}/api/snippets/user/`;
-const Edit_Snippet = `${url}/api/snippets/edit`;
 
 export async function getSnippetByUserId(userId: string) {
   try {
