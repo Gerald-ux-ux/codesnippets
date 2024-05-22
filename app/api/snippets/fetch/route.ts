@@ -1,6 +1,5 @@
 import { databaseConnection } from "@/lib/backend/db/cs";
 import { getCodeSnippets } from "@/lib/backend/models/snippets/services/lib";
-import { errorMessage } from "@/lib/secrete";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest, res: NextResponse) {
