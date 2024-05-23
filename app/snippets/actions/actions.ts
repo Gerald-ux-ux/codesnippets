@@ -17,10 +17,7 @@ const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 const Copy_Snippet = `${url}/api/snippets/clone`;
 const Delete_Snippet = `${url}/api/snippets/delete/`;
 const Delete_Code = `${url}/api/snippets/code`;
-const Get_Snippets_ById = `${url}/api/snippets/user/`;
 const Edit_Snippet = `${url}/api/snippets/edit`;
-const API_URL = `${url}/api/snippets/create`;
-const GET_SNIPPETS = `${url}/api/snippets/fetch`;
 
 export async function getSnippetSlug(params: string) {
   try {
@@ -47,7 +44,7 @@ export async function getCodeSnippets() {
 
     const plainObjs = JSON.parse(JSON.stringify(snippets));
 
-    return plainObjs
+    return plainObjs;
   } catch (error: any) {
     console.error("Error fetching snippets:", error);
     return {
@@ -154,8 +151,8 @@ export async function editCodeSnippet(
   id: string
 ) {
   try {
-    const headers = await getUserSession();
-    const headerValue = headers?.value;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
     const sanitizedSnippet = editor.map((code: any) => ({
       heading: code.heading,
       language: code.lang.label,
@@ -168,13 +165,32 @@ export async function editCodeSnippet(
       id: id,
     };
 
-    const res = await axios.put(Edit_Snippet, data, {
-      headers: {
-        Authorization: `Bearer ${headerValue}`,
-      },
-    });
-    revalidateTag("code");
-    return res?.data;
+    const { userId } = auth();
+
+    const user = await clerkClient.users.getUser(userId!);
+    const author = {
+      id: user.id,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      email: user.primaryEmailAddress?.emailAddress,
+      photo: user.imageUrl,
+    };
+
+    const newData = {
+      title: data.title,
+      description: data.description,
+      code: data.code,
+      author: author,
+    };
+
+    const newCodeSnippet = await db
+      .collection("snippets")
+      .updateOne({ _id: new ObjectId(id) }, { $set: newData });
+    revalidatePath("/snippets[slug]/page");
+    return {
+      success: true,
+      data: newCodeSnippet,
+    };
   } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
