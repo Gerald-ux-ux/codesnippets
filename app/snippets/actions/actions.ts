@@ -8,11 +8,7 @@ import { baseUrl } from "../../api/baseUrl";
 import clientPromise from "@/lib/backend/db/cs";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 
-const url = "https://codesnippets-six.vercel.app/";
-
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
-const Delete_Snippet = `${url}/api/snippets/delete/`;
-const Delete_Code = `${url}/api/snippets/code`;
 
 export async function getSnippetSlug(params: string) {
   try {
