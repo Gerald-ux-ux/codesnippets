@@ -21,26 +21,18 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-// export async function generateMetadata({ params }: Props) {
-//   console.log("slug", params.slug);
-//   const code = await getSnippetSlug(params.slug);
-//   console.log("code", code);
+export async function generateMetadata({ params }: Props) {
+  const code = await getSnippetSlug(params.slug);
 
-//   // console.log("specificSnippet", specificSnippet.data.map((id: any) => id._id));
-
-//   // const code = specificSnippet?.data?.find(
-//   //   (snippet) => snippet?._id === params.slug
-//   // );
-
-//   return {
-//     title: `${code?.title} | ${code?.author.name}`,
-//     description: `${code?.description}`,
-//   };
-// }
+  return {
+    title: `${code?.title} | ${code?.author.first_name}`,
+    description: `${code?.description}`,
+  };
+}
 
 export default async function Code({ params }: { params: any }) {
   const code = await getSnippetSlug(params.slug);
-  const author = code?.author?.id
+  const author = code?.author?.id;
   const { userId } = auth();
 
   if (!code) return notFound();

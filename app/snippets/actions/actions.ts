@@ -10,7 +10,7 @@ import { baseUrl } from "../../api/baseUrl";
 import CodeSnippetModel from "@/lib/backend/models/snippets/snippets-model";
 import clientPromise from "@/lib/backend/db/cs";
 import { convertMongoDocument } from "@/lib/utils";
-const url = "http://localhost:3001/";
+const url = "https://codesnippets-six.vercel.app/";
 
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 const Copy_Snippet = `${url}/api/snippets/clone`;
@@ -20,15 +20,6 @@ const Get_Snippets_ById = `${url}/api/snippets/user/`;
 const Edit_Snippet = `${url}/api/snippets/edit`;
 const API_URL = `${url}/api/snippets/create`;
 const GET_SNIPPETS = `${url}/api/snippets/fetch`;
-// export async function getCodeSnippets(): Promise<any[]> {
-//   try {
-//     const res = await axios.get(GET_SNIPPETS);
-
-//     return res.data?.data;
-//   } catch (error: any) {
-//     return error?.response?.data || errorMessage;
-//   }
-// }
 
 export async function getSnippetSlug(params: string) {
   try {
@@ -37,10 +28,7 @@ export async function getSnippetSlug(params: string) {
     const snippet = await db
       .collection("snippets")
       .findOne({ _id: new ObjectId(params) });
-
     const plainObjs = JSON.parse(JSON.stringify(snippet));
-
-    console.log("spes snip", plainObjs);
     return plainObjs;
   } catch (error: any) {
     return {
@@ -57,17 +45,11 @@ export async function getCodeSnippets() {
     const snippets = await db.collection("snippets").find({}).toArray();
 
     console.log("snippets", snippets);
-
-    if (!snippets.length) {
-      return {
-        success: false,
-        message: "No snippets available, be the first one to add.",
-      };
-    }
+    const plainObjs = JSON.parse(JSON.stringify(snippets));
 
     return {
       success: true,
-      data: snippets,
+      data: plainObjs,
     };
   } catch (error: any) {
     console.error("Error fetching snippets:", error);
