@@ -4,12 +4,13 @@ import { ObjectId } from "mongodb";
 import { getUserSession } from "@/lib/backend/actions/user-actions";
 import { errorMessage } from "@/lib/secrete";
 import axios from "axios";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
 // import { databaseConnection } from "@/lib/backend/db/cs";
 import CodeSnippetModel from "@/lib/backend/models/snippets/snippets-model";
 import clientPromise from "@/lib/backend/db/cs";
 import { convertMongoDocument } from "@/lib/utils";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 const url = "https://codesnippets-six.vercel.app/";
 
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
@@ -85,8 +86,8 @@ export async function submitFeedBack(formData: FormData) {
 
 export async function postCodeSnippet(formData: FormData, editor: any) {
   try {
-    const headers = await getUserSession();
-    const headerValue = headers?.value;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
     const sanitizedSnippet = editor.map((code: any) => ({
       heading: code.heading,
       language: code.lang.label,
@@ -98,13 +99,40 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
       code: sanitizedSnippet,
     };
 
-    const res = await axios.post(API_URL, data, {
-      headers: {
-        Authorization: `Bearer ${headerValue}`,
-      },
-    });
-    revalidateTag("code");
-    return res?.data;
+    if (!data) {
+      return {
+        success: false,
+        message: "Fill in all the required fields",
+      };
+    }
+
+    const { userId } = auth();
+    const user = await clerkClient.users.getUser(userId!);
+
+    const author = {
+      id: user.id,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      email: user.primaryEmailAddress?.emailAddress,
+      photo: user.imageUrl,
+    };
+
+    const dataSaved = {
+      title: data.title,
+      description: data.description,
+      code: data.code,
+      author: author,
+    };
+
+    const newCodeSnippet = await db.collection("snippets").insertOne(dataSaved);
+
+    const plainObjs = JSON.parse(JSON.stringify(newCodeSnippet));
+    revalidatePath("/snippets");
+    return {
+      success: true,
+      message: "Snippet created successfully",
+      data: plainObjs,
+    };
   } catch (error: any) {
     console.log("err", error);
     return error?.response?.data || errorMessage;
