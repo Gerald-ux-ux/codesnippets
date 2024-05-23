@@ -1,10 +1,9 @@
 "use server";
 import { ObjectId } from "mongodb";
 import { v4 as uuidv4 } from "uuid";
-import { getUserSession } from "@/lib/backend/actions/user-actions";
 import { errorMessage } from "@/lib/secrete";
 import axios from "axios";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
 import clientPromise from "@/lib/backend/db/cs";
 import { auth, clerkClient } from "@clerk/nextjs/server";
@@ -62,7 +61,6 @@ export async function getSnippetByUserId() {
       .find({ "author.id": userId })
       .toArray();
     const plainObjs = JSON.parse(JSON.stringify(userSnippets));
-    console.log("plain objs:", plainObjs);
     return plainObjs;
   } catch (error: any) {
     return {
@@ -140,7 +138,6 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
       data: plainObjs,
     };
   } catch (error: any) {
-    console.log("err", error);
     return error?.response?.data || errorMessage;
   }
 }
@@ -238,23 +235,22 @@ export async function deleteSnippet(codeId: any, snippetId: any) {
       };
     }
 
-    const deletedSnippets = await db
-      .collection("snippets")
-      .findOneAndUpdate(
-        { _id: codeId },
-        { _id: snippetId },
-        { returnDocument: "after" }
-      );
+    const deletedSnippets = await db.collection("snippets").findOneAndUpdate(
+      { _id: new ObjectId(codeId) },
+      // @ts-ignore
+      { $pull: { code: { _id: snippetId } } },
+      { returnDocument: "after" }
+    );
 
     const deletedSnippetObj = JSON.parse(JSON.stringify(deletedSnippets));
-    console.log("deletedSnippetObj", deletedSnippetObj);
     if (
       deletedSnippetObj.code.length === 0 ||
       deletedSnippetObj.code.length < 0
     ) {
-      await db.collection("snippets").deleteOne({ _id: codeId });
+      await db.collection("snippets").deleteOne({ _id: new ObjectId(codeId) });
       revalidatePath("/snippets");
     }
+
     revalidatePath("/snippets/[slug]/page");
     return {
       success: true,
@@ -280,13 +276,19 @@ export async function deleteCode(id: any) {
       };
     }
 
-    const res = await db.collection("snippets").deleteOne({ _id: id });
+    const res = await db
+      .collection("snippets")
+      .deleteOne({ _id: new ObjectId(id) });
     revalidatePath("/snippets");
     return {
       success: true,
       data: res,
     };
   } catch (error: any) {
-    return error?.response?.data || errorMessage;
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
   }
 }
