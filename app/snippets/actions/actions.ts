@@ -1,25 +1,19 @@
 "use server";
 import { ObjectId } from "mongodb";
 import { v4 as uuidv4 } from "uuid";
-
 import { getUserSession } from "@/lib/backend/actions/user-actions";
 import { errorMessage } from "@/lib/secrete";
 import axios from "axios";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
-// import { databaseConnection } from "@/lib/backend/db/cs";
-import CodeSnippetModel from "@/lib/backend/models/snippets/snippets-model";
 import clientPromise from "@/lib/backend/db/cs";
-import { convertMongoDocument } from "@/lib/utils";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { timeStamp } from "console";
+
 const url = "https://codesnippets-six.vercel.app/";
 
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
-const Copy_Snippet = `${url}/api/snippets/clone`;
 const Delete_Snippet = `${url}/api/snippets/delete/`;
 const Delete_Code = `${url}/api/snippets/code`;
-const Edit_Snippet = `${url}/api/snippets/edit`;
 
 export async function getSnippetSlug(params: string) {
   try {
@@ -234,45 +228,64 @@ export async function copySnippet(id: string) {
 
 export async function deleteSnippet(codeId: any, snippetId: any) {
   try {
-    const headers = await getUserSession();
-    const headerValue = headers?.value;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
 
-    const data = {
-      snippetId,
-      codeId,
+    if (!codeId || !snippetId) {
+      return {
+        success: false,
+        message: "Provide an id",
+      };
+    }
+
+    const deletedSnippets = await db
+      .collection("snippets")
+      .findOneAndUpdate(
+        { _id: codeId },
+        { _id: snippetId },
+        { returnDocument: "after" }
+      );
+
+    const deletedSnippetObj = JSON.parse(JSON.stringify(deletedSnippets));
+    console.log("deletedSnippetObj", deletedSnippetObj);
+    if (
+      deletedSnippetObj.code.length === 0 ||
+      deletedSnippetObj.code.length < 0
+    ) {
+      await db.collection("snippets").deleteOne({ _id: codeId });
+      revalidatePath("/snippets");
+    }
+    revalidatePath("/snippets/[slug]/page");
+    return {
+      success: true,
+      data: deletedSnippetObj,
     };
-
-    const res = await axios.delete(Delete_Code, {
-      data: data,
-      headers: {
-        Authorization: `Bearer ${headerValue}`,
-      },
-    });
-
-    revalidateTag("code");
-    return res?.data;
   } catch (error: any) {
-    return error?.response?.data || errorMessage;
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
   }
 }
 
 export async function deleteCode(id: any) {
   try {
-    const headers = await getUserSession();
-    const headerValue = headers?.value;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+    if (!id) {
+      return {
+        success: false,
+        message: "Provide an id",
+      };
+    }
 
-    const data = {
-      id,
+    const res = await db.collection("snippets").deleteOne({ _id: id });
+    revalidatePath("/snippets");
+    return {
+      success: true,
+      data: res,
     };
-    const res = await axios.delete(Delete_Snippet, {
-      data: data,
-      headers: {
-        Authorization: `Bearer ${headerValue}`,
-      },
-    });
-
-    revalidateTag("code");
-    return res?.data;
   } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
