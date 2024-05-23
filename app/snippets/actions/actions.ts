@@ -10,6 +10,11 @@ import { auth, clerkClient } from "@clerk/nextjs/server";
 
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 
+/**
+ *
+ * @this
+ * The server actions have been quickly written, i have not followed the 'best practices' but i will be re writing them in a better way
+ */
 export async function getSnippetSlug(params: string) {
   try {
     const client = await clientPromise;
