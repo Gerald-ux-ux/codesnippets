@@ -13,7 +13,7 @@ const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 /**
  *
  * @this
- * The server actions have been quickly written, i have not followed the 'best practices' but i will be re writing them in a better way
+ * Server actions, not traditional unnecessary api routes lol.
  */
 export async function getSnippetSlug(params: string) {
   try {
