@@ -1,5 +1,6 @@
 "use server";
 import { ObjectId } from "mongodb";
+import { v4 as uuidv4 } from "uuid";
 
 import { getUserSession } from "@/lib/backend/actions/user-actions";
 import { errorMessage } from "@/lib/secrete";
@@ -96,6 +97,7 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
     const sanitizedSnippet = editor.map((code: any) => ({
+      _id: uuidv4(),
       heading: code.heading,
       language: code.lang.label,
       content: code.code,
@@ -204,9 +206,6 @@ export async function copySnippet(id: string) {
   try {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
-    const data = {
-      id: id,
-    };
 
     if (!id) {
       return {
@@ -217,7 +216,18 @@ export async function copySnippet(id: string) {
 
     const updatedSnippet = await db
       .collection("snippets")
-      .revalidatePath("/snippets[slug]/page");
+      .findOneAndUpdate(
+        { "code._id": id },
+        { $inc: { copy_count: 1 } },
+        { returnDocument: "after" }
+      );
+
+    const plainObjs = JSON.parse(JSON.stringify(updatedSnippet));
+    revalidatePath("/snippets[slug]/page");
+    return {
+      success: true,
+      data: plainObjs,
+    };
   } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
