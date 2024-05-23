@@ -11,6 +11,7 @@ import CodeSnippetModel from "@/lib/backend/models/snippets/snippets-model";
 import clientPromise from "@/lib/backend/db/cs";
 import { convertMongoDocument } from "@/lib/utils";
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { timeStamp } from "console";
 const url = "https://codesnippets-six.vercel.app/";
 
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
@@ -128,6 +129,9 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
       description: data.description,
       code: data.code,
       author: author,
+      copy_count: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     const newCodeSnippet = await db.collection("snippets").insertOne(dataSaved);
@@ -198,12 +202,22 @@ export async function editCodeSnippet(
 
 export async function copySnippet(id: string) {
   try {
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
     const data = {
       id: id,
     };
-    const res = await axios.post(Copy_Snippet, data);
-    revalidateTag("code");
-    return res?.data;
+
+    if (!id) {
+      return {
+        success: false,
+        message: "Provide an id",
+      };
+    }
+
+    const updatedSnippet = await db
+      .collection("snippets")
+      .revalidatePath("/snippets[slug]/page");
   } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
