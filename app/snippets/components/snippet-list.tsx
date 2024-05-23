@@ -32,7 +32,7 @@ function SnippetList({ data }: Props) {
     return router.push(`${pathname}/${snippet._id}`);
   }
 
-  const filteredData = data?.data
+  const filteredData = data
     .filter((snippet: any) =>
       filter.selectedLanguage && filter.selectedLanguage !== "all"
         ? snippet.code.some(

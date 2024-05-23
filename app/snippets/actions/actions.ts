@@ -45,13 +45,9 @@ export async function getCodeSnippets() {
     const db = client.db("clerk-next-14-db");
     const snippets = await db.collection("snippets").find({}).toArray();
 
-    console.log("snippets", snippets);
     const plainObjs = JSON.parse(JSON.stringify(snippets));
 
-    return {
-      success: true,
-      data: plainObjs,
-    };
+    return plainObjs
   } catch (error: any) {
     console.error("Error fetching snippets:", error);
     return {
@@ -62,12 +58,25 @@ export async function getCodeSnippets() {
   }
 }
 
-export async function getSnippetByUserId(userId: string) {
+export async function getSnippetByUserId() {
   try {
-    const res = await axios.post(Get_Snippets_ById, { userId });
-    return res.data?.data;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+
+    const { userId } = auth();
+    const userSnippets = await db
+      .collection("snippets")
+      .find({ "author.id": userId })
+      .toArray();
+    const plainObjs = JSON.parse(JSON.stringify(userSnippets));
+    console.log("plain objs:", plainObjs);
+    return plainObjs;
   } catch (error: any) {
-    return error?.response?.data || errorMessage;
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
   }
 }
 export async function submitFeedBack(formData: FormData) {

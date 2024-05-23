@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default async function ProfilePage() {
   const { userId } = auth();
   const user = await clerkClient.users.getUser(userId!);
-  const userSnippets = await getSnippetByUserId(userId!);
+  const userSnippets = await getSnippetByUserId();
   const snippets = getCodeSnippets();
 
   return (
