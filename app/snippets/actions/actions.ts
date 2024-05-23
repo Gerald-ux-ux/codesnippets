@@ -214,13 +214,12 @@ export async function copySnippet(id: string) {
       };
     }
 
-    const updatedSnippet = await db
-      .collection("snippets")
-      .findOneAndUpdate(
-        { "code._id": id },
-        { $inc: { copy_count: 1 } },
-        { returnDocument: "after" }
-      );
+    const updatedSnippet = await db.collection("snippets").findOneAndUpdate(
+      { "code._id": id },
+      { $inc: { copy_count: 1 } },
+      // Returns the new value after incrementing the copy count
+      { returnDocument: "after" }
+    );
 
     const plainObjs = JSON.parse(JSON.stringify(updatedSnippet));
     revalidatePath("/snippets[slug]/page");
