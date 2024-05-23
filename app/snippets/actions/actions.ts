@@ -1,11 +1,16 @@
 "use server";
+import { ObjectId } from "mongodb";
 
 import { getUserSession } from "@/lib/backend/actions/user-actions";
 import { errorMessage } from "@/lib/secrete";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
-const url = "http://localhost:3000/";
+// import { databaseConnection } from "@/lib/backend/db/cs";
+import CodeSnippetModel from "@/lib/backend/models/snippets/snippets-model";
+import clientPromise from "@/lib/backend/db/cs";
+import { convertMongoDocument } from "@/lib/utils";
+const url = "http://localhost:3001/";
 
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 const Copy_Snippet = `${url}/api/snippets/clone`;
@@ -15,43 +20,64 @@ const Get_Snippets_ById = `${url}/api/snippets/user/`;
 const Edit_Snippet = `${url}/api/snippets/edit`;
 const API_URL = `${url}/api/snippets/create`;
 const GET_SNIPPETS = `${url}/api/snippets/fetch`;
-export async function getCodeSnippets(): Promise<any[]> {
-  try {
-    const res = await axios.get(GET_SNIPPETS);
-
-    return res.data?.data;
-  } catch (error: any) {
-    return error?.response?.data || errorMessage;
-  }
-}
-
-// export async function getCodeSnippets() {
+// export async function getCodeSnippets(): Promise<any[]> {
 //   try {
-//     await databaseConnection();
-//     const snippets = await CodeSnippetModel.find();
+//     const res = await axios.get(GET_SNIPPETS);
 
-//     console.log("snippets", snippets);
-
-//     if (!snippets.length) {
-//       return {
-//         success: false,
-//         message: "No snippets available, be the first one to add.",
-//       };
-//     }
-
-//     return {
-//       success: true,
-//       data: snippets,
-//     };
+//     return res.data?.data;
 //   } catch (error: any) {
-//     console.error("Error fetching snippets:", error);
-//     return {
-//       success: false,
-//       message: `DBerror: ${error.message}`,
-//       data: error,
-//     };
+//     return error?.response?.data || errorMessage;
 //   }
 // }
+
+export async function getSnippetSlug(params: string) {
+  try {
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+    const snippet = await db
+      .collection("snippets")
+      .findOne({ _id: new ObjectId(params) });
+
+    const plainObjs = JSON.parse(JSON.stringify(snippet));
+
+    console.log("spes snip", plainObjs);
+    return plainObjs;
+  } catch (error: any) {
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
+  }
+}
+export async function getCodeSnippets() {
+  try {
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+    const snippets = await db.collection("snippets").find({}).toArray();
+
+    console.log("snippets", snippets);
+
+    if (!snippets.length) {
+      return {
+        success: false,
+        message: "No snippets available, be the first one to add.",
+      };
+    }
+
+    return {
+      success: true,
+      data: snippets,
+    };
+  } catch (error: any) {
+    console.error("Error fetching snippets:", error);
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
+  }
+}
 
 export async function getSnippetByUserId(userId: string) {
   try {
@@ -98,6 +124,7 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
     revalidateTag("code");
     return res?.data;
   } catch (error: any) {
+    console.log("err", error);
     return error?.response?.data || errorMessage;
   }
 }

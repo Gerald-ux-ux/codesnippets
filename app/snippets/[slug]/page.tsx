@@ -1,4 +1,7 @@
-import { getCodeSnippets } from "@/app/snippets/actions/actions";
+import {
+  getCodeSnippets,
+  getSnippetSlug,
+} from "@/app/snippets/actions/actions";
 import SnippetTags from "@/app/snippets/components/snippet-tags";
 import SnippetCodeList from "@/app/snippets/components/SnippetCodeList";
 import { page } from "@/app/styles/styles";
@@ -18,21 +21,26 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ params }: Props) {
-  const specificSnippet = await getCodeSnippets();
+// export async function generateMetadata({ params }: Props) {
+//   console.log("slug", params.slug);
+//   const code = await getSnippetSlug(params.slug);
+//   console.log("code", code);
 
-  const code = specificSnippet?.find((snippet) => snippet?._id === params.slug);
+//   // console.log("specificSnippet", specificSnippet.data.map((id: any) => id._id));
 
-  return {
-    title: `${code?.title} | ${code?.author.name}`,
-    description: `${code?.description}`,
-  };
-}
+//   // const code = specificSnippet?.data?.find(
+//   //   (snippet) => snippet?._id === params.slug
+//   // );
+
+//   return {
+//     title: `${code?.title} | ${code?.author.name}`,
+//     description: `${code?.description}`,
+//   };
+// }
 
 export default async function Code({ params }: { params: any }) {
-  const specificSnippet = await getCodeSnippets();
-  const code = specificSnippet?.find((snippet) => snippet?._id === params.slug);
-  const author = code?.author.id;
+  const code = await getSnippetSlug(params.slug);
+  const author = code?.author?.id
   const { userId } = auth();
 
   if (!code) return notFound();

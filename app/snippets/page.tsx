@@ -15,6 +15,8 @@ export default async function Snippets() {
   const snippets = await getCodeSnippets();
   console.log("snippets", snippets);
 
+
+
   return (
     <div className={cn(page, "w-full  px-0")}>
       <TopBar snippets={snippets} />
