@@ -14,7 +14,7 @@ export default function useDelete({ setOpen, code, actionLabel }: Props) {
   const codeId = useParams();
   const snippetId = code._id;
 
-  async function handleDelete(formData: FormData) {
+  async function handleDelete() {
     if (actionLabel === "code") {
       // 'code' means the description, title and all the snippets inside
       const res = await deleteCode(codeId.slug);
@@ -24,7 +24,7 @@ export default function useDelete({ setOpen, code, actionLabel }: Props) {
         setOpen(false);
       } else {
         setOpen(true);
-        toast.error(res?.message);
+        // toast.error(res?.message);
       }
     } else if (actionLabel === "snippet") {
       // 'snippet' means the specific code snippet
@@ -36,7 +36,7 @@ export default function useDelete({ setOpen, code, actionLabel }: Props) {
         setOpen(false);
       } else {
         setOpen(true);
-        toast.error(res?.message);
+        // toast.error(res?.message);
       }
     }
   }

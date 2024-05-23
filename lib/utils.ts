@@ -19,5 +19,15 @@ export const formatDate = (date: any) => {
 export function handleFilter (option : any, data: any) {
 
 
-  
+
+}
+
+
+export function convertMongoDocument(doc: any) {
+  const convertedDoc = {
+    ...doc,
+    _id: doc._id.toString(),
+  };
+
+  return convertedDoc;
 }

@@ -1,4 +1,7 @@
-import { getCodeSnippets } from "@/app/snippets/actions/actions";
+import {
+  getCodeSnippets,
+  getSnippetSlug,
+} from "@/app/snippets/actions/actions";
 import SnippetTags from "@/app/snippets/components/snippet-tags";
 import SnippetCodeList from "@/app/snippets/components/SnippetCodeList";
 import { page } from "@/app/styles/styles";
@@ -9,7 +12,6 @@ import { auth } from "@clerk/nextjs/server";
 import { notFound } from "next/navigation";
 import Actions from "../../components/actions-component";
 
-
 type Props = {
   params: {
     title: string;
@@ -19,20 +21,17 @@ type Props = {
 };
 
 export async function generateMetadata({ params }: Props) {
-  const specificSnippet = await getCodeSnippets();
-
-  const code = specificSnippet?.find((snippet) => snippet?._id === params.slug);
+  const code = await getSnippetSlug(params.slug);
 
   return {
-    title: `${code?.title} | ${code?.author.name}`,
+    title: `${code?.title} | ${code?.author.first_name}`,
     description: `${code?.description}`,
   };
 }
 
 export default async function Code({ params }: { params: any }) {
-  const specificSnippet = await getCodeSnippets();
-  const code = specificSnippet?.find((snippet) => snippet?._id === params.slug);
-  const author = code?.author.id;
+  const code = await getSnippetSlug(params.slug);
+  const author = code?.author?.id;
   const { userId } = auth();
 
   if (!code) return notFound();

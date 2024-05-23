@@ -14,6 +14,8 @@ export const metadata: Metadata = {
 export default async function Snippets() {
   const snippets = await getCodeSnippets();
 
+
+
   return (
     <div className={cn(page, "w-full  px-0")}>
       <TopBar snippets={snippets} />

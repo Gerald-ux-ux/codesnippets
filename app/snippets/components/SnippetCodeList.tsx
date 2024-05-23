@@ -31,6 +31,8 @@ export default function SnippetCodeList({
   const [success, setSuccess] = useState(false);
 
   const copyCode = async (snippetCode: string, snippetId: string) => {
+
+    console.log('snippetCode', snippetId)
     const res = await copySnippet(snippetId);
 
     if (res.success) {

@@ -1,40 +1,74 @@
 "use server";
-
-import { getUserSession } from "@/lib/backend/actions/user-actions";
+import { ObjectId } from "mongodb";
+import { v4 as uuidv4 } from "uuid";
 import { errorMessage } from "@/lib/secrete";
 import axios from "axios";
-import { revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
+import clientPromise from "@/lib/backend/db/cs";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 
-const url = "http://localhost:3000/";
-const API_URL = `${url}/api/snippets/create`;
-const GET_SNIPPETS = `${url}/api/snippets/fetch`;
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
-const Copy_Snippet = `${url}/api/snippets/clone`;
-const Delete_Snippet = `${url}/api/snippets/delete/`;
-const Delete_Code = `${url}/api/snippets/code`;
-const Get_Snippets_ById = `${url}/api/snippets/user/`;
-const Edit_Snippet = `${url}/api/snippets/edit`;
-export async function getCodeSnippets(): Promise<any[]> {
-  try {
-    const res = await fetch(GET_SNIPPETS, {
-      next: { tags: ["code"] },
-      cache: "no-store",
-    });
 
-    const data = await res.json();
-    return data?.data;
+/**
+ *
+ * @this
+ * The server actions have been quickly written, i have not followed the 'best practices' but i will be re writing them in a better way
+ */
+export async function getSnippetSlug(params: string) {
+  try {
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+    const snippet = await db
+      .collection("snippets")
+      .findOne({ _id: new ObjectId(params) });
+    const plainObjs = JSON.parse(JSON.stringify(snippet));
+    return plainObjs;
   } catch (error: any) {
-    return error?.response?.data || errorMessage;
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
+  }
+}
+export async function getCodeSnippets() {
+  try {
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+    const snippets = await db.collection("snippets").find({}).toArray();
+
+    const plainObjs = JSON.parse(JSON.stringify(snippets));
+
+    return plainObjs;
+  } catch (error: any) {
+    console.error("Error fetching snippets:", error);
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
   }
 }
 
-export async function getSnippetByUserId(userId: string) {
+export async function getSnippetByUserId() {
   try {
-    const res = await axios.post(Get_Snippets_ById, { userId });
-    return res.data?.data;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+
+    const { userId } = auth();
+    const userSnippets = await db
+      .collection("snippets")
+      .find({ "author.id": userId })
+      .toArray();
+    const plainObjs = JSON.parse(JSON.stringify(userSnippets));
+    return plainObjs;
   } catch (error: any) {
-    return error?.response?.data || errorMessage;
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
   }
 }
 export async function submitFeedBack(formData: FormData) {
@@ -53,9 +87,10 @@ export async function submitFeedBack(formData: FormData) {
 
 export async function postCodeSnippet(formData: FormData, editor: any) {
   try {
-    const headers = await getUserSession();
-    const headerValue = headers?.value;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
     const sanitizedSnippet = editor.map((code: any) => ({
+      _id: uuidv4(),
       heading: code.heading,
       language: code.lang.label,
       content: code.code,
@@ -66,13 +101,43 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
       code: sanitizedSnippet,
     };
 
-    const res = await axios.post(API_URL, data, {
-      headers: {
-        Authorization: `Bearer ${headerValue}`,
-      },
-    });
-    revalidateTag("code");
-    return res?.data;
+    if (!data) {
+      return {
+        success: false,
+        message: "Fill in all the required fields",
+      };
+    }
+
+    const { userId } = auth();
+    const user = await clerkClient.users.getUser(userId!);
+
+    const author = {
+      id: user.id,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      email: user.primaryEmailAddress?.emailAddress,
+      photo: user.imageUrl,
+    };
+
+    const dataSaved = {
+      title: data.title,
+      description: data.description,
+      code: data.code,
+      author: author,
+      copy_count: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    const newCodeSnippet = await db.collection("snippets").insertOne(dataSaved);
+
+    const plainObjs = JSON.parse(JSON.stringify(newCodeSnippet));
+    revalidatePath("/snippets");
+    return {
+      success: true,
+      message: "Snippet created successfully",
+      data: plainObjs,
+    };
   } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
@@ -84,8 +149,8 @@ export async function editCodeSnippet(
   id: string
 ) {
   try {
-    const headers = await getUserSession();
-    const headerValue = headers?.value;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
     const sanitizedSnippet = editor.map((code: any) => ({
       heading: code.heading,
       language: code.lang.label,
@@ -98,13 +163,32 @@ export async function editCodeSnippet(
       id: id,
     };
 
-    const res = await axios.put(Edit_Snippet, data, {
-      headers: {
-        Authorization: `Bearer ${headerValue}`,
-      },
-    });
-    revalidateTag("code");
-    return res?.data;
+    const { userId } = auth();
+
+    const user = await clerkClient.users.getUser(userId!);
+    const author = {
+      id: user.id,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      email: user.primaryEmailAddress?.emailAddress,
+      photo: user.imageUrl,
+    };
+
+    const newData = {
+      title: data.title,
+      description: data.description,
+      code: data.code,
+      author: author,
+    };
+
+    const newCodeSnippet = await db
+      .collection("snippets")
+      .updateOne({ _id: new ObjectId(id) }, { $set: newData });
+    revalidatePath("/snippets[slug]/page");
+    return {
+      success: true,
+      data: newCodeSnippet,
+    };
   } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
@@ -112,12 +196,29 @@ export async function editCodeSnippet(
 
 export async function copySnippet(id: string) {
   try {
-    const data = {
-      id: id,
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+
+    if (!id) {
+      return {
+        success: false,
+        message: "Provide an id",
+      };
+    }
+
+    const updatedSnippet = await db.collection("snippets").findOneAndUpdate(
+      { "code._id": id },
+      { $inc: { copy_count: 1 } },
+      // Returns the new value after incrementing the copy count
+      { returnDocument: "after" }
+    );
+
+    const plainObjs = JSON.parse(JSON.stringify(updatedSnippet));
+    revalidatePath("/snippets[slug]/page");
+    return {
+      success: true,
+      data: plainObjs,
     };
-    const res = await axios.post(Copy_Snippet, data);
-    revalidateTag("code");
-    return res?.data;
   } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
@@ -125,46 +226,70 @@ export async function copySnippet(id: string) {
 
 export async function deleteSnippet(codeId: any, snippetId: any) {
   try {
-    const headers = await getUserSession();
-    const headerValue = headers?.value;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
 
-    const data = {
-      snippetId,
-      codeId,
+    if (!codeId || !snippetId) {
+      return {
+        success: false,
+        message: "Provide an id",
+      };
+    }
+
+    const deletedSnippets = await db.collection("snippets").findOneAndUpdate(
+      { _id: new ObjectId(codeId) },
+      // @ts-ignore
+      { $pull: { code: { _id: snippetId } } },
+      { returnDocument: "after" }
+    );
+
+    const deletedSnippetObj = JSON.parse(JSON.stringify(deletedSnippets));
+    if (
+      deletedSnippetObj.code.length === 0 ||
+      deletedSnippetObj.code.length < 0
+    ) {
+      await db.collection("snippets").deleteOne({ _id: new ObjectId(codeId) });
+      revalidatePath("/snippets");
+    }
+
+    revalidatePath("/snippets/[slug]/page");
+    return {
+      success: true,
+      data: deletedSnippetObj,
     };
-
-    const res = await axios.delete(Delete_Code, {
-      data: data,
-      headers: {
-        Authorization: `Bearer ${headerValue}`,
-      },
-    });
-
-    revalidateTag("code");
-    return res?.data;
   } catch (error: any) {
-    return error?.response?.data || errorMessage;
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
   }
 }
 
 export async function deleteCode(id: any) {
   try {
-    const headers = await getUserSession();
-    const headerValue = headers?.value;
+    const client = await clientPromise;
+    const db = client.db("clerk-next-14-db");
+    if (!id) {
+      return {
+        success: false,
+        message: "Provide an id",
+      };
+    }
 
-    const data = {
-      id,
+    const res = await db
+      .collection("snippets")
+      .deleteOne({ _id: new ObjectId(id) });
+    revalidatePath("/snippets");
+    return {
+      success: true,
+      data: res,
     };
-    const res = await axios.delete(Delete_Snippet, {
-      data: data,
-      headers: {
-        Authorization: `Bearer ${headerValue}`,
-      },
-    });
-
-    revalidateTag("code");
-    return res?.data;
   } catch (error: any) {
-    return error?.response?.data || errorMessage;
+    return {
+      success: false,
+      message: `DBerror: ${error.message}`,
+      data: error,
+    };
   }
 }
