@@ -5,29 +5,53 @@ import { errorMessage } from "@/lib/secrete";
 import axios from "axios";
 import { revalidateTag } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
-
 const url = "http://localhost:3000/";
-const API_URL = `${url}/api/snippets/create`;
-const GET_SNIPPETS = `${url}/api/snippets/fetch`;
+
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 const Copy_Snippet = `${url}/api/snippets/clone`;
 const Delete_Snippet = `${url}/api/snippets/delete/`;
 const Delete_Code = `${url}/api/snippets/code`;
 const Get_Snippets_ById = `${url}/api/snippets/user/`;
 const Edit_Snippet = `${url}/api/snippets/edit`;
+const API_URL = `${url}/api/snippets/create`;
+const GET_SNIPPETS = `${url}/api/snippets/fetch`;
 export async function getCodeSnippets(): Promise<any[]> {
   try {
-    const res = await fetch(GET_SNIPPETS, {
-      next: { tags: ["code"] },
-      cache: "no-store",
-    });
+    const res = await axios.get(GET_SNIPPETS);
 
-    const data = await res.json();
-    return data?.data;
+    return res.data?.data;
   } catch (error: any) {
     return error?.response?.data || errorMessage;
   }
 }
+
+// export async function getCodeSnippets() {
+//   try {
+//     await databaseConnection();
+//     const snippets = await CodeSnippetModel.find();
+
+//     console.log("snippets", snippets);
+
+//     if (!snippets.length) {
+//       return {
+//         success: false,
+//         message: "No snippets available, be the first one to add.",
+//       };
+//     }
+
+//     return {
+//       success: true,
+//       data: snippets,
+//     };
+//   } catch (error: any) {
+//     console.error("Error fetching snippets:", error);
+//     return {
+//       success: false,
+//       message: `DBerror: ${error.message}`,
+//       data: error,
+//     };
+//   }
+// }
 
 export async function getSnippetByUserId(userId: string) {
   try {

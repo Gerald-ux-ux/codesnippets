@@ -63,7 +63,9 @@ export default async function Code({ params }: { params: any }) {
           <Avatar
             alt={code?.author.first_name}
             width={40}
-            initials={`${code.author.first_name[0]}${code.author.last_name[0]}`}
+            initials={`${code.author.first_name[0]}${
+              code.author.last_name ? code.author?.last_name[0] : null
+            }`}
             height={40}
             src={code?.author?.photo}
             size="sm"

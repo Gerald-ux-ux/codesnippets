@@ -74,7 +74,10 @@ function SnippetList({ data }: Props) {
 
               <span className="items-center gap-2  text-xs flex md:text-base">
                 <p className={cn(firaMono.className, "w-full")}>
-                  {snippet.author.first_name} {snippet.author.last_name[0]}
+                  {snippet?.author?.first_name}{" "}
+                  {snippet.author.last_name
+                    ? snippet.author?.last_name[0]
+                    : null}
                 </p>
 
                 <span className="block">
@@ -85,9 +88,13 @@ function SnippetList({ data }: Props) {
                       }}
                     > */}
                   <Avatar
-                    alt={snippet?.author.first_name}
+                    alt={snippet?.author?.first_name}
                     width={40}
-                    initials={`${snippet.author.first_name[0]}${snippet.author.last_name[0]}`}
+                    initials={`${snippet?.author?.first_name[0]}${
+                      snippet.author.last_name
+                        ? snippet.author?.last_name[0]
+                        : null
+                    }`}
                     height={40}
                     src={snippet?.author?.photo}
                     size="sm"
