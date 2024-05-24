@@ -19,7 +19,7 @@ function MobileMenu({ open, links }: Props) {
     >
       {open && (
         <div className=" flex  flex-col gap-8">
-          <ul className="flex gap-8  text-secondary flex-col">
+          <ul className="flex gap-8   text-secondary flex-col">
             {links.map((link) => (
               <Button
                 className="text-base font-light flex items-center gap-2  bg-secondary border border-primary hover:bg-hover hover:text-primary text-secondary px-4 py-2 rounded-md "
