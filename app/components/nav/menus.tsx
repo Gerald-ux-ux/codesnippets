@@ -1,4 +1,5 @@
 import { navBarItems } from "@/app/(home)/types/home";
+
 import { CommentAdd02Icon, DiscordIcon } from "../../../lib/icons/icons";
 
 export const navItems: navBarItems[] = [
@@ -8,7 +9,7 @@ export const navItems: navBarItems[] = [
   },
   {
     label: "Community",
-    link: "https://discord.gg/tqm4eKy2",
+    link: "https://discord.gg/SGhEc2qPVm",
   },
   {
     label: "Github",
