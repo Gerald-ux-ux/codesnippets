@@ -56,7 +56,7 @@ export default function SignUp() {
   return (
     <div className="">
       <SignInButton mode="modal">
-        <button className="rounded-md  bg-brand p-2">Log in</button>
+        <button className="rounded-md  md:flex hidden bg-brand p-2">Log in</button>
       </SignInButton>
     </div>
   );
