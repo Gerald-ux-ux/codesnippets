@@ -26,7 +26,9 @@ export default function SignUp() {
           }
           label={
             <span className="text-base flex flex-col gap-2">
-              {capsFirstLetter(`${user?.firstName} ${user?.lastName}`)}
+              {capsFirstLetter(
+                `${user?.firstName} ${user.lastName ? user?.lastName : null}`
+              )}
               <span className="text-xs text-secondary">
                 {user?.primaryEmailAddress?.emailAddress}
               </span>

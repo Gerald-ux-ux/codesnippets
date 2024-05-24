@@ -113,8 +113,8 @@ export async function postCodeSnippet(formData: FormData, editor: any) {
 
     const author = {
       id: user.id,
-      first_name: user.firstName,
-      last_name: user.lastName,
+      first_name: user?.firstName,
+      last_name: user?.lastName,
       email: user.primaryEmailAddress?.emailAddress,
       photo: user.imageUrl,
     };
@@ -169,9 +169,9 @@ export async function editCodeSnippet(
     const author = {
       id: user.id,
       first_name: user.firstName,
-      last_name: user.lastName,
+      last_name: user?.lastName,
       email: user.primaryEmailAddress?.emailAddress,
-      photo: user.imageUrl,
+      photo: user?.imageUrl,
     };
 
     const newData = {
