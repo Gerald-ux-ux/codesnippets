@@ -6,7 +6,7 @@
 /* Color for the whole app  */
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
+    /* --foreground-rgb: 255, 255, 255; */
     --background-start-rgb: 9, 10, 11;
     --background-via-rgb: 21, 23, 26;
     --background-end-rgb: 22, 24, 26;

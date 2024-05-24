@@ -30,7 +30,7 @@ export default async function RootLayout({
         lang="en"
         className={cn(
           jetBrainsMono.className,
-          "text-primary h-screen   w-full  pt-4 pb-4 flex flex-col "
+          "text-primary h-screen  bg-[#090A0B] w-full  pt-4 pb-4 flex flex-col "
         )}
       >
         <body>
