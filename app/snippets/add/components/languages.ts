@@ -15,4 +15,5 @@ export const values = [
   { label: "Rust", value: "rust" },
   { label: "Swift", value: "swift" },
   { label: "C", value: "c" },
+  { label: "Shell", value: "shell" }
 ];
