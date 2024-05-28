@@ -20,7 +20,7 @@ function Footer(props: Props) {
   return (
     <div className="w-full items-center border-t mb-4 border-gradient justify-between flex py-4 ">
       <div className="w-full">
-        <p className="text-secondary">Based in 🇰🇪</p>
+        <p className="text-secondary">Based in 🇰🇪 (Kenya) </p>
       </div>
       <ul className="animated-list   flex w-full items-center justify-end gap-10 ">
         {footerItems.map((link) => (
