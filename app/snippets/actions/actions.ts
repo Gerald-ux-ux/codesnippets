@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
 import clientPromise from "@/lib/backend/db/cs";
 import { auth, clerkClient } from "@clerk/nextjs/server";
-import { Snippet, SnippetResponse } from "../types/types";
+import { Snippet } from "../types/types";
 
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 
@@ -29,7 +29,7 @@ export async function getSnippetSlug(params: string): Promise<Snippet> {
     throw new Error(error.message);
   }
 }
-export async function getCodeSnippets(): Promise<SnippetResponse> {
+export async function getCodeSnippets(): Promise<Snippet[]> {
   try {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
@@ -40,15 +40,11 @@ export async function getCodeSnippets(): Promise<SnippetResponse> {
     return plainObjs;
   } catch (error: any) {
     console.error("Error fetching snippets:", error);
-    return {
-      success: false,
-      message: `DBerror: ${error.message}`,
-      data: error,
-    };
+    throw new Error(error.message);
   }
 }
 
-export async function getSnippetByUserId(): Promise<SnippetResponse> {
+export async function getSnippetByUserId(): Promise<Snippet[]> {
   try {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
@@ -61,11 +57,7 @@ export async function getSnippetByUserId(): Promise<SnippetResponse> {
     const plainObjs = JSON.parse(JSON.stringify(userSnippets));
     return plainObjs;
   } catch (error: any) {
-    return {
-      success: false,
-      message: `DBerror: ${error.message}`,
-      data: error,
-    };
+    throw new Error(error.message);
   }
 }
 
