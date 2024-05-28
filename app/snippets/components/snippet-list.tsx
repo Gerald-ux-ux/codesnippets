@@ -45,9 +45,12 @@ function SnippetList({ data }: Props) {
 
     .filter((snippet: any) =>
       searchItem
-        ? snippet.title.toLowerCase().includes(searchItem.toLowerCase())
+        ? snippet.title.toLowerCase().includes(searchItem.toLowerCase()) ||
+          snippet.description.toLowerCase().includes(searchItem.toLowerCase())
         : snippet
     )
+
+    
     .sort((a: any, b: any) =>
       filter.selectedSort === "most recent"
         ? new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()

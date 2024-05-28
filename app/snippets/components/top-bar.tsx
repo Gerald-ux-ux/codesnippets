@@ -8,11 +8,9 @@ import Button from "@/components/custom/button";
 import Search from "./search";
 import Filter from "./filter";
 
-interface Props {
-  snippets: any;
-}
+interface Props {}
 
-function TopBar({ snippets }: Props) {
+function TopBar({}: Props) {
   const { isSignedIn } = useUser();
   const router = useRouter();
 
