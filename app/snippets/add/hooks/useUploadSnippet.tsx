@@ -5,21 +5,23 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { values } from "../components/languages";
 import { editCodeSnippet, postCodeSnippet } from "../../actions/actions";
+import { Code, Snippet } from "../../types/types";
 
 export default function useUploadSnippet({
   selectedSnippet,
   action,
   setOpen,
 }: {
-  selectedSnippet?: any;
+  selectedSnippet: Snippet;
   action?: string;
   setOpen?: (value: boolean) => void;
 }) {
   const router = useRouter();
+
   const [message, setMessage] = useState<string>("");
   // Code editor state
 
-  const initialEditorState = selectedSnippet?.code?.map((snippet: any) => ({
+  const initialEditorState = selectedSnippet?.code?.map((snippet: Code) => ({
     _id: snippet._id,
     heading: snippet.heading,
     lang: { label: snippet.language, value: snippet.language.toLowerCase() },

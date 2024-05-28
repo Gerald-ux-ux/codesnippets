@@ -23,7 +23,6 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const code = await getSnippetSlug(params.slug);
-
   return {
     title: `${code?.title} | ${code?.author.first_name}`,
     description: `${code?.description}`,

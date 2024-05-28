@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import { baseUrl } from "../../api/baseUrl";
 import clientPromise from "@/lib/backend/db/cs";
 import { auth, clerkClient } from "@clerk/nextjs/server";
+import { Snippet, SnippetResponse } from "../types/types";
 
 const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
 
@@ -15,7 +16,7 @@ const Give_Feedback = `${baseUrl}/api/code-snippets/feedback`;
  * @this
  * Server actions, not traditional unnecessary api routes lol.
  */
-export async function getSnippetSlug(params: string) {
+export async function getSnippetSlug(params: string): Promise<Snippet> {
   try {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
@@ -25,14 +26,10 @@ export async function getSnippetSlug(params: string) {
     const plainObjs = JSON.parse(JSON.stringify(snippet));
     return plainObjs;
   } catch (error: any) {
-    return {
-      success: false,
-      message: `DBerror: ${error.message}`,
-      data: error,
-    };
+    throw new Error(error.message);
   }
 }
-export async function getCodeSnippets() {
+export async function getCodeSnippets(): Promise<SnippetResponse> {
   try {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
@@ -51,7 +48,7 @@ export async function getCodeSnippets() {
   }
 }
 
-export async function getSnippetByUserId() {
+export async function getSnippetByUserId(): Promise<SnippetResponse> {
   try {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
@@ -71,9 +68,14 @@ export async function getSnippetByUserId() {
     };
   }
 }
+
+type FeedBack = {
+  from: FormDataEntryValue | null;
+  text: FormDataEntryValue | null;
+};
 export async function submitFeedBack(formData: FormData) {
   try {
-    const data = {
+    const data: FeedBack = {
       from: formData.get("from"),
       text: formData.get("text"),
     };
@@ -151,7 +153,6 @@ export async function editCodeSnippet(
   try {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
-  
 
     const sanitizedSnippet = editor.map((code: any) => ({
       _id: code._id,
