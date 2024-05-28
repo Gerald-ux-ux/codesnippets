@@ -27,7 +27,7 @@ export default async function ProfilePage() {
       </p>
       <SnippetList data={userSnippets} />
 
-      {userSnippets.length <= 0 && (
+      {userSnippets?.length <= 0 && (
         <p className={cn(secondaryText, "text-secondary mt-2")}>
           You don&apos;t have any snippets yet
         </p>
