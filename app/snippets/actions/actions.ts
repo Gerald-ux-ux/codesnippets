@@ -151,7 +151,10 @@ export async function editCodeSnippet(
   try {
     const client = await clientPromise;
     const db = client.db("clerk-next-14-db");
+  
+
     const sanitizedSnippet = editor.map((code: any) => ({
+      _id: code._id,
       heading: code.heading,
       language: code.lang.label,
       content: code.code,

@@ -20,10 +20,12 @@ export default function useUploadSnippet({
   // Code editor state
 
   const initialEditorState = selectedSnippet?.code?.map((snippet: any) => ({
+    _id: snippet._id,
     heading: snippet.heading,
     lang: { label: snippet.language, value: snippet.language.toLowerCase() },
     code: snippet.content,
   }));
+
   const [editor, setEditor] = useState(
     selectedSnippet
       ? initialEditorState
