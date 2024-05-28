@@ -18,7 +18,7 @@ export default async function Snippets() {
 
   return (
     <div className={cn(page, "w-full  px-0")}>
-      <TopBar snippets={snippets} />
+      <TopBar  />
       <SnippetList data={snippets} />
     </div>
   );

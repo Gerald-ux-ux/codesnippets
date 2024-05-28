@@ -3,25 +3,12 @@
 import { Search02Icon } from "@/lib/icons/icons";
 import React, { useEffect } from "react";
 import useSearch from "../hooks/useSearch";
+import { useParams, useSearchParams } from "next/navigation";
 
-interface Props {
-  data?: any;
-}
+interface Props {}
 
-function Search({ data }: Props) {
-  const { searchQuery, setSearchResults, handleSearch } = useSearch();
-  useEffect(() => {
-    if (data && searchQuery) {
-      const filteredResults = Array.isArray(data)
-        ? data?.filter((item: any) =>
-            item?.title?.toLowerCase()?.includes(searchQuery?.toLowerCase())
-          )
-        : [];
-      setSearchResults(filteredResults);
-    } else {
-      setSearchResults([]);
-    }
-  }, [data, searchQuery, setSearchResults]);
+function Search({}: Props) {
+  const { searchQuery, handleSearch } = useSearch();
 
   return (
     <form
