@@ -1,4 +1,4 @@
-import { type ClassValue, clsx } from "clsx";
+import { ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -15,12 +15,7 @@ export const formatDate = (date: any) => {
   });
 };
 
-
-export function handleFilter (option : any, data: any) {
-
-
-
-}
+export function handleFilter(option: any, data: any) {}
 
 
 export function convertMongoDocument(doc: any) {

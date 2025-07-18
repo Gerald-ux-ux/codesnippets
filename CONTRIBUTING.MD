@@ -1,62 +1,61 @@
-## CONTRIBUTING
+# Contributing to CodeSnippets
 
-When contributing to this repository, please first discuss the change you wish to make via [issues](https://github.com/Gerald-ux-ux/codesnippets/issues), [discord](https://discord.gg/tqm4eKy2).
-Please note if you are working on a certain issue then make sure to stay active with development.
+First off, thank you for considering contributing to CodeSnippets! It's people like you that make the open-source community such a fantastic place to learn, inspire, and create. Any and all contributions are greatly appreciated.
 
-### Git Commit, Branch, and PR Naming Conventions
+## Code of Conduct
 
-When you are working with git, please be sure to follow the conventions below on your pull requests, branches, and commits:
+We have adopted a Code of Conduct that we expect all contributors to adhere to. Please read the full text so that you can understand what actions will and will not be tolerated.
 
-- Use a clear and descriptive title for the pull request.
-- Follow the same guidelines as for commit messages in the PR description.
-- Link to the related issue(s) in the description.
+## How Can I Contribute?
 
-[branch naming conventions](https://medium.com/@shinjithkanhangad/git-good-best-practices-for-branch-naming-and-commit-messages-a903b9f08d68)
+There are many ways you can contribute to the CodeSnippets project:
 
-```
+- **Reporting Bugs**: If you find a bug, please open an issue and provide detailed information about the problem, including steps to reproduce it.
+- **Suggesting Enhancements**: Have an idea for a new feature or an improvement to an existing one? Open an issue to discuss it.
+- **Working on Issues**: You can browse our [open issues](https://github.com/Gerald-ux-ux/codesnippets/issues) to find something to work on. We recommend starting with issues labeled `good first issue`.
 
-PR: [#ISSUE ID] Title of the PR
-Branch: [ISSUE ID]-title-of-the-pr (shorter)
-Commit: [[ISSUE ID]] [ACTION]: what was done
+## Development Process
 
-```
+1.  **Fork & Clone**: Fork the repository and clone it to your local machine.
+2.  **Branching**: Create a new branch for your changes. Please follow our branch naming conventions.
+3.  **Code**: Make your changes, ensuring you follow the coding standards and style guidelines.
+4.  **Commit**: Commit your changes with a clear and descriptive commit message.
+5.  **Pull Request**: Push your changes to your fork and open a pull request to the `main` branch of the main repository.
 
-Example
+## Naming Conventions
 
-```
+To maintain a clean and organized Git history, we adhere to the following naming conventions for branches, commits, and pull requests.
 
-PR: #2 Changing syntax highlighting on the snippets
-Branch: feature/changing-syntax-highlighting (shorter)
-Commit: [2] refactor: changing syntax highlighting
+### Branch Naming
 
+Branches should be named using the following format:
+`[type]/[issue-id]-short-description`
 
-```
+- **`[type]`**: `feature`, `fix`, `chore`, `refactor`
+- **`[issue-id]`**: The ID of the issue you are working on.
+- **`[short-description]`**: A brief, kebab-case description of the changes.
 
-## Prerequisites
+**Example**: `feature/42-add-user-authentication`
 
+### Commit Message
 
+Commit messages should follow the Conventional Commits specification.
+`[type](scope): [subject]`
 
-## Installation
-1. Fork the repo
-2. Clone your fork
-3. Navigate to the project directory
-4. Create a .env.local file at the root project directory
-5. Copy paste the variable from ```.env.example`` you will also need to [join the discord](https://discord.gg/tqm4eKy2) to get the actual values
-6. Install packages ```pnpm install ```
-7. Open your browser and visit http://localhost:3000 to see the application running.
+- **`[type]`**: `feat`, `fix`, `chore`, `refactor`, `docs`, `style`, `test`
+- **`(scope)`**: Optional scope of the changes (e.g., `auth`, `snippets`, `ui`).
+- **`[subject]`**: A concise, imperative-mood description of the change.
 
+**Example**: `feat(auth): implement magic link sign-in`
 
-## Pulling in changes from upstream
+## Pull Request Process
 
-You should pull in the changes that we add in daily, preferably before you checkout a new branch to do new work.
+1.  Ensure your branch is up-to-date with the `main` branch.
+2.  Create a pull request with a clear title and a detailed description of your changes.
+3.  Link the pull request to the relevant issue.
+4.  Assign [@Gerald-ux-ux](https://github.com/Gerald-ux-ux) as the reviewer.
+5.  Your pull request will be reviewed, and we may request changes. Once approved, it will be merged into the `main` branch.
 
-```git checkout main```
-```git pull origin main``
+**Note**: Pull requests that do not follow the naming conventions or do not have a clear description will not be merged.
 
-
-## Megring
-[Assign me](https://github.com/Gerald-ux-ux) as the reviewer after creating that PR. I will review your code, merge if all conventions have been followed and there are no issues.
-### PRS created without following the naming conventions will NOT be merged
-
-
-- Join the [discord](https://discord.gg/tqm4eKy2) channel for more information
+Thank you for your contribution!
